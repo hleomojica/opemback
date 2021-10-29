@@ -1,0 +1,26 @@
+{
+  "name": "opemback",
+  "version": "1.0.0",
+  "description": "Backend opem",
+  "main": "index.js",
+  "scripts": {
+    "test": "vamos"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jorgemojicam/opemback.git"
+  },
+  "author": "Jorge Enrique Mojica Martinez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jorgemojicam/opemback/issues"
+  },
+  "homepage": "https://github.com/jorgemojicam/opemback#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mariadb": "^2.5.5",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.14"
+  }
+}
