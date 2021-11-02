@@ -57,7 +57,9 @@ DELETE FROM `certificaciones_colaboradores`;
 DROP TABLE IF EXISTS `colaboradores`;
 CREATE TABLE IF NOT EXISTS `colaboradores` (
   `id_col` int(11) NOT NULL AUTO_INCREMENT,
-  `documento_col` int(11) NOT NULL DEFAULT 0,
+  `paisdocumento_col` int(11) NOT NULL DEFAULT 0,
+  `tipodocumento_col` int(11) NOT NULL DEFAULT 0,
+  `numerodocumento_col` int(11) NOT NULL DEFAULT 0,
   `nombres_col` varchar(200) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `apellidos_col` varchar(200) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `fechanacimiento_col` date DEFAULT NULL,
@@ -65,12 +67,16 @@ CREATE TABLE IF NOT EXISTS `colaboradores` (
   `telefono_col` varchar(15) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `direccion_col` varchar(100) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `idemp_col` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id_col`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+  PRIMARY KEY (`id_col`),
+  KEY `FK_colaboradores_empresa` (`idemp_col`),
+  CONSTRAINT `FK_colaboradores_empresa` FOREIGN KEY (`idemp_col`) REFERENCES `empresa` (`id_emp`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.colaboradores: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla opem.colaboradores: ~1 rows (aproximadamente)
 DELETE FROM `colaboradores`;
 /*!40000 ALTER TABLE `colaboradores` DISABLE KEYS */;
+INSERT INTO `colaboradores` (`id_col`, `paisdocumento_col`, `tipodocumento_col`, `numerodocumento_col`, `nombres_col`, `apellidos_col`, `fechanacimiento_col`, `correopersonal_col`, `telefono_col`, `direccion_col`, `idemp_col`) VALUES
+	(1, 0, 0, 1095811763, 'Jorge Enrique', 'Mojica', '1992-04-12', 'jorge.mojica92@gmail.com', '3175391309', 'calle falsa 123', 1);
 /*!40000 ALTER TABLE `colaboradores` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.cursos
@@ -92,18 +98,53 @@ DROP TABLE IF EXISTS `empresa`;
 CREATE TABLE IF NOT EXISTS `empresa` (
   `id_emp` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_emp` varchar(80) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `nit_emp` int(11) DEFAULT NULL,
-  `telefono_emp` int(11) DEFAULT NULL,
+  `nit_emp` varchar(12) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `telefono_emp` varchar(11) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `correo_emp` varchar(200) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `direccion_emp` varchar(200) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `personacontacto_emp` varchar(200) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_emp`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.empresa: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla opem.empresa: ~1 rows (aproximadamente)
 DELETE FROM `empresa`;
 /*!40000 ALTER TABLE `empresa` DISABLE KEYS */;
+INSERT INTO `empresa` (`id_emp`, `nombre_emp`, `nit_emp`, `telefono_emp`, `correo_emp`, `direccion_emp`, `personacontacto_emp`) VALUES
+	(1, 'urv marin valencia', '800456123', '3175391309', 'malval@marval.com.co', 'calle 29 47-56', 'Deyson Delgado');
 /*!40000 ALTER TABLE `empresa` ENABLE KEYS */;
+
+-- Volcando estructura para tabla opem.pais
+DROP TABLE IF EXISTS `pais`;
+CREATE TABLE IF NOT EXISTS `pais` (
+  `id_pais` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_pais` varchar(200) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `inicianles_pais` varchar(3) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id_pais`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+
+-- Volcando datos para la tabla opem.pais: ~2 rows (aproximadamente)
+DELETE FROM `pais`;
+/*!40000 ALTER TABLE `pais` DISABLE KEYS */;
+INSERT INTO `pais` (`id_pais`, `nombre_pais`, `inicianles_pais`) VALUES
+	(1, 'Colombia', 'CO'),
+	(2, 'Venezuela', 'VE');
+/*!40000 ALTER TABLE `pais` ENABLE KEYS */;
+
+-- Volcando estructura para tabla opem.tipodocumento
+DROP TABLE IF EXISTS `tipodocumento`;
+CREATE TABLE IF NOT EXISTS `tipodocumento` (
+  `id_tipo` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre_tipo` varchar(80) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `iniciales_tipo` varchar(4) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  PRIMARY KEY (`id_tipo`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+
+-- Volcando datos para la tabla opem.tipodocumento: ~1 rows (aproximadamente)
+DELETE FROM `tipodocumento`;
+/*!40000 ALTER TABLE `tipodocumento` DISABLE KEYS */;
+INSERT INTO `tipodocumento` (`id_tipo`, `nombre_tipo`, `iniciales_tipo`) VALUES
+	(1, 'Cedula Ciudadania', 'CC');
+/*!40000 ALTER TABLE `tipodocumento` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;

@@ -2,11 +2,11 @@ const db = require('../db')
 
 async function get(req, res, next) {
     try {
-        let sqlquery = `SELECT * FROM colaboradores`
+        let sqlquery = `SELECT * FROM empresa`
         let arrayWhere = []
         const context = req.params
         if (context.id) {
-            arrayWhere.push(` id_reg = ${context.id} `);
+            arrayWhere.push(` id_emp = ${context.id} `);
         }
         if (context.iduser) {
             arrayWhere.push(` idcuentaacceso_reg = ${context.iduser}`);
@@ -37,15 +37,3 @@ async function create(req, res, next) {
     }
 }
 module.exports.create = create;
-
-async function edit(req, res, next) {
-    const data = req.body
-    try {
-        const result = await db.pool.query("UPDATE registro set numerovalidas_reg = ?, numeroinvalidas_reg = ? , total_reg= ?, idmunicipio = ?, fecha_reg= ?, idcuentaacceso_reg = ?, iduser_reg =?, folio_reg = ? where id_reg = ?", [data.tipoducumento, data.numerodocumento, data.nombres, data.apellidos, data.fechanacimiento, data.correo, data.telefono, data.direccion, idempresa]);
-        res.status(201).json(newuser);
-        return result;
-    } catch (err) {
-        next(err);
-    }
-}
-module.exports.edit = edit;
