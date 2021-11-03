@@ -70,13 +70,15 @@ CREATE TABLE IF NOT EXISTS `colaboradores` (
   PRIMARY KEY (`id_col`),
   KEY `FK_colaboradores_empresa` (`idemp_col`),
   CONSTRAINT `FK_colaboradores_empresa` FOREIGN KEY (`idemp_col`) REFERENCES `empresa` (`id_emp`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 -- Volcando datos para la tabla opem.colaboradores: ~1 rows (aproximadamente)
 DELETE FROM `colaboradores`;
 /*!40000 ALTER TABLE `colaboradores` DISABLE KEYS */;
 INSERT INTO `colaboradores` (`id_col`, `paisdocumento_col`, `tipodocumento_col`, `numerodocumento_col`, `nombres_col`, `apellidos_col`, `fechanacimiento_col`, `correopersonal_col`, `telefono_col`, `direccion_col`, `idemp_col`) VALUES
-	(1, 0, 0, 1095811763, 'Jorge Enrique', 'Mojica', '1992-04-12', 'jorge.mojica92@gmail.com', '3175391309', 'calle falsa 123', 1);
+	(1, 0, 0, 1095811763, 'Jorge Enrique', 'Mojica', '1992-04-12', 'jorge.mojica92@gmail.com', '3175391309', 'calle falsa 123', 1),
+	(2, 0, 0, 321654987, 'Emilio', 'Mojica', '1965-11-03', 'emilio@gmail.com', '3152587456', 'calle 45', 1),
+	(3, 0, 0, 1095811763, 'Pepito Enrique', 'Perez', '1992-04-12', 'pepo.perez@gmail.com', '3175391309', 'calle falsa 123', 1);
 /*!40000 ALTER TABLE `colaboradores` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.cursos
@@ -86,11 +88,14 @@ CREATE TABLE IF NOT EXISTS `cursos` (
   `nombre_cur` varchar(200) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `descripcion_cur` varchar(2000) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_cur`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 -- Volcando datos para la tabla opem.cursos: ~0 rows (aproximadamente)
 DELETE FROM `cursos`;
 /*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
+INSERT INTO `cursos` (`id_cur`, `nombre_cur`, `descripcion_cur`) VALUES
+	(1, 'Desarrollo web', 'Desarrollar en los diferentes frameworks'),
+	(2, 'Pruebas', 'Prueba');
 /*!40000 ALTER TABLE `cursos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.empresa
@@ -104,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `empresa` (
   `direccion_emp` varchar(200) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `personacontacto_emp` varchar(200) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_emp`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 -- Volcando datos para la tabla opem.empresa: ~1 rows (aproximadamente)
 DELETE FROM `empresa`;
@@ -139,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `tipodocumento` (
   PRIMARY KEY (`id_tipo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.tipodocumento: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla opem.tipodocumento: ~0 rows (aproximadamente)
 DELETE FROM `tipodocumento`;
 /*!40000 ALTER TABLE `tipodocumento` DISABLE KEYS */;
 INSERT INTO `tipodocumento` (`id_tipo`, `nombre_tipo`, `iniciales_tipo`) VALUES
