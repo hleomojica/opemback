@@ -2,7 +2,7 @@ const db = require('../db')
 
 async function get(req, res, next) {
     try {
-        let sqlquery = `SELECT * FROM empresa`
+        let sqlquery = `SELECT * FROM empresa `
         let arrayWhere = []
         const context = req.params
         if (context.id) {
@@ -29,8 +29,8 @@ module.exports.get = get;
 async function create(req, res, next) {
     const data = req.body
     try {
-        const result = await db.pool.query("INSERT INTO colaboradores (tipodocumento_col,numerodocumento_col, nombres_col, apellidos_col, fechanacimiento_col, correopersonal_col, telefono_col, direccion_col,idemp_col) VALUES (?, ?, ?, ?, ?, ?, ?,?)", [data.tipoducumento, data.numerodocumento, data.nombres, data.apellidos, data.fechanacimiento, data.correo, data.telefono, data.direccion, idempresa]);
-        res.status(201).json(newuser);
+        const result = await db.pool.query("INSERT INTO empresa (nombre_emp,nit_emp, telefono_emp, correo_emp, direccion_emp, personacontacto_emp) VALUES (?, ?, ?, ?, ?, ?)", [data.nombre, data.nit, data.telefono, data.correo, data.direccion, data.personacontacto]);
+        res.status(201).json(result);
         return result;
     } catch (err) {
         next(err);

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = new express.Router();
 const colabo = require('./controllers/colaboradores');
+const empresa = require('./controllers/empresas');
 /*
 const registro = require('./controllers/registro');
 const permisos= require('./controllers/permisosroles');
@@ -13,7 +14,14 @@ const auth = require('./middleware/auth');
 */
 
 //colaboradores
-router.get('/colaboradores',colabo.get);
+router.get('/colaboradores/:id?',colabo.get);
+router.post('/colaboradores',colabo.create);
+router.put('/colaboradores',colabo.edit);
+router.delete('/colaboradores/:id',colabo.remove);
+
+//empresa
+router.get('/empresa/:id?',empresa.get);
+router.post('/empresa',empresa.create);
 /*
 //registro
 router.get('/registro/:iduser?', auth, registro.get);
