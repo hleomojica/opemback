@@ -2,6 +2,7 @@ const express = require('express');
 const router = new express.Router();
 const colabo = require('./controllers/colaboradores');
 const empresa = require('./controllers/empresas');
+const curso = require('./controllers/cursos');
 /*
 const registro = require('./controllers/registro');
 const permisos= require('./controllers/permisosroles');
@@ -22,6 +23,15 @@ router.delete('/colaboradores/:id',colabo.remove);
 //empresa
 router.get('/empresa/:id?',empresa.get);
 router.post('/empresa',empresa.create);
+router.put('/empresa',empresa.edit);
+router.delete('/empresa/:id',empresa.remove);
+
+//cursos
+router.get('/cursos/:id?',curso.get);
+router.post('/cursos',curso.create);
+router.put('/cursos',curso.edit);
+router.delete('/cursos/:id',curso.remove);
+
 /*
 //registro
 router.get('/registro/:iduser?', auth, registro.get);
