@@ -3,6 +3,7 @@ const router = new express.Router();
 const colabo = require('./controllers/colaboradores');
 const empresa = require('./controllers/empresas');
 const curso = require('./controllers/cursos');
+const certifica = require('./controllers/certificaciones');
 /*
 const registro = require('./controllers/registro');
 const permisos= require('./controllers/permisosroles');
@@ -32,12 +33,13 @@ router.post('/cursos',curso.create);
 router.put('/cursos',curso.edit);
 router.delete('/cursos/:id',curso.remove);
 
+//certifica
+router.get('/certificaciones/:id?',certifica.get);
+router.post('/certificaciones',certifica.create);
+router.put('/certificaciones',certifica.edit);
+router.delete('/certificaciones/:id',certifica.remove);
+
 /*
-//registro
-router.get('/registro/:iduser?', auth, registro.get);
-router.get('/registro/getbyfilters/:filters?', auth, registro.getbyfilters);
-router.post('/registro', auth, registro.post);
-router.put('/registro', auth, registro.put);
 
 //permisos perisos
 router.get('/permisos/:id?', auth, permisos.get);
@@ -49,12 +51,6 @@ router.get('/roles', auth, rol.get);
 
 //modulos
 router.get('/modulos/getbyrol/:idrol?/:ver?', auth, modulos.getbyrol);
-
-//usuarios
-router.get('/user/:id?', auth, user.get);
-router.post('/user', auth, user.post);
-router.put('/user', auth, user.put);
-router.get('/user/getbycoordinador/:coordinador?', auth, user.get);
 
 //departamentos
 router.get('/departamentos/:id?', auth, depto.get);
