@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `certificaciones` (
   CONSTRAINT `FK_certificaciones_cursos` FOREIGN KEY (`idcur_cer`) REFERENCES `cursos` (`id_cur`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.certificaciones: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla opem.certificaciones: ~9 rows (aproximadamente)
 DELETE FROM `certificaciones`;
 /*!40000 ALTER TABLE `certificaciones` DISABLE KEYS */;
 INSERT INTO `certificaciones` (`id_cer`, `fechainicio_cer`, `fechafin_cer`, `horas_cer`, `idcur_cer`) VALUES
@@ -57,7 +57,9 @@ CREATE TABLE IF NOT EXISTS `certificaciones_colaboradores` (
   `descargado_ceco` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_ceco`),
   KEY `FK_certificaciones_colaboradores_certificaciones` (`idcer_ceco`),
-  CONSTRAINT `FK_certificaciones_colaboradores_certificaciones` FOREIGN KEY (`idcer_ceco`) REFERENCES `certificaciones` (`id_cer`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `FK_certificaciones_colaboradores_colaboradores` (`idcol_ceco`),
+  CONSTRAINT `FK_certificaciones_colaboradores_certificaciones` FOREIGN KEY (`idcer_ceco`) REFERENCES `certificaciones` (`id_cer`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_certificaciones_colaboradores_colaboradores` FOREIGN KEY (`idcol_ceco`) REFERENCES `colaboradores` (`id_col`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 -- Volcando datos para la tabla opem.certificaciones_colaboradores: ~0 rows (aproximadamente)
@@ -110,6 +112,55 @@ INSERT INTO `cursos` (`id_cur`, `nombre_cur`, `descripcion_cur`) VALUES
 	(2, 'Pruebas', 'Prueba');
 /*!40000 ALTER TABLE `cursos` ENABLE KEYS */;
 
+-- Volcando estructura para tabla opem.departamentos
+DROP TABLE IF EXISTS `departamentos`;
+CREATE TABLE IF NOT EXISTS `departamentos` (
+  `id_dep` int(11) NOT NULL,
+  `codigo_dep` int(11) DEFAULT NULL,
+  `nombre_dep` varchar(40) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `idpais_dep` int(11) DEFAULT 1,
+  PRIMARY KEY (`id_dep`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+
+-- Volcando datos para la tabla opem.departamentos: ~33 rows (aproximadamente)
+DELETE FROM `departamentos`;
+/*!40000 ALTER TABLE `departamentos` DISABLE KEYS */;
+INSERT INTO `departamentos` (`id_dep`, `codigo_dep`, `nombre_dep`, `idpais_dep`) VALUES
+	(5, 5, 'ANTIOQUIA', 1),
+	(8, 8, 'ATLANTICO', 1),
+	(11, 11, 'BOGOTA', 1),
+	(13, 13, 'BOLIVAR', 1),
+	(15, 15, 'BOYACA', 1),
+	(17, 17, 'CALDAS', 1),
+	(18, 18, 'CAQUETA', 1),
+	(19, 19, 'CAUCA', 1),
+	(20, 20, 'CESAR', 1),
+	(23, 23, 'CORDOBA', 1),
+	(25, 25, 'CUNDINAMARCA', 1),
+	(27, 27, 'CHOCO', 1),
+	(41, 41, 'HUILA', 1),
+	(44, 44, 'LA GUAJIRA', 1),
+	(47, 47, 'MAGDALENA', 1),
+	(50, 50, 'META', 1),
+	(52, 52, 'NARIÑO', 1),
+	(54, 54, 'N. DE SANTANDER', 1),
+	(63, 63, 'QUINDIO', 1),
+	(66, 66, 'RISARALDA', 1),
+	(68, 68, 'SANTANDER', 1),
+	(70, 70, 'SUCRE', 1),
+	(73, 73, 'TOLIMA', 1),
+	(76, 76, 'VALLE DEL CAUCA', 1),
+	(81, 81, 'ARAUCA', 1),
+	(85, 85, 'CASANARE', 1),
+	(86, 86, 'PUTUMAYO', 1),
+	(88, 88, 'SAN ANDRES', 1),
+	(91, 91, 'AMAZONAS', 1),
+	(94, 94, 'GUAINIA', 1),
+	(95, 95, 'GUAVIARE', 1),
+	(97, 97, 'VAUPES', 1),
+	(99, 99, 'VICHADA', 1);
+/*!40000 ALTER TABLE `departamentos` ENABLE KEYS */;
+
 -- Volcando estructura para tabla opem.empresa
 DROP TABLE IF EXISTS `empresa`;
 CREATE TABLE IF NOT EXISTS `empresa` (
@@ -123,7 +174,7 @@ CREATE TABLE IF NOT EXISTS `empresa` (
   PRIMARY KEY (`id_emp`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.empresa: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla opem.empresa: ~0 rows (aproximadamente)
 DELETE FROM `empresa`;
 /*!40000 ALTER TABLE `empresa` DISABLE KEYS */;
 INSERT INTO `empresa` (`id_emp`, `nombre_emp`, `nit_emp`, `telefono_emp`, `correo_emp`, `direccion_emp`, `personacontacto_emp`) VALUES
