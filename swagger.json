@@ -1,0 +1,68 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Opem API rest",
+        "version": "v2"
+    },
+    "paths": {
+        "/": {
+            "get": {
+                "operationId": "listVersionsv2",
+                "summary": "List API versions",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 300 response",
+                        "examples": {
+                            "application/json": ""
+                        }
+                    },
+                    "300": {
+                        "description": "200 300 response",
+                        "examples": {
+                            "application/json": ""
+                        }
+                    }
+                }
+            }
+        },
+        "/v2": {
+            "get": {
+                "operationId": "getVersionDetailsv2",
+                "summary": "Show API version details",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": ""
+                        }
+                    },
+                    "203": {
+                        "description": "200 203 response",
+                        "examples": {
+                            "application/json": ""
+                        }
+                    }
+                }
+            }
+        },
+        "/colaboradores":{
+            "get":{
+            },
+            "post":{
+
+            },
+            "put":{
+
+            }
+        }
+    },
+    "consumes": [
+        "application/json"
+    ]
+}
