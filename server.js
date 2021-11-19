@@ -3,6 +3,8 @@ const morgan = require('morgan');
 const express = require('express');
 var cors = require('cors')
 var bodyParser = require('body-parser')
+const db = require("./model");
+
 
 const router = require('./router.js');
 
@@ -15,17 +17,17 @@ function initialize() {
     app.use(morgan('combined'));
 
     app.use(function (req, res, next) {
-      res.header("Access-Control-Allow-Origin", "http://localhost:8080");     
+      res.header("Access-Control-Allow-Origin", "http://localhost:8080");
       res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
       next();
     });
 
     app.use(bodyParser.urlencoded({ extended: false }))
-    app.use(bodyParser.json()) 
+    app.use(bodyParser.json())
 
     app.use(cors())
 
-    app.use('/api', router);    
+    app.use('/api', router);
 
     httpServer = http.createServer(app);
 
@@ -37,10 +39,14 @@ function initialize() {
       console.log(`Web server listening on localhost:3000`);
       resolve();
     });
+
+    db.sequelize.sync({ force: true }).then(() => {
+      console.log("Drop and re-sync db.");
+    });
   });
 }
 
-module.exports.initialize = initialize; 
+module.exports.initialize = initialize;
 
 function close() {
   return new Promise((resolve, reject) => {

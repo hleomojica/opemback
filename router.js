@@ -72,7 +72,6 @@ router.post('/permisos', auth, permisos.post);
 router.put('/permisos', auth, permisos.put);
 
 /*
-
 //modulos
 router.get('/modulos/getbyrol/:idrol?/:ver?', auth, modulos.getbyrol);
 
