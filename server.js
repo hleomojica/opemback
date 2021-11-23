@@ -7,6 +7,9 @@ require("./models");
 
 
 const router = require('./router.js');
+
+const ruters = require('./routes');
+
 let httpServer;
 function initialize() {
   return new Promise((resolve, reject) => {
@@ -25,7 +28,8 @@ function initialize() {
 
     app.use(cors())
 
-    app.use('/api', router);
+    //app.use('/api', router);
+    app.use('/api/v1', ruters);    
 
     httpServer = http.createServer(app);
 
