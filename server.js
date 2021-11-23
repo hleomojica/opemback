@@ -3,13 +3,11 @@ const morgan = require('morgan');
 const express = require('express');
 var cors = require('cors')
 var bodyParser = require('body-parser')
-const db = require("./model");
+require("./models");
 
 
 const router = require('./router.js');
-
 let httpServer;
-
 function initialize() {
   return new Promise((resolve, reject) => {
     const app = express();
@@ -40,9 +38,7 @@ function initialize() {
       resolve();
     });
 
-    db.sequelize.sync({ force: true }).then(() => {
-      console.log("Drop and re-sync db.");
-    });
+   
   });
 }
 
