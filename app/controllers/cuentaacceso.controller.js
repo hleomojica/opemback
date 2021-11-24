@@ -1,42 +1,34 @@
 const db = require('../db')
+const {
+    CuentaAcceso
+} = require('../models');
+
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require('dotenv').config()
 
 const tkn = process.env.JWT_TOKEN_SECRET
 
-async function get(req, res, next) {
-    const context = req.params
-    let sqlquery = 'select * from cuentaacceso'
-    let arrayWhere = []
-    try {
-        const binds = {};
-        if (context.id) {
-            binds.id = context.id;
-            arrayWhere.push(" id_cue = :id ");
+exports.findAll = (req, res) => {
+    const title = req.query.title;
+    var condition = title ? {
+        title: {
+            [Op.like]: `%${title}%`
         }
-        if (context.iduser) {
-            binds.iduser = context.iduser;
-            arrayWhere.push(" iduser_cue = :iduser ");
-        }
-        if (context.username) {
-            binds.username = context.username;
-            arrayWhere.push(" username_cue = :username ");
-        }
-        if (arrayWhere.length > 0) {
-            sqlquery += ` where ${arrayWhere.join(" and ")}`
-        }
-        const rows = await db.pool.query(sqlquery);
-        if (rows) {
-            res.status(200).json(rows);
-        } else {
-            res.status(500).end();
-        }
-    } catch (err) {
-        next(err);
-    }
+    } : null;
+
+    CuentaAcceso.findAll({
+            where: condition
+        })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving tutorials."
+            });
+        });
 }
-module.exports.get = get;
 
 async function create(req, res, next) {
     const data = req.body
@@ -74,7 +66,7 @@ async function auth(req, res, next) {
     try {
         if (context.username) {
             sqlquery += ` where username_cue = "${context.username}" `;
-        }else{
+        } else {
             return res.status(400).send("Bad request");
         }
         const user = await db.pool.query(sqlquery);
@@ -89,7 +81,11 @@ async function auth(req, res, next) {
         if (!validPassword)
             return res.status(401).send("Invalid email or password");
 
-        const token = jwt.sign({ username: user.username_cue }, tkn, { expiresIn: '24h' });
+        const token = jwt.sign({
+            username: user.username_cue
+        }, tkn, {
+            expiresIn: '24h'
+        });
 
         res.send({
             accesToken: token,

@@ -8,7 +8,7 @@ module.exports = (sequelize, type) => {
         fechafin_cer: type.STRING,
         horas_cer: type.INTEGER,
         idcur_cer: {
-            type: Sequelize.INTEGER           
+            type: type.INTEGER           
         }
     });
 }

@@ -3,16 +3,14 @@ const morgan = require('morgan');
 const express = require('express');
 var cors = require('cors')
 var bodyParser = require('body-parser')
-require("./models");
-
-
-const router = require('./router.js');
-
-const ruters = require('./routes');
+require("./app/models");
+const HttpException = require('./app/utils/HttpException.utils');
 
 let httpServer;
+
 function initialize() {
   return new Promise((resolve, reject) => {
+
     const app = express();
 
     app.use(morgan('combined'));
@@ -23,16 +21,22 @@ function initialize() {
       next();
     });
 
-    app.use(bodyParser.urlencoded({ extended: false }))
+    app.use(bodyParser.urlencoded({
+      extended: false
+    }))
     app.use(bodyParser.json())
 
     app.use(cors())
-
-    //app.use('/api', router);
-    app.use('/api/v1', ruters);    
+    
+    require("./app/routes")(app);
+    
+    app.all('*', (req, res, next) => {
+      const err = new HttpException(404, 'Endpoint Not Found');
+      next(err);
+    });    
 
     httpServer = http.createServer(app);
-
+    
     httpServer.listen(3000, err => {
       if (err) {
         reject(err);
@@ -42,7 +46,7 @@ function initialize() {
       resolve();
     });
 
-   
+
   });
 }
 
