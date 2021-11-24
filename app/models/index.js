@@ -27,6 +27,7 @@ sequelize.sync({
 })
 
 module.exports = {
+  sequelize,
   Cursos,
   Certificaciones,
   Empresa,

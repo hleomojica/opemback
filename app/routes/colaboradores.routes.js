@@ -8,4 +8,5 @@ router.get("/", colabo.findAll);
 router.put("/:id", colabo.update);
 router.delete("/:id", colabo.delete);
 
+
 module.exports = router;
