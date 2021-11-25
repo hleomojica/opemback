@@ -5,6 +5,8 @@ const cursosModel = require("./cursos.model.js")
 const certificacionesModel = require("./certificaciones.model")
 const empresasModel = require("./empresas.model")
 const colaboradoresModel = require("./colaboradores.model")
+const rolesModel = require("./roles.model")
+const certColaboradoresModel = require("./certcolaboradores.model")
 
 const sequelize = new Sequelize("opem", "root", "mojica123", {
   host: "127.0.0.1",
@@ -19,6 +21,8 @@ const Certificaciones = certificacionesModel(sequelize, Sequelize);
 const Empresa = empresasModel(sequelize, Sequelize);
 const Colaboradores = colaboradoresModel(sequelize,Sequelize)
 const CuentaAcceso = cuentaaccesoModel(sequelize,Sequelize)
+const Roles = rolesModel(sequelize,Sequelize)
+const CertColaboradores = certColaboradoresModel(sequelize,Sequelize)
 
 sequelize.sync({
   force: false
@@ -32,5 +36,7 @@ module.exports = {
   Certificaciones,
   Empresa,
   Colaboradores,
-  CuentaAcceso
+  CuentaAcceso,
+  Roles,
+  CertColaboradores
 }

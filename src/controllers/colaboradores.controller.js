@@ -3,18 +3,32 @@ const {
 } = require('../models');
 
 exports.findAll = (req, res) => {
-    const title = req.query.title;
-    var condition = title ? {
-        title: {
+
+    const {
+        page,
+        size,
+        id
+    } = req.query;
+
+    var condition = id ? {
+        id_col: {
             [Op.like]: `%${title}%`
         }
     } : null;
 
-    Colaboradores.findAll({
-            where: condition
+    const {
+        limit,
+        offset
+    } = getPagination(page, size);
+
+    Colaboradores.findAndCountAll({
+            where: condition,
+            limit,
+            offset
         })
         .then(data => {
-            res.send(data);
+            const response = getPagingData(data, page, limit);
+            res.send(response);
         })
         .catch(err => {
             res.status(500).send({
@@ -117,3 +131,26 @@ exports.delete = (req, res) => {
             });
         });
 };
+
+const getPagingData = (data, page, limit) => {
+    const {
+        count: totalItems,
+        rows: colaboradores
+    } = data;
+    const currentPage = page ? +page : 0;
+    const totalPages = Math.ceil(totalItems / limit);
+
+    return {
+        totalItems,
+        colaboradores,
+        totalPages,
+        currentPage
+    };
+};
+
+const getPagination = (page, size) => {
+    const limit = size ? +size : 3;
+    const offset = page ? page * limit : 0;
+  
+    return { limit, offset };
+  };

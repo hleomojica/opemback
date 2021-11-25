@@ -3,8 +3,8 @@ const morgan = require('morgan');
 const express = require('express');
 var cors = require('cors')
 var bodyParser = require('body-parser')
-require("./app/models");
-const HttpException = require('./app/utils/HttpException.utils');
+require("./src/models");
+const HttpException = require('./src/utils/HttpException.utils');
 
 let httpServer;
 
@@ -28,7 +28,7 @@ function initialize() {
 
     app.use(cors())
     
-    require("./app/routes")(app);
+    require("./src/routes")(app);
     
     app.all('*', (req, res, next) => {
       const err = new HttpException(404, 'Endpoint Not Found');
