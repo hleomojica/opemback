@@ -2,6 +2,8 @@ const {
     Colaboradores
 } = require('../models');
 
+const paging = require("./../utils/Paging.utils");
+
 exports.findAll = (req, res) => {
 
     const {
@@ -19,7 +21,7 @@ exports.findAll = (req, res) => {
     const {
         limit,
         offset
-    } = getPagination(page, size);
+    } = paging.getPagination(page, size);
 
     Colaboradores.findAndCountAll({
             where: condition,
@@ -27,7 +29,7 @@ exports.findAll = (req, res) => {
             offset
         })
         .then(data => {
-            const response = getPagingData(data, page, limit);
+            const response = paging.getPagingData(data, page, limit);
             res.send(response);
         })
         .catch(err => {
@@ -132,6 +134,7 @@ exports.delete = (req, res) => {
         });
 };
 
+/*
 const getPagingData = (data, page, limit) => {
     const {
         count: totalItems,
@@ -154,3 +157,4 @@ const getPagination = (page, size) => {
   
     return { limit, offset };
   };
+  */
