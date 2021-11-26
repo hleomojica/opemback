@@ -1,20 +1,37 @@
 const {
-    Empresa
+    Empresa,
+    Sequelize
 } = require('../models');
+const Op = Sequelize.Op;
+const paging = require("./../utils/Paging.utils");
 
 exports.findAll = (req, res) => {
-    const title = req.query.title;
-    var condition = title ? {
-        title: {
-            [Op.like]: `%${title}%`
+    const id = req.params.id;
+    const {
+        page,
+        size
+    } = req.query;
+
+    var condition = id ? {
+        id_emp: {
+            [Op.eq]: id
         }
     } : null;
 
-    Empresa.findAll({
-            where: condition
+    const {
+        limit,
+        offset
+    } = paging.getPagination(page, size);
+    console.log(' limit ',limit,' offset ',offset)
+    
+    Empresa.findAndCountAll({
+            where: condition,
+            limit,
+            offset
         })
         .then(data => {
-            res.send(data);
+            const response = paging.getPagingData(data, page, limit);
+            res.send(response);
         })
         .catch(err => {
             res.status(500).send({
@@ -31,7 +48,7 @@ exports.create = (req, res) => {
         });
         return;
     }
-    const empresa = {       
+    const empresa = {
         nombre_emp: req.body.nombre,
         nit_emp: req.body.nit,
         telefono_emp: req.body.telefono,

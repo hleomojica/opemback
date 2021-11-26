@@ -1,20 +1,17 @@
-const {
-    Colaboradores
-} = require('../models');
-
+const {Colaboradores,Sequelize} = require('../models');
 const paging = require("./../utils/Paging.utils");
+const Op = Sequelize.Op;
 
 exports.findAll = (req, res) => {
-
+    const id = req.params.id;
     const {
         page,
-        size,
-        id
+        size        
     } = req.query;
 
     var condition = id ? {
         id_col: {
-            [Op.like]: `%${title}%`
+            [Op.eq]: id
         }
     } : null;
 
