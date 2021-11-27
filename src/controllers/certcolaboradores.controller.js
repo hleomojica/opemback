@@ -1,5 +1,6 @@
 const {
-    CertColaboradores
+    CertColaboradores,
+    Colaboradores
 } = require('../models');
 
 exports.findAll = (req, res) => {
@@ -15,6 +16,9 @@ exports.findAll = (req, res) => {
     } : null;
 
     CertColaboradores.findAll({
+            include: [{
+                model: Colaboradores,
+            }],
             where: condition
         })
         .then(data => {

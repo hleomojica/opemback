@@ -19,15 +19,19 @@ const sequelize = new Sequelize("opem", "root", "mojica123", {
 const Cursos = cursosModel(sequelize, Sequelize);
 const Certificaciones = certificacionesModel(sequelize, Sequelize);
 const Empresa = empresasModel(sequelize, Sequelize);
-const Colaboradores = colaboradoresModel(sequelize,Sequelize)
-const CuentaAcceso = cuentaaccesoModel(sequelize,Sequelize)
-const Roles = rolesModel(sequelize,Sequelize)
-const CertColaboradores = certColaboradoresModel(sequelize,Sequelize)
+const Colaboradores = colaboradoresModel(sequelize, Sequelize)
+const CuentaAcceso = cuentaaccesoModel(sequelize, Sequelize)
+const Roles = rolesModel(sequelize, Sequelize)
+const CertColaboradores = certColaboradoresModel(sequelize, Sequelize)
 
 sequelize.sync({
   force: false
 }).then(() => {
   console.log('tablas sincronizadas')
+})
+
+CertColaboradores.hasMany(Colaboradores, {
+  foreignKey: 'id_col'
 })
 
 module.exports = {
