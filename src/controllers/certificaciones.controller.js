@@ -1,14 +1,20 @@
-const {Certificaciones} = require('../models');
+const {
+    Certificaciones,
+    Cursos
+} = require('../models');
 
 exports.findAll = (req, res) => {
-    const title = req.query.title;
-    var condition = title ? {
-        title: {
-            [Op.like]: `%${title}%`
+    const id = req.params.id;
+    var condition = id ? {
+        id_cer: {
+            [Op.like]: `%${id}%`
         }
     } : null;
 
     Certificaciones.findAll({
+            include: [{
+                model: Cursos,
+            }],
             where: condition
         })
         .then(data => {
@@ -32,8 +38,8 @@ exports.create = (req, res) => {
     const cert = {
         fechainicio_cer: req.body.fechainicio,
         fechafin_cer: req.body.fechafin,
-        horas_cer:req.body.horas,
-        idcur_cer:req.body.idcur,
+        horas_cer: req.body.horas,
+        idcur_cer: req.body.idcur,
     };
     Certificaciones.create(cert)
         .then(data => {
