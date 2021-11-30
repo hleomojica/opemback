@@ -4,7 +4,7 @@ const router = express.Router();
 const cursos = require("../controllers/cursos.controller");
 
 router.post("/", cursos.create);
-router.get("/", cursos.findAll);
+router.get("/:id", cursos.findAll);
 router.put("/:id", cursos.update);
 router.delete("/:id", cursos.delete);
 

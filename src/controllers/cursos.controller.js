@@ -1,18 +1,20 @@
 const {
-    Cursos
+    Cursos,
+    Sequelize
 } = require('../models');
+const Op = Sequelize.Op;
 
 exports.findAll = (req, res) => {
-    const title = req.query.title;
-    var condition = title ? {
-        title: {
-            [Op.like]: `%${title}%`
+    const id = req.params.id;
+    var condition = id ? {
+        id_cur: {
+            [Op.like]: `%${id}%`
         }
     } : null;
 
     Cursos.findAll({
-        where: condition
-    })
+            where: condition
+        })
         .then(data => {
             res.send(data);
         })
@@ -50,8 +52,10 @@ exports.update = (req, res) => {
     const id = req.params.id;
 
     Cursos.update(req.body, {
-        where: { id: id }
-    })
+            where: {
+                id: id
+            }
+        })
         .then(num => {
             if (num == 1) {
                 res.send({
@@ -72,24 +76,26 @@ exports.update = (req, res) => {
 
 exports.delete = (req, res) => {
     const id = req.params.id;
-  
+
     Cursos.destroy({
-      where: { id: id }
-    })
-      .then(num => {
-        if (num == 1) {
-          res.send({
-            message: "Cursos was deleted successfully!"
-          });
-        } else {
-          res.send({
-            message: `Cannot delete Cursos with id=${id}. Maybe Cursos was not found!`
-          });
-        }
-      })
-      .catch(err => {
-        res.status(500).send({
-          message: "Could not delete Cursos with id=" + id
+            where: {
+                id: id
+            }
+        })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Cursos was deleted successfully!"
+                });
+            } else {
+                res.send({
+                    message: `Cannot delete Cursos with id=${id}. Maybe Cursos was not found!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Could not delete Cursos with id=" + id
+            });
         });
-      });
-  };
+};
