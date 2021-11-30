@@ -50,20 +50,23 @@ exports.create = (req, res) => {
 
 exports.update = (req, res) => {
     const id = req.params.id;
-
-    Cursos.update(req.body, {
+    const cursos = {
+        nombre_cur: req.body.nombre,
+        descripcion_cur: req.body.descripcion,
+    };
+    Cursos.update(cursos, {
             where: {
-                id: id
+                id_cur: id
             }
         })
         .then(num => {
             if (num == 1) {
                 res.send({
-                    message: "Tutorial was updated successfully."
+                    message: "Curso was updated successfully."
                 });
             } else {
                 res.send({
-                    message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+                    message: `Cannot update Curso with id=${id}. Maybe Curso was not found or req.body is empty!`
                 });
             }
         })

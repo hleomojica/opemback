@@ -30,6 +30,10 @@ sequelize.sync({
   console.log('tablas sincronizadas')
 })
 
+Certificaciones.belongsTo(Cursos, {
+  foreignKey: "idcur_cer"
+})
+
 CertColaboradores.hasMany(Colaboradores, {
   foreignKey: 'id_col'
 })
