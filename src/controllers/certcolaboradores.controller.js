@@ -1,7 +1,9 @@
 const {
     CertColaboradores,
-    Colaboradores
+    Colaboradores,
+    Sequelize
 } = require('../models');
+const Op = Sequelize.Op;
 
 exports.findAll = (req, res) => {
 

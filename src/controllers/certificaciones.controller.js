@@ -1,13 +1,15 @@
 const {
     Certificaciones,
-    Cursos
+    Cursos,
+    Sequelize
 } = require('../models');
+const Op = Sequelize.Op;
 
 exports.findAll = (req, res) => {
     const id = req.params.id;
     var condition = id ? {
         id_cer: {
-            [Op.like]: `%${id}%`
+            [Op.eq]: id
         }
     } : null;
 
