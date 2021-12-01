@@ -1,30 +1,47 @@
 const {
     CertColaboradores,
     Colaboradores,
-    Sequelize
+    Sequelize,
+    Certificaciones,
+    Empresa
 } = require('../models');
 const Op = Sequelize.Op;
+const paging = require("./../utils/Paging.utils");
 
 exports.findAll = (req, res) => {
 
     const id = req.query.id;
-    const idcert = req.query.idcert;
-    const idcol = req.query.idcert;
+    const {
+        page,
+        size,
+        idcertm,
+        idcol
+    } = req.query;
 
     var condition = id ? {
         id_ceco: {
-            [Op.like]: `%${id}%`
+            [Op.eq]: id
         }
     } : null;
 
-    CertColaboradores.findAll({
-            include: [{
-                model: Colaboradores,
-            }],
-            where: condition
-        })
+    const {
+        limit,
+        offset
+    } = paging.getPagination(page, size);
+
+    CertColaboradores.findAndCountAll({
+        include: [
+            { model: Colaboradores },
+            { model: Certificaciones },
+            { model: Empresa },
+        ],
+        where: condition,
+        limit,
+        offset
+    })
         .then(data => {
-            res.send(data);
+            const response = paging.getPagingData(data, page, limit);
+            res.send(response);;
         })
         .catch(err => {
             res.status(500).send({
@@ -71,10 +88,10 @@ exports.update = (req, res) => {
     };
 
     CertColaboradores.update(cercol, {
-            where: {
-                id_ceco: id
-            }
-        })
+        where: {
+            id_ceco: id
+        }
+    })
         .then(num => {
             if (num == 1) {
                 res.send({
@@ -97,10 +114,10 @@ exports.delete = (req, res) => {
     const id = req.params.id;
 
     CertColaboradores.destroy({
-            where: {
-                id_ceco: id
-            }
-        })
+        where: {
+            id_ceco: id
+        }
+    })
         .then(num => {
             if (num == 1) {
                 res.send({

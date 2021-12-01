@@ -17,7 +17,7 @@ const sequelize = new Sequelize("opem", "root", "mojica123", {
 });
 
 const Cursos = cursosModel(sequelize, Sequelize);
-const Certificaciones = certificacionesModel(sequelize, Sequelize);
+const Certificaciones = certificacionesModel(sequelize, Sequelize, Cursos);
 const Empresa = empresasModel(sequelize, Sequelize);
 const Colaboradores = colaboradoresModel(sequelize, Sequelize)
 const CuentaAcceso = cuentaaccesoModel(sequelize, Sequelize)
@@ -34,8 +34,14 @@ Certificaciones.belongsTo(Cursos, {
   foreignKey: "idcur_cer"
 })
 
-CertColaboradores.hasMany(Colaboradores, {
-  foreignKey: 'id_col'
+CertColaboradores.belongsTo(Colaboradores, {
+  foreignKey: 'idcol_ceco'
+})
+CertColaboradores.belongsTo(Certificaciones, {
+  foreignKey: 'idcer_ceco'
+})
+CertColaboradores.belongsTo(Empresa, {
+  foreignKey: 'idemp_ceco'
 })
 
 module.exports = {
