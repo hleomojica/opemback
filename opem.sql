@@ -29,23 +29,14 @@ CREATE TABLE IF NOT EXISTS `certificaciones` (
   PRIMARY KEY (`id_cer`),
   KEY `FK_certificaciones_cursos` (`idcur_cer`),
   CONSTRAINT `FK_certificaciones_cursos` FOREIGN KEY (`idcur_cer`) REFERENCES `cursos` (`id_cur`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.certificaciones: ~11 rows (aproximadamente)
+-- Volcando datos para la tabla opem.certificaciones: ~2 rows (aproximadamente)
 DELETE FROM `certificaciones`;
 /*!40000 ALTER TABLE `certificaciones` DISABLE KEYS */;
 INSERT INTO `certificaciones` (`id_cer`, `fechainicio_cer`, `fechafin_cer`, `horas_cer`, `idcur_cer`) VALUES
-	(1, '2021-04-12', '2021-11-01', 48, 1),
-	(2, '2021-04-12', '2021-11-01', 48, 1),
-	(3, '2021-04-12', '2021-11-01', 48, 1),
-	(4, '2021-04-12', '2021-11-01', 48, 1),
-	(5, '2021-04-12', '2021-11-01', 48, 1),
-	(6, '2021-04-12', '2021-11-01', 48, 1),
-	(7, '2021-04-12', '2021-11-01', 48, 1),
-	(8, '2021-04-12', '2021-11-01', 48, 1),
-	(9, '2021-04-12', '2021-11-01', 48, 1),
-	(10, '2021-04-12', '2021-11-01', 48, 1),
-	(11, '2021-04-12', '2021-11-01', 48, 1);
+	(1, '2021-04-12', '2021-11-01', 77, 1),
+	(13, '2021-12-01', '2021-12-03', 5, 3);
 /*!40000 ALTER TABLE `certificaciones` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.certificaciones_colaboradores
@@ -60,13 +51,17 @@ CREATE TABLE IF NOT EXISTS `certificaciones_colaboradores` (
   PRIMARY KEY (`id_ceco`),
   KEY `FK_certificaciones_colaboradores_certificaciones` (`idcer_ceco`),
   KEY `FK_certificaciones_colaboradores_colaboradores` (`idcol_ceco`),
+  KEY `FK_certificaciones_colaboradores_empresas` (`idemp_ceco`),
   CONSTRAINT `FK_certificaciones_colaboradores_certificaciones` FOREIGN KEY (`idcer_ceco`) REFERENCES `certificaciones` (`id_cer`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_certificaciones_colaboradores_colaboradores` FOREIGN KEY (`idcol_ceco`) REFERENCES `colaboradores` (`id_col`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+  CONSTRAINT `FK_certificaciones_colaboradores_colaboradores` FOREIGN KEY (`idcol_ceco`) REFERENCES `colaboradores` (`id_col`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_certificaciones_colaboradores_empresas` FOREIGN KEY (`idemp_ceco`) REFERENCES `empresas` (`id_emp`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.certificaciones_colaboradores: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla opem.certificaciones_colaboradores: ~1 rows (aproximadamente)
 DELETE FROM `certificaciones_colaboradores`;
 /*!40000 ALTER TABLE `certificaciones_colaboradores` DISABLE KEYS */;
+INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_ceco`, `idemp_ceco`, `estado_ceco`, `descargado_ceco`) VALUES
+	(1, 1, 1, 1, 0, 0);
 /*!40000 ALTER TABLE `certificaciones_colaboradores` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.colaboradores
@@ -129,12 +124,12 @@ CREATE TABLE IF NOT EXISTS `cursos` (
   PRIMARY KEY (`id_cur`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.cursos: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla opem.cursos: ~3 rows (aproximadamente)
 DELETE FROM `cursos`;
 /*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
 INSERT INTO `cursos` (`id_cur`, `nombre_cur`, `descripcion_cur`) VALUES
 	(1, 'Desarrollo web', 'Desarrollar en los diferentes frameworks'),
-	(2, 'Pruebas', 'Prueba'),
+	(2, 'Pruebasaaaaaaa', 'Prueba'),
 	(3, 'Cambiar bombillo', 'Como cambiar un bombillo de navidad');
 /*!40000 ALTER TABLE `cursos` ENABLE KEYS */;
 
@@ -200,7 +195,7 @@ CREATE TABLE IF NOT EXISTS `empresas` (
   PRIMARY KEY (`id_emp`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.empresas: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla opem.empresas: ~2 rows (aproximadamente)
 DELETE FROM `empresas`;
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
 INSERT INTO `empresas` (`id_emp`, `nombre_emp`, `nit_emp`, `telefono_emp`, `correo_emp`, `direccion_emp`, `personacontacto_emp`) VALUES
@@ -1408,7 +1403,7 @@ CREATE TABLE IF NOT EXISTS `roles` (
   PRIMARY KEY (`id_rol`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.roles: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla opem.roles: ~0 rows (aproximadamente)
 DELETE FROM `roles`;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
 INSERT INTO `roles` (`id_rol`, `nombre_rol`, `descripcion_rol`) VALUES
