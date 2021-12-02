@@ -1,7 +1,8 @@
 module.exports = (sequelize, type) => {
     return sequelize.define('certificaciones', {
         id_cer: {
-            type: type.INTEGER,
+            type: type.UUID,
+            defaultValue: type.UUIDV4,
             primaryKey: true
         },
         fechainicio_cer: type.STRING,
