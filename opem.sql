@@ -21,52 +21,51 @@ USE `opem`;
 -- Volcando estructura para tabla opem.certificaciones
 DROP TABLE IF EXISTS `certificaciones`;
 CREATE TABLE IF NOT EXISTS `certificaciones` (
-  `id_cer` int(11) NOT NULL AUTO_INCREMENT,
+  `id_cer` char(50) COLLATE utf8mb3_spanish_ci NOT NULL DEFAULT '',
   `fechainicio_cer` date DEFAULT NULL,
   `fechafin_cer` date DEFAULT NULL,
   `horas_cer` int(11) DEFAULT NULL,
   `idcur_cer` int(11) DEFAULT NULL,
+  `cohorte_cer` int(16) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id_cer`),
   KEY `FK_certificaciones_cursos` (`idcur_cer`),
+  KEY `Índice 3` (`cohorte_cer`),
   CONSTRAINT `FK_certificaciones_cursos` FOREIGN KEY (`idcur_cer`) REFERENCES `cursos` (`id_cur`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.certificaciones: ~11 rows (aproximadamente)
+-- Volcando datos para la tabla opem.certificaciones: ~2 rows (aproximadamente)
 DELETE FROM `certificaciones`;
 /*!40000 ALTER TABLE `certificaciones` DISABLE KEYS */;
-INSERT INTO `certificaciones` (`id_cer`, `fechainicio_cer`, `fechafin_cer`, `horas_cer`, `idcur_cer`) VALUES
-	(1, '2021-04-12', '2021-11-01', 48, 1),
-	(2, '2021-04-12', '2021-11-01', 48, 1),
-	(3, '2021-04-12', '2021-11-01', 48, 1),
-	(4, '2021-04-12', '2021-11-01', 48, 1),
-	(5, '2021-04-12', '2021-11-01', 48, 1),
-	(6, '2021-04-12', '2021-11-01', 48, 1),
-	(7, '2021-04-12', '2021-11-01', 48, 1),
-	(8, '2021-04-12', '2021-11-01', 48, 1),
-	(9, '2021-04-12', '2021-11-01', 48, 1),
-	(10, '2021-04-12', '2021-11-01', 48, 1),
-	(11, '2021-04-12', '2021-11-01', 48, 1);
+INSERT INTO `certificaciones` (`id_cer`, `fechainicio_cer`, `fechafin_cer`, `horas_cer`, `idcur_cer`, `cohorte_cer`) VALUES
+	('7a513eb0-9945-42c9-893e-1f10d157b749\0\0\0\0\0\0\0\0\0\0\0\0\0\0', '2021-04-12', '2021-11-01', 66, 1, 15),
+	('83716977-0f2a-4c8e-bcc0-33bf65b69abe\0\0\0\0\0\0\0\0\0\0\0\0\0\0', '2021-04-12', '2021-11-01', 48, 1, 14);
 /*!40000 ALTER TABLE `certificaciones` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.certificaciones_colaboradores
 DROP TABLE IF EXISTS `certificaciones_colaboradores`;
 CREATE TABLE IF NOT EXISTS `certificaciones_colaboradores` (
-  `id_ceco` int(11) NOT NULL AUTO_INCREMENT,
-  `idcer_ceco` int(11) NOT NULL,
+  `id_ceco` char(50) COLLATE utf8mb3_spanish_ci NOT NULL DEFAULT '',
+  `idcer_ceco` char(50) COLLATE utf8mb3_spanish_ci NOT NULL DEFAULT '',
   `idcol_ceco` int(11) DEFAULT NULL,
   `idemp_ceco` int(11) DEFAULT NULL,
   `estado_ceco` int(11) DEFAULT NULL,
   `descargado_ceco` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_ceco`),
-  KEY `FK_certificaciones_colaboradores_certificaciones` (`idcer_ceco`),
   KEY `FK_certificaciones_colaboradores_colaboradores` (`idcol_ceco`),
+  KEY `FK_certificaciones_colaboradores_empresas` (`idemp_ceco`),
+  KEY `FK_certificaciones_colaboradores_certificaciones` (`idcer_ceco`),
   CONSTRAINT `FK_certificaciones_colaboradores_certificaciones` FOREIGN KEY (`idcer_ceco`) REFERENCES `certificaciones` (`id_cer`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_certificaciones_colaboradores_colaboradores` FOREIGN KEY (`idcol_ceco`) REFERENCES `colaboradores` (`id_col`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `FK_certificaciones_colaboradores_colaboradores` FOREIGN KEY (`idcol_ceco`) REFERENCES `colaboradores` (`id_col`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_certificaciones_colaboradores_empresas` FOREIGN KEY (`idemp_ceco`) REFERENCES `empresas` (`id_emp`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.certificaciones_colaboradores: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla opem.certificaciones_colaboradores: ~3 rows (aproximadamente)
 DELETE FROM `certificaciones_colaboradores`;
 /*!40000 ALTER TABLE `certificaciones_colaboradores` DISABLE KEYS */;
+INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_ceco`, `idemp_ceco`, `estado_ceco`, `descargado_ceco`) VALUES
+	('1f39ba99-c56f-4f6b-b5d3-fd296dff40e0\0\0\0\0\0\0\0\0\0\0\0\0\0\0', '83716977-0f2a-4c8e-bcc0-33bf65b69abe\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 2, 1, 0, 0),
+	('236ad687-5378-11ec-ba1e-10bf487a5006\0\0\0\0\0\0\0\0\0\0\0\0\0\0', '83716977-0f2a-4c8e-bcc0-33bf65b69abe\0\0\0\0\0\0\0\0\0\0\0\0\0\0', 2, 1, 0, 0),
+	('f464c5a8-3da2-4769-a795-424f31b836b7\0\0\0\0\0\0\0\0\0\0\0\0\0\0', '83716977-0f2a-4c8e-bcc0-33bf65b69abe', 2, 1, 0, 2);
 /*!40000 ALTER TABLE `certificaciones_colaboradores` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.colaboradores
@@ -85,17 +84,26 @@ CREATE TABLE IF NOT EXISTS `colaboradores` (
   `idemp_col` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_col`),
   KEY `FK_colaboradores_empresa` (`idemp_col`),
-  CONSTRAINT `FK_colaboradores_empresa` FOREIGN KEY (`idemp_col`) REFERENCES `empresas` (`id_emp`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+  KEY `FK_colaboradores_pais` (`paisdocumento_col`),
+  KEY `FK_colaboradores_tipodocumentos` (`tipodocumento_col`),
+  CONSTRAINT `FK_colaboradores_empresa` FOREIGN KEY (`idemp_col`) REFERENCES `empresas` (`id_emp`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_colaboradores_pais` FOREIGN KEY (`paisdocumento_col`) REFERENCES `pais` (`id_pais`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `FK_colaboradores_tipodocumentos` FOREIGN KEY (`tipodocumento_col`) REFERENCES `tipodocumentos` (`id_tipo`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.colaboradores: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla opem.colaboradores: ~5 rows (aproximadamente)
 DELETE FROM `colaboradores`;
 /*!40000 ALTER TABLE `colaboradores` DISABLE KEYS */;
 INSERT INTO `colaboradores` (`id_col`, `paisdocumento_col`, `tipodocumento_col`, `numerodocumento_col`, `nombres_col`, `apellidos_col`, `fechanacimiento_col`, `correopersonal_col`, `telefono_col`, `direccion_col`, `idemp_col`) VALUES
-	(1, 0, 0, 1095811763, 'Jorge Enrique', 'Mojica', '1992-04-12', 'jorge.mojica92@gmail.com', '3175391309', 'calle falsa 123', 1),
-	(2, 0, 0, 321654987, 'Emilio', 'Mojica', '1965-11-03', 'emilio@gmail.com', '3152587456', 'calle 45', 1),
-	(3, 0, 0, 1095811763, 'Pepito Enrique', 'Perez', '1992-04-12', 'pepo.perez@gmail.com', '3175391309', 'calle falsa 123', 1),
-	(5, 0, 0, 534523452, 'aaaa', 'sssss', '1992-04-12', 'dd.fffff@gmail.com', '3175391309', 'calle falsa 123', 1);
+	(1, 1, 1, 1095811763, 'Jorge Enrique', 'Mojica', '1992-04-12', 'jorge.mojica92@gmail.com', '3175391309', 'calle falsa 123', 1),
+	(2, 1, 1, 321654987, 'Emilio', 'Mojica', '1965-11-03', 'emilio@gmail.com', '3152587456', 'calle 45', 1),
+	(3, 1, 1, 1095811763, 'Pepito Enrique', 'Perez', '1992-04-12', 'pepo.perez@gmail.com', '3175391309', 'calle falsa 123', 1),
+	(5, 1, 1, 534523452, 'aaaa', 'sssss', '1992-04-12', 'dd.fffff@gmail.com', '3175391309', 'calle falsa 123', 1),
+	(6, 1, 1, 12, '12', '12', '2021-12-01', '12', '12', '12', NULL),
+	(7, 1, 1, 6547896, 'Rosmira', 'Caballero', '2006-12-19', 'ros@gmail.com', '31874563546', 'calle 123', 1),
+	(8, 1, 1, 63367012, 'Sandra', 'Bustamente', '2008-12-09', 'sandra@gmail.com', '3152414654', 'cr 112 22 45', 5),
+	(9, 1, 1, 1102547896, 'Virgilio', 'Barco Hernandez', '1993-12-07', 'virgi@gmail.com', '3154561231', 'diag 15', 1),
+	(10, 1, 1, 63367012, 'Juan Jose', 'Solano', '1982-11-02', 'juan.jose@gmail.com', '3175391309', 'quebrada seca', 5);
 /*!40000 ALTER TABLE `colaboradores` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.cuentaaccesos
@@ -129,12 +137,12 @@ CREATE TABLE IF NOT EXISTS `cursos` (
   PRIMARY KEY (`id_cur`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.cursos: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla opem.cursos: ~3 rows (aproximadamente)
 DELETE FROM `cursos`;
 /*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
 INSERT INTO `cursos` (`id_cur`, `nombre_cur`, `descripcion_cur`) VALUES
 	(1, 'Desarrollo web', 'Desarrollar en los diferentes frameworks'),
-	(2, 'Pruebas', 'Prueba'),
+	(2, 'Pruebasaaaaaaa', 'Prueba'),
 	(3, 'Cambiar bombillo', 'Como cambiar un bombillo de navidad');
 /*!40000 ALTER TABLE `cursos` ENABLE KEYS */;
 
@@ -198,14 +206,16 @@ CREATE TABLE IF NOT EXISTS `empresas` (
   `direccion_emp` varchar(200) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `personacontacto_emp` varchar(200) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_emp`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.empresas: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla opem.empresas: ~2 rows (aproximadamente)
 DELETE FROM `empresas`;
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
 INSERT INTO `empresas` (`id_emp`, `nombre_emp`, `nit_emp`, `telefono_emp`, `correo_emp`, `direccion_emp`, `personacontacto_emp`) VALUES
 	(1, 'urv marin valencia', '800456123', '3175391309', 'malval@marval.com.co', 'calle 29 47-56', 'Deyson Delgado'),
-	(5, 'urv marin valencia', '800456123', '3175391309', 'malval@marval.com.co', 'calle 29 47-56', 'Deyson Delgado');
+	(5, 'opem', '7894561', '3152145211', 'opem@gmail.com', 'cr 29 36', 'Juan Jose Solano'),
+	(6, 'Maquinados', '8005413664', '314521452', 'socio@gmail.com', 'pedregosa', 'carlos miguel'),
+	(7, 'McDonals', '6662541', '6486747', 'macdonals@macdonals.com', 'san pio', 'Ronal McDonals');
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.modulos
@@ -1365,7 +1375,8 @@ CREATE TABLE IF NOT EXISTS `pais` (
   `id_pais` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_pais` varchar(200) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `inicianles_pais` varchar(3) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  PRIMARY KEY (`id_pais`)
+  PRIMARY KEY (`id_pais`),
+  UNIQUE KEY `INICIALES UNQ` (`inicianles_pais`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 -- Volcando datos para la tabla opem.pais: ~2 rows (aproximadamente)
@@ -1408,28 +1419,28 @@ CREATE TABLE IF NOT EXISTS `roles` (
   PRIMARY KEY (`id_rol`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.roles: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla opem.roles: ~0 rows (aproximadamente)
 DELETE FROM `roles`;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
 INSERT INTO `roles` (`id_rol`, `nombre_rol`, `descripcion_rol`) VALUES
 	(1, 'ADM', 'Administrador de la plataforma');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
--- Volcando estructura para tabla opem.tipodocumento
-DROP TABLE IF EXISTS `tipodocumento`;
-CREATE TABLE IF NOT EXISTS `tipodocumento` (
+-- Volcando estructura para tabla opem.tipodocumentos
+DROP TABLE IF EXISTS `tipodocumentos`;
+CREATE TABLE IF NOT EXISTS `tipodocumentos` (
   `id_tipo` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_tipo` varchar(80) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `iniciales_tipo` varchar(4) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_tipo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.tipodocumento: ~0 rows (aproximadamente)
-DELETE FROM `tipodocumento`;
-/*!40000 ALTER TABLE `tipodocumento` DISABLE KEYS */;
-INSERT INTO `tipodocumento` (`id_tipo`, `nombre_tipo`, `iniciales_tipo`) VALUES
+-- Volcando datos para la tabla opem.tipodocumentos: ~0 rows (aproximadamente)
+DELETE FROM `tipodocumentos`;
+/*!40000 ALTER TABLE `tipodocumentos` DISABLE KEYS */;
+INSERT INTO `tipodocumentos` (`id_tipo`, `nombre_tipo`, `iniciales_tipo`) VALUES
 	(1, 'Cedula Ciudadania', 'CC');
-/*!40000 ALTER TABLE `tipodocumento` ENABLE KEYS */;
+/*!40000 ALTER TABLE `tipodocumentos` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;

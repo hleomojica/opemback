@@ -1,16 +1,22 @@
 const {
     Certificaciones,
-    Cursos
+    Cursos,
+    Sequelize
 } = require('../models');
+const Op = Sequelize.Op;
+const paging = require("./../utils/Paging.utils");
 
 exports.findAll = (req, res) => {
-    const id = req.params.id;
-    var condition = id ? {
-        id_cer: {
-            [Op.like]: `%${id}%`
+    
+    const {
+        idcur
+    } = req.query;
+    var condition = {}
+    if (idcur) {
+        condition.idcur_cer = {
+            [Op.eq]: idcur
         }
-    } : null;
-
+    }
     Certificaciones.findAll({
             include: [{
                 model: Cursos,
@@ -26,6 +32,47 @@ exports.findAll = (req, res) => {
             });
         });
 };
+
+exports.findAllPaging = (req, res) => {
+
+    const id = req.params.id;
+    const {
+        page,
+        size
+    } = req.query;
+
+    var condition = {}
+
+    if (id) {
+        condition.id_cer = {
+            [Op.eq]: id
+        }
+    }
+
+    const {
+        limit,
+        offset
+    } = paging.getPagination(page, size);
+
+    Certificaciones.findAndCountAll({
+            include: [{
+                model: Cursos,
+            }],
+            where: condition,
+            limit,
+            offset
+        })
+        .then(data => {
+            const response = paging.getPagingData(data, page, limit);
+            res.send(response);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving tutorials."
+            });
+        });
+
+}
 
 exports.create = (req, res) => {
 
@@ -55,9 +102,15 @@ exports.create = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    Certificaciones.update(req.body, {
+    const cert = {
+        fechainicio_cer: req.body.fechainicio,
+        fechafin_cer: req.body.fechafin,
+        horas_cer: req.body.horas,
+        idcur_cer: req.body.idcur,
+    };
+    Certificaciones.update(cert, {
             where: {
-                id: id
+                id_cer: id
             }
         })
         .then(num => {
@@ -83,7 +136,7 @@ exports.delete = (req, res) => {
 
     Certificaciones.destroy({
             where: {
-                id: id
+                id_cer: id
             }
         })
         .then(num => {
@@ -99,7 +152,7 @@ exports.delete = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Certificaciones with id=" + id
+                message: "Could not delete Certificaciones with id=" + id + " Error " + err
             });
         });
 };

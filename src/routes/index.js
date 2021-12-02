@@ -7,6 +7,8 @@ module.exports = app => {
   const cuentaacceso = require('./cuentaacceso.routes')
   const rol = require('./roles.routes')
   const certcol = require('./certcolaboradores.routes')
+  const paises = require('./paises.routes')
+  const tipodocs = require('./tipodocumentos.routes')
 
   app.use(`/api/v1/cursos`, cursos);
   app.use(`/api/v1/certificaciones`, cert);
@@ -15,5 +17,7 @@ module.exports = app => {
   app.use(`/api/v1/cuentaacceso`, cuentaacceso);
   app.use(`/api/v1/rol`, rol);
   app.use(`/api/v1/certcol`, certcol);
+  app.use(`/api/v1/paises`, paises);
+  app.use(`/api/v1/tipodocs`, tipodocs);
   
 };

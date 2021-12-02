@@ -1,28 +1,64 @@
 const {
     CertColaboradores,
-    Colaboradores
+    Colaboradores,
+    Sequelize,
+    Certificaciones,
+    Empresa
 } = require('../models');
+const Op = Sequelize.Op;
+const paging = require("./../utils/Paging.utils");
 
 exports.findAll = (req, res) => {
 
-    const id = req.query.id;
-    const idcert = req.query.idcert;
-    const idcol = req.query.idcert;
+    const {
+        page,
+        size,
+        idcer,
+        idcol,
+        idemp
+    } = req.query;
 
-    var condition = id ? {
-        id_ceco: {
-            [Op.like]: `%${id}%`
+    var condition = {};
+
+    if (idcer) {
+        condition.idcer_ceco = {
+            [Op.eq]: idcer
         }
-    } : null;
+    }
+    if (idcol) {
+        condition.idcol_ceco = {
+            [Op.eq]: idcol
+        }
+    }
+    if (idemp) {
+        condition.idemp_ceco = {
+            [Op.eq]: idemp
+        }
+    }
 
-    CertColaboradores.findAll({
-            include: [{
-                model: Colaboradores,
-            }],
-            where: condition
-        })
+    const {
+        limit,
+        offset
+    } = paging.getPagination(page, size);
+
+    CertColaboradores.findAndCountAll({
+        include: [{
+            model: Colaboradores
+        },
+        {
+            model: Certificaciones
+        },
+        {
+            model: Empresa
+        },
+        ],
+        where: condition,
+        limit,
+        offset
+    })
         .then(data => {
-            res.send(data);
+            const response = paging.getPagingData(data, page, limit);
+            res.send(response);
         })
         .catch(err => {
             res.status(500).send({
@@ -31,9 +67,29 @@ exports.findAll = (req, res) => {
         });
 };
 
+exports.findOne = (req, res) => {
+    const id = req.params.id;
+
+    CertColaboradores.findByPk(id)
+        .then(data => {
+            if (data) {
+                res.send(data);
+            } else {
+                res.status(404).send({
+                    message: `Cannot find certificados with id=${id}.`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving certificados with id=" + id
+            });
+        });
+};
+
 exports.create = (req, res) => {
 
-    if (!req.body.nombre) {
+    if (!req.body.idcer) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
@@ -67,26 +123,26 @@ exports.update = (req, res) => {
         estado_ceco: req.body.estado,
         descargado_ceco: req.body.descargado
     };
-
+    console.log(id)
     CertColaboradores.update(cercol, {
-            where: {
-                id_ceco: id
-            }
-        })
-        .then(num => {
+        where: {
+            id_ceco: id
+        }
+    })
+        .then(num => {          
             if (num == 1) {
                 res.send({
-                    message: "Tutorial was updated successfully."
+                    message: "Certificacion was updated successfully."
                 });
             } else {
                 res.send({
-                    message: `Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!`
+                    message: `Cannot update Certificacion with id=${id}. Maybe Certificacion was not found or req.body is empty!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Tutorial with id=" + id
+                message: "Error updating Tutorial with id=" + id + " error " + err
             });
         });
 };
@@ -95,10 +151,10 @@ exports.delete = (req, res) => {
     const id = req.params.id;
 
     CertColaboradores.destroy({
-            where: {
-                id_ceco: id
-            }
-        })
+        where: {
+            id_ceco: id
+        }
+    })
         .then(num => {
             if (num == 1) {
                 res.send({

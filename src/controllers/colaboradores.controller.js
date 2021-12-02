@@ -1,4 +1,4 @@
-const {Colaboradores,Sequelize} = require('../models');
+const { Colaboradores, Sequelize, Paises } = require('../models');
 const paging = require("./../utils/Paging.utils");
 const Op = Sequelize.Op;
 
@@ -6,7 +6,7 @@ exports.findAll = (req, res) => {
     const id = req.params.id;
     const {
         page,
-        size        
+        size
     } = req.query;
 
     var condition = id ? {
@@ -21,10 +21,13 @@ exports.findAll = (req, res) => {
     } = paging.getPagination(page, size);
 
     Colaboradores.findAndCountAll({
-            where: condition,
-            limit,
-            offset
-        })
+        include: [{
+            model: Paises
+        }],
+        where: condition,
+        limit,
+        offset
+    })
         .then(data => {
             const response = paging.getPagingData(data, page, limit);
             res.send(response);
@@ -54,7 +57,7 @@ exports.create = (req, res) => {
         correopersonal_col: req.body.correopersonal,
         telefono_col: req.body.telefono,
         direccion_col: req.body.direccion,
-        idemp_col: req.body.idempresa
+        idemp_col: req.body.idemp
     };
     Colaboradores.create(cola)
         .then(data => {
@@ -83,10 +86,10 @@ exports.update = (req, res) => {
 
     };
     Colaboradores.update(cola, {
-            where: {
-                id: id
-            }
-        })
+        where: {
+            id: id
+        }
+    })
         .then(num => {
             if (num == 1) {
                 res.send({
@@ -109,10 +112,10 @@ exports.delete = (req, res) => {
     const id = req.params.id;
 
     Colaboradores.destroy({
-            where: {
-                id: id
-            }
-        })
+        where: {
+            id: id
+        }
+    })
         .then(num => {
             if (num == 1) {
                 res.send({

@@ -1,7 +1,8 @@
 module.exports = (sequelize, type) => {
     return sequelize.define('certificaciones_colaboradores', {
         id_ceco: {
-            type: type.INTEGER,
+            type: type.UUID,           
+            defaultValue: sequelize.literal('UUID()'),
             primaryKey: true
         },
         idcer_ceco: {
@@ -11,7 +12,7 @@ module.exports = (sequelize, type) => {
             type: type.INTEGER
         },
         idemp_ceco: type.INTEGER,
-        estado_ceco: type.STRING,
-        descargado_ceco: type.INTEGER
+        estado_ceco: type.INTEGER,
+        descargado_ceco: type.INTEGER,
     });
 }

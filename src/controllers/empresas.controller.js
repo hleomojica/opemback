@@ -22,7 +22,6 @@ exports.findAll = (req, res) => {
         limit,
         offset
     } = paging.getPagination(page, size);
-    console.log(' limit ',limit,' offset ',offset)
     
     Empresa.findAndCountAll({
             where: condition,
