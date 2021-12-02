@@ -9,6 +9,7 @@ module.exports = (sequelize, type) => {
         horas_cer: type.INTEGER,
         idcur_cer: {
             type: type.INTEGER           
-        }
+        },
+        cohorte_cer: type.INTEGER
     });
 }

@@ -15,6 +15,11 @@ const sequelize = new Sequelize("opem", "root", "mojica123", {
     timestamps: false
   }
 });
+sequelize.sync({
+  force: false
+}).then(() => {
+  console.log('tablas sincronizadas')
+})
 
 const Cursos = cursosModel(sequelize, Sequelize);
 const Certificaciones = certificacionesModel(sequelize, Sequelize, Cursos);
@@ -24,11 +29,6 @@ const CuentaAcceso = cuentaaccesoModel(sequelize, Sequelize)
 const Roles = rolesModel(sequelize, Sequelize)
 const CertColaboradores = certColaboradoresModel(sequelize, Sequelize)
 
-sequelize.sync({
-  force: false
-}).then(() => {
-  console.log('tablas sincronizadas')
-})
 
 Certificaciones.belongsTo(Cursos, {
   foreignKey: "idcur_cer"

@@ -5,7 +5,8 @@ const certi = require("../controllers/certificaciones.controller");
 
 
 router.post("/", certi.create);
-router.get("/:id?", certi.findAll);
+router.get("/getByCurso/", certi.findAll);
+router.get("/:id?", certi.findAllPaging);
 router.put("/:id", certi.update);
 router.delete("/:id", certi.delete);
 

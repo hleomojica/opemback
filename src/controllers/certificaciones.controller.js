@@ -7,16 +7,47 @@ const Op = Sequelize.Op;
 const paging = require("./../utils/Paging.utils");
 
 exports.findAll = (req, res) => {
+    
+    const {
+        idcur
+    } = req.query;
+    var condition = {}
+    if (idcur) {
+        condition.idcur_cer = {
+            [Op.eq]: idcur
+        }
+    }
+    Certificaciones.findAll({
+            include: [{
+                model: Cursos,
+            }],
+            where: condition
+        })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving tutorials."
+            });
+        });
+};
+
+exports.findAllPaging = (req, res) => {
+
     const id = req.params.id;
     const {
         page,
         size
     } = req.query;
-    var condition = id ? {
-        id_cer: {
+
+    var condition = {}
+
+    if (id) {
+        condition.id_cer = {
             [Op.eq]: id
         }
-    } : null;
+    }
 
     const {
         limit,
@@ -24,13 +55,13 @@ exports.findAll = (req, res) => {
     } = paging.getPagination(page, size);
 
     Certificaciones.findAndCountAll({
-        include: [{
-            model: Cursos,
-        }],
-        where: condition,
-        limit,
-        offset
-    })
+            include: [{
+                model: Cursos,
+            }],
+            where: condition,
+            limit,
+            offset
+        })
         .then(data => {
             const response = paging.getPagingData(data, page, limit);
             res.send(response);
@@ -40,7 +71,8 @@ exports.findAll = (req, res) => {
                 message: err.message || "Some error occurred while retrieving tutorials."
             });
         });
-};
+
+}
 
 exports.create = (req, res) => {
 
@@ -77,10 +109,10 @@ exports.update = (req, res) => {
         idcur_cer: req.body.idcur,
     };
     Certificaciones.update(cert, {
-        where: {
-            id_cer: id
-        }
-    })
+            where: {
+                id_cer: id
+            }
+        })
         .then(num => {
             if (num == 1) {
                 res.send({
@@ -103,10 +135,10 @@ exports.delete = (req, res) => {
     const id = req.params.id;
 
     Certificaciones.destroy({
-        where: {
-            id_cer: id
-        }
-    })
+            where: {
+                id_cer: id
+            }
+        })
         .then(num => {
             if (num == 1) {
                 res.send({

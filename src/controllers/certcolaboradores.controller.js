@@ -10,19 +10,31 @@ const paging = require("./../utils/Paging.utils");
 
 exports.findAll = (req, res) => {
 
-    const id = req.query.id;
     const {
         page,
         size,
-        idcertm,
-        idcol
+        idcer,
+        idcol,
+        idemp
     } = req.query;
 
-    var condition = id ? {
-        id_ceco: {
-            [Op.eq]: id
+    var condition = {};
+
+    if (idcer) {
+        condition.idcer_ceco = {
+            [Op.eq]: idcer
         }
-    } : null;
+    }
+    if (idcol) {
+        condition.idcol_ceco = {
+            [Op.eq]: idcol
+        }
+    }
+    if (idemp) {
+        condition.idemp_ceco = {
+            [Op.eq]: idemp
+        }
+    }
 
     const {
         limit,
@@ -30,22 +42,47 @@ exports.findAll = (req, res) => {
     } = paging.getPagination(page, size);
 
     CertColaboradores.findAndCountAll({
-        include: [
-            { model: Colaboradores },
-            { model: Certificaciones },
-            { model: Empresa },
-        ],
-        where: condition,
-        limit,
-        offset
-    })
+            include: [{
+                    model: Colaboradores
+                },
+                {
+                    model: Certificaciones
+                },
+                {
+                    model: Empresa
+                },
+            ],
+            where: condition,
+            limit,
+            offset
+        })
         .then(data => {
             const response = paging.getPagingData(data, page, limit);
-            res.send(response);;
+            res.send(response);
         })
         .catch(err => {
             res.status(500).send({
                 message: err.message || "Some error occurred while retrieving Certificadores."
+            });
+        });
+};
+
+exports.findOne = (req, res) => {
+    const id = req.params.id;
+
+    CertColaboradores.findByPk(id)
+        .then(data => {
+            if (data) {
+                res.send(data);
+            } else {
+                res.status(404).send({
+                    message: `Cannot find certificados with id=${id}.`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving certificados with id=" + id
             });
         });
 };
@@ -88,10 +125,10 @@ exports.update = (req, res) => {
     };
 
     CertColaboradores.update(cercol, {
-        where: {
-            id_ceco: id
-        }
-    })
+            where: {
+                id_ceco: id
+            }
+        })
         .then(num => {
             if (num == 1) {
                 res.send({
@@ -114,10 +151,10 @@ exports.delete = (req, res) => {
     const id = req.params.id;
 
     CertColaboradores.destroy({
-        where: {
-            id_ceco: id
-        }
-    })
+            where: {
+                id_ceco: id
+            }
+        })
         .then(num => {
             if (num == 1) {
                 res.send({

@@ -12,6 +12,6 @@ module.exports = (sequelize, type) => {
         },
         idemp_ceco: type.INTEGER,
         estado_ceco: type.STRING,
-        descargado_ceco: type.INTEGER
+        descargado_ceco: type.INTEGER,        
     });
 }

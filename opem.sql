@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `certificaciones` (
   `fechafin_cer` date DEFAULT NULL,
   `horas_cer` int(11) DEFAULT NULL,
   `idcur_cer` int(11) DEFAULT NULL,
+  `cohorte_cer` int(16) DEFAULT NULL,
   PRIMARY KEY (`id_cer`),
   KEY `FK_certificaciones_cursos` (`idcur_cer`),
   CONSTRAINT `FK_certificaciones_cursos` FOREIGN KEY (`idcur_cer`) REFERENCES `cursos` (`id_cur`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -34,9 +35,9 @@ CREATE TABLE IF NOT EXISTS `certificaciones` (
 -- Volcando datos para la tabla opem.certificaciones: ~2 rows (aproximadamente)
 DELETE FROM `certificaciones`;
 /*!40000 ALTER TABLE `certificaciones` DISABLE KEYS */;
-INSERT INTO `certificaciones` (`id_cer`, `fechainicio_cer`, `fechafin_cer`, `horas_cer`, `idcur_cer`) VALUES
-	(1, '2021-04-12', '2021-11-01', 77, 1),
-	(13, '2021-12-01', '2021-12-03', 5, 3);
+INSERT INTO `certificaciones` (`id_cer`, `fechainicio_cer`, `fechafin_cer`, `horas_cer`, `idcur_cer`, `cohorte_cer`) VALUES
+	(1, '2021-04-12', '2021-11-01', 77, 1, 1),
+	(13, '2021-12-01', '2021-12-03', 5, 3, 2);
 /*!40000 ALTER TABLE `certificaciones` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.certificaciones_colaboradores
@@ -55,13 +56,14 @@ CREATE TABLE IF NOT EXISTS `certificaciones_colaboradores` (
   CONSTRAINT `FK_certificaciones_colaboradores_certificaciones` FOREIGN KEY (`idcer_ceco`) REFERENCES `certificaciones` (`id_cer`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_certificaciones_colaboradores_colaboradores` FOREIGN KEY (`idcol_ceco`) REFERENCES `colaboradores` (`id_col`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_certificaciones_colaboradores_empresas` FOREIGN KEY (`idemp_ceco`) REFERENCES `empresas` (`id_emp`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 -- Volcando datos para la tabla opem.certificaciones_colaboradores: ~1 rows (aproximadamente)
 DELETE FROM `certificaciones_colaboradores`;
 /*!40000 ALTER TABLE `certificaciones_colaboradores` DISABLE KEYS */;
 INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_ceco`, `idemp_ceco`, `estado_ceco`, `descargado_ceco`) VALUES
-	(1, 1, 1, 1, 0, 0);
+	(1, 1, 1, 1, 0, 0),
+	(2, 13, 2, 5, 0, 0);
 /*!40000 ALTER TABLE `certificaciones_colaboradores` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.colaboradores
@@ -200,7 +202,7 @@ DELETE FROM `empresas`;
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
 INSERT INTO `empresas` (`id_emp`, `nombre_emp`, `nit_emp`, `telefono_emp`, `correo_emp`, `direccion_emp`, `personacontacto_emp`) VALUES
 	(1, 'urv marin valencia', '800456123', '3175391309', 'malval@marval.com.co', 'calle 29 47-56', 'Deyson Delgado'),
-	(5, 'urv marin valencia', '800456123', '3175391309', 'malval@marval.com.co', 'calle 29 47-56', 'Deyson Delgado');
+	(5, 'opem', '7894561', '3152145211', 'opem@gmail.com', 'cr 29 36', 'Juan Jose Solano');
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.modulos
