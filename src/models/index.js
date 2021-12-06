@@ -33,13 +33,25 @@ const CertColaboradores = certColaboradoresModel(sequelize, Sequelize)
 const Paises = paisesModel(sequelize,Sequelize)
 const TipoDocumentos = tipodocumentosModel(sequelize,Sequelize)
 
+
+//----Relaciones----------------------
+//------------------------------------
+
+//--Certificaciones
 Certificaciones.belongsTo(Cursos, {
   foreignKey: "idcur_cer"
 })
+//--Colaboradores
 Colaboradores.belongsTo(Paises,{
   foreignKey:"paisdocumento_col"
 })
-
+Colaboradores.belongsTo(TipoDocumentos,{
+  foreignKey:"tipodocumento_col"
+})
+Colaboradores.belongsTo(Empresa,{
+  foreignKey:"idemp_col"
+})
+//---Certificaciones Colaboradores
 CertColaboradores.belongsTo(Colaboradores, {
   foreignKey: 'idcol_ceco'
 })
@@ -49,6 +61,7 @@ CertColaboradores.belongsTo(Certificaciones, {
 CertColaboradores.belongsTo(Empresa, {
   foreignKey: 'idemp_ceco'
 })
+//-----------------------------------
 
 module.exports = {
   Sequelize,

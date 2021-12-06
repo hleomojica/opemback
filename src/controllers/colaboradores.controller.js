@@ -1,8 +1,46 @@
-const { Colaboradores, Sequelize, Paises } = require('../models');
+const { Colaboradores, Sequelize, Paises, TipoDocumentos, Empresa } = require('../models');
 const paging = require("./../utils/Paging.utils");
 const Op = Sequelize.Op;
 
 exports.findAll = (req, res) => {
+    const id = req.params.id;
+    const {
+        idemp        
+    } = req.query;
+    
+    var condition = {}
+    if (id) {
+        condition.id_col = {
+            [Op.eq]: id
+        }
+    }
+ 
+    if (idemp) {
+        condition.idemp_col = {
+            [Op.eq]: idemp
+        }
+    }
+
+    Colaboradores.findAll({
+        include: [
+            { model: Paises },
+            { model: TipoDocumentos },
+            { model: Empresa }
+        ],
+        where: condition,
+
+    })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving tutorials."
+            });
+        });
+};
+
+exports.findAllPaging = (req, res) => {
     const id = req.params.id;
     const {
         page,
@@ -21,9 +59,11 @@ exports.findAll = (req, res) => {
     } = paging.getPagination(page, size);
 
     Colaboradores.findAndCountAll({
-        include: [{
-            model: Paises
-        }],
+        include: [
+            { model: Paises },
+            { model: TipoDocumentos },
+            { model: Empresa }
+        ],
         where: condition,
         limit,
         offset

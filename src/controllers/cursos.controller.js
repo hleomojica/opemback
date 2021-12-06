@@ -33,11 +33,13 @@ exports.create = (req, res) => {
         });
         return;
     }
-    const cursos = {
-        nombre: req.body.nombre,
-        descripcion: req.body.descripcion,
+  
+    const curso = {
+        nombre_cur: req.body.nombre,
+        descripcion_cur: req.body.descripcion,
     };
-    Cursos.create(cursos)
+ 
+    Cursos.create(curso)
         .then(data => {
             res.send(data);
         })
