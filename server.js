@@ -1,66 +1,42 @@
-const http = require('http');
+const dotenv = require('dotenv');
 const morgan = require('morgan');
 const express = require('express');
 var cors = require('cors')
 var bodyParser = require('body-parser')
 require("./src/models");
+dotenv.config();
 const HttpException = require('./src/utils/HttpException.utils');
+const errorMiddleware = require('./src/middleware/error.middleware');
 
-let httpServer;
+const port = Number(process.env.PORT || 3000);
+const app = express();
 
-function initialize() {
-  return new Promise((resolve, reject) => {
+app.use(morgan('combined'));
 
-    const app = express();
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:8080");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
-    app.use(morgan('combined'));
+app.use(bodyParser.urlencoded({
+  extended: false
+}))
+app.use(bodyParser.json())
 
-    app.use(function (req, res, next) {
-      res.header("Access-Control-Allow-Origin", "http://localhost:8080");
-      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-      next();
-    });
+app.use(cors())
 
-    app.use(bodyParser.urlencoded({
-      extended: false
-    }))
-    app.use(bodyParser.json())
+require("./src/routes")(app);
 
-    app.use(cors())
-    
-    require("./src/routes")(app);
-    
-    app.all('*', (req, res, next) => {
-      const err = new HttpException(404, 'Endpoint Not Found');
-      next(err);
-    });    
+// 404 error
+app.all('*', (req, res, next) => {
+  const err = new HttpException(404, 'Endpoint Not Found');
+  next(err);
+});
 
-    httpServer = http.createServer(app);
-    
-    httpServer.listen(3000, err => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      console.log(`Web server listening on localhost:3000`);
-      resolve();
-    });
+app.use(errorMiddleware);
 
-
-  });
-}
-
-module.exports.initialize = initialize;
-
-function close() {
-  return new Promise((resolve, reject) => {
-    httpServer.close((err) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve();
-    });
-  });
-}
-module.exports.close = close;
+// starting the server
+app.listen(port, () =>
+  console.log(`🚀 Server running on port ${port}!`)
+);

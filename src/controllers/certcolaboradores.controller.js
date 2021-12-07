@@ -3,8 +3,12 @@ const {
     Colaboradores,
     Sequelize,
     Certificaciones,
-    Empresa
+    Empresa,
+    Cursos
 } = require('../models');
+
+const HttpException = require('./../utils/HttpException.utils');
+
 const Op = Sequelize.Op;
 const paging = require("./../utils/Paging.utils");
 
@@ -42,15 +46,16 @@ exports.findAll = (req, res) => {
     } = paging.getPagination(page, size);
 
     CertColaboradores.findAndCountAll({
-        include: [{
-            model: Colaboradores
-        },
-        {
-            model: Certificaciones
-        },
-        {
-            model: Empresa
-        },
+        include: [
+            { model: Colaboradores },
+            {
+                model: Certificaciones,
+                include: [
+                    { model: Cursos }
+                ]
+
+            },
+            { model: Empresa },
         ],
         where: condition,
         limit,
@@ -87,7 +92,7 @@ exports.findOne = (req, res) => {
         });
 };
 
-exports.create = (req, res) => {
+exports.create = async (req, res, next) => {
 
     if (!req.body.idcer) {
         res.status(400).send({
@@ -107,9 +112,7 @@ exports.create = (req, res) => {
             res.send(data);
         })
         .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while creating the Tutorial."
-            });
+            next(err)
         });
 };
 
@@ -129,7 +132,7 @@ exports.update = (req, res) => {
             id_ceco: id
         }
     })
-        .then(num => {          
+        .then(num => {
             if (num == 1) {
                 res.send({
                     message: "Certificacion was updated successfully."

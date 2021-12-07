@@ -19,5 +19,5 @@ module.exports = app => {
   app.use(`/api/v1/certcol`, certcol);
   app.use(`/api/v1/paises`, paises);
   app.use(`/api/v1/tipodocs`, tipodocs);
-  
+
 };
