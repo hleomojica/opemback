@@ -5,16 +5,16 @@ const Op = Sequelize.Op;
 exports.findAll = (req, res) => {
     const id = req.params.id;
     const {
-        idemp        
+        idemp
     } = req.query;
-    
+
     var condition = {}
     if (id) {
         condition.id_col = {
             [Op.eq]: id
         }
     }
- 
+
     if (idemp) {
         condition.idemp_col = {
             [Op.eq]: idemp
@@ -40,19 +40,26 @@ exports.findAll = (req, res) => {
         });
 };
 
-exports.findAllPaging = (req, res) => {
+exports.findAllPaging = (req, res, next) => {
     const id = req.params.id;
     const {
         page,
-        size
+        size,
+        nombre
     } = req.query;
 
-    var condition = id ? {
-        id_col: {
+    var condition = {};
+
+    if (id) {
+        condition.id_col = {
             [Op.eq]: id
         }
-    } : null;
-
+    }
+    if (nombre) {
+        condition.nombre_col = {
+            [Op.like]: `%${nombre}%`
+        }
+    }
     const {
         limit,
         offset
@@ -73,9 +80,7 @@ exports.findAllPaging = (req, res) => {
             res.send(response);
         })
         .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving tutorials."
-            });
+            next(err)
         });
 };
 
