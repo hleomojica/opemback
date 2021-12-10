@@ -9,6 +9,7 @@ module.exports = app => {
   const certcol = require('./certcolaboradores.routes')
   const paises = require('./paises.routes')
   const tipodocs = require('./tipodocumentos.routes')
+  const modulos = require('./modulos.routes')
 
   app.use(`/api/v1/cursos`, cursos);
   app.use(`/api/v1/certificaciones`, cert);
@@ -19,5 +20,6 @@ module.exports = app => {
   app.use(`/api/v1/certcol`, certcol);
   app.use(`/api/v1/paises`, paises);
   app.use(`/api/v1/tipodocs`, tipodocs);
+  app.use(`/api/v1/modulos`, modulos);
 
 };

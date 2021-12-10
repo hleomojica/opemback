@@ -9,6 +9,8 @@ const rolesModel = require("./roles.model")
 const certColaboradoresModel = require("./certcolaboradores.model")
 const paisesModel = require("./paises.model")
 const tipodocumentosModel = require("./tipodocumentos.model")
+const modulosModel = require("./modulos.model")
+const permisosrolesModel = require("./permisosroles.model")
 
 const sequelize = new Sequelize("opem", "root", "mojica123", {
   host: "127.0.0.1",
@@ -32,11 +34,20 @@ const Roles = rolesModel(sequelize, Sequelize)
 const CertColaboradores = certColaboradoresModel(sequelize, Sequelize)
 const Paises = paisesModel(sequelize,Sequelize)
 const TipoDocumentos = tipodocumentosModel(sequelize,Sequelize)
+const Modulos = modulosModel(sequelize,Sequelize)
+const PermisosRoles = permisosrolesModel(sequelize,Sequelize)
 
 
 //----Relaciones----------------------
 //------------------------------------
 
+//--Permisos roles
+PermisosRoles.belongsTo(Roles,{
+  foreignKey:"idrol_prol"
+})
+PermisosRoles.belongsTo(Modulos,{
+  foreignKey:"idmodulo_prol"
+})
 //--Certificaciones
 Certificaciones.belongsTo(Cursos, {
   foreignKey: "idcur_cer"
@@ -74,5 +85,7 @@ module.exports = {
   Roles,
   CertColaboradores,
   Paises,
-  TipoDocumentos
+  TipoDocumentos,
+  Modulos,
+  PermisosRoles
 }

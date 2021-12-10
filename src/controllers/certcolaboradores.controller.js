@@ -7,8 +7,6 @@ const {
     Cursos
 } = require('../models');
 
-const HttpException = require('./../utils/HttpException.utils');
-
 const Op = Sequelize.Op;
 const paging = require("./../utils/Paging.utils");
 
