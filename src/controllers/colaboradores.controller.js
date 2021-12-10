@@ -1,29 +1,76 @@
-const { Colaboradores, Sequelize, Paises } = require('../models');
+const { Colaboradores, Sequelize, Paises, TipoDocumentos, Empresa } = require('../models');
 const paging = require("./../utils/Paging.utils");
 const Op = Sequelize.Op;
 
 exports.findAll = (req, res) => {
     const id = req.params.id;
     const {
-        page,
-        size
+        idemp
     } = req.query;
 
-    var condition = id ? {
-        id_col: {
+    var condition = {}
+    if (id) {
+        condition.id_col = {
             [Op.eq]: id
         }
-    } : null;
+    }
 
+    if (idemp) {
+        condition.idemp_col = {
+            [Op.eq]: idemp
+        }
+    }
+
+    Colaboradores.findAll({
+        include: [
+            { model: Paises },
+            { model: TipoDocumentos },
+            { model: Empresa }
+        ],
+        where: condition,
+
+    })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some error occurred while retrieving tutorials."
+            });
+        });
+};
+
+exports.findAllPaging = (req, res, next) => {
+    const id = req.params.id;
+    const {
+        page,
+        size,
+        nombre
+    } = req.query;
+
+    var condition = {};
+
+    if (id) {
+        condition.id_col = {
+            [Op.eq]: id
+        }
+    }
+    if (nombre) {
+        condition.nombre_col = {
+            [Op.like]: `%${nombre}%`
+        }
+    }
     const {
         limit,
         offset
     } = paging.getPagination(page, size);
 
     Colaboradores.findAndCountAll({
-        include: [{
-            model: Paises
-        }],
+        include: [
+            { model: Paises },
+            { model: TipoDocumentos },
+            { model: Empresa }
+        ],
         where: condition,
         limit,
         offset
@@ -33,9 +80,7 @@ exports.findAll = (req, res) => {
             res.send(response);
         })
         .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving tutorials."
-            });
+            next(err)
         });
 };
 

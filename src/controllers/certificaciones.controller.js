@@ -12,6 +12,7 @@ exports.findAll = (req, res) => {
         idcur
     } = req.query;
     var condition = {}
+    
     if (idcur) {
         condition.idcur_cer = {
             [Op.eq]: idcur

@@ -2,8 +2,10 @@
   "name": "opemback",
   "version": "1.0.0",
   "description": "Backend opem",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon",
     "test": "vamos"
   },
   "repository": {
