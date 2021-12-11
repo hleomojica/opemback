@@ -23,7 +23,7 @@ exports.findAll = (req, res) => {
 
 exports.create = async (req, res, next) => {
 
-    if (!req.body.idcer) {
+    if (!req.body.nombre) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
@@ -32,7 +32,7 @@ exports.create = async (req, res, next) => {
     const rols = {
         nombre_rol: req.body.nombre,
         descripcion_rol: req.body.descripcion,
-    };
+    };    
     Roles.create(rols)
         .then(data => {
             res.send(data);

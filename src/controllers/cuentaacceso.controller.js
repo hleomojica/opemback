@@ -1,11 +1,8 @@
 
-const { QueryTypes } = require('sequelize');
-const { CuentaAcceso, sequelize } = require('../models');
-
+const CuentaAcceso  = require('./../db/cuentaacceso');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require('dotenv').config()
-
 const tkn = process.env.JWT_TOKEN_SECRET
 
 exports.findAll = (req, res) => {
@@ -28,6 +25,25 @@ exports.findAll = (req, res) => {
             });
         });
 }
+
+exports.findOne = (req, res, next) => {
+    const id = req.params.id;
+
+    CuentaAcceso.findByPk(id)
+        .then(data => {
+            if (data) {
+                res.send(data);
+            } else {
+                res.status(404).send({
+                    message: `Cannot find certificados with id=${id}.`
+                });
+            }
+        })
+        .catch(err => {
+            next(err)
+        });
+};
+
 exports.create = async (req, res) => {
     if (!req.body.username_cue) {
         res.status(400).send({
@@ -62,21 +78,7 @@ exports.create = async (req, res) => {
         });
 
 }
-/*
-async function update(req, res, next) {
-    const data = req.body
-    const salt = await bcrypt.genSalt(Number(process.env.SALT));
-    const passcryp = await bcrypt.hash(data.password, salt);
 
-    try {
-        const result = await db.pool.query("update cuentaacceso set password_cue = ?, idroles_cue= ? where id_cue = ?)", [passcryp, data.idrol, data.id]);
-        res.status(200).json(result);
-    } catch (err) {
-        next(err);
-    }
-}
-module.exports.update = update;
-*/
 exports.auth = async (req, res, next) => {
     const context = req.body;
 
@@ -87,27 +89,24 @@ exports.auth = async (req, res, next) => {
         return;
     }
     try {
-        const user = await sequelize.query(`select username_cue,password_cue,idroles_cue,correopersonal_col,nombres_col,id_col,apellidos_col from cuentaaccesos cas INNER JOIN colaboradores cola ON cas.idcolaborador_cue = cola.id_col  WHERE username_cue = :username`,
-            {
-                replacements: { username: context.username },
-                type: QueryTypes.SELECT
-            });
+        const user = await CuentaAcceso.auth(context)
+        
         if (!user) return res.status(401).send("Usuario o contraseña incorrecto");
 
         const validPassword = await bcrypt.compare(
             req.body.password,
             user[0].password_cue
-        );
+        );        
         delete user[0].password_cue
         if (!validPassword)
             return res.status(401).send("Invalid email or password");
 
         const token = jwt.sign({
+            user_id: user[0].id_cue.toString(),
             username: user[0].username_cue
         }, tkn, {
-            expiresIn: '24h'
-        });
-
+            expiresIn: '1m'
+        });        
         res.send({
             accesToken: token,
             dataUser: user[0]

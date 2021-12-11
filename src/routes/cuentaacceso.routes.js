@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+const auth = require('./../middleware/auth');
 const cuentaacce = require("../controllers/cuentaacceso.controller");
 
 router.post("/", cuentaacce.create);
