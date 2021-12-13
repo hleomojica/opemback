@@ -4,7 +4,9 @@ module.exports = (sequelize, type) => {
             type: type.INTEGER,
             primaryKey: true
         },
-        idrol_prol:type.INTEGER,
+        idrol_prol:{
+            type: type.INTEGER    
+        },
         idmodulo_prol:type.INTEGER,
         ver_prol:type.INTEGER,
         crear_prol:type.INTEGER,
@@ -12,3 +14,5 @@ module.exports = (sequelize, type) => {
         eliminar_prol: type.INTEGER    
     });
 }
+
+

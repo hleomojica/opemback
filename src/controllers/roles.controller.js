@@ -1,4 +1,4 @@
-const { Roles } = require('../models');
+const { Roles, Modulos } = require('../models');
 
 exports.findAll = (req, res) => {
     const id = req.query.id;
@@ -8,7 +8,7 @@ exports.findAll = (req, res) => {
         }
     } : null;
 
-    Roles.findAll({
+    Roles.findAll({        
         where: condition
     })
         .then(data => {
@@ -32,7 +32,7 @@ exports.create = async (req, res, next) => {
     const rols = {
         nombre_rol: req.body.nombre,
         descripcion_rol: req.body.descripcion,
-    };    
+    };
     Roles.create(rols)
         .then(data => {
             res.send(data);

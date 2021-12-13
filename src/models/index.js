@@ -32,35 +32,28 @@ const Colaboradores = colaboradoresModel(sequelize, Sequelize)
 const CuentaAcceso = cuentaaccesoModel(sequelize, Sequelize)
 const Roles = rolesModel(sequelize, Sequelize)
 const CertColaboradores = certColaboradoresModel(sequelize, Sequelize)
-const Paises = paisesModel(sequelize,Sequelize)
-const TipoDocumentos = tipodocumentosModel(sequelize,Sequelize)
-const Modulos = modulosModel(sequelize,Sequelize)
-const PermisosRoles = permisosrolesModel(sequelize,Sequelize)
+const Paises = paisesModel(sequelize, Sequelize)
+const TipoDocumentos = tipodocumentosModel(sequelize, Sequelize)
+const Modulos = modulosModel(sequelize, Sequelize)
+const PermisosRoles = permisosrolesModel(sequelize, Sequelize)
 
 
 //----Relaciones----------------------
 //------------------------------------
 
-//--Permisos roles
-PermisosRoles.belongsTo(Roles,{
-  foreignKey:"idrol_prol"
-})
-PermisosRoles.belongsTo(Modulos,{
-  foreignKey:"idmodulo_prol"
-})
 //--Certificaciones
 Certificaciones.belongsTo(Cursos, {
   foreignKey: "idcur_cer"
 })
 //--Colaboradores
-Colaboradores.belongsTo(Paises,{
-  foreignKey:"paisdocumento_col"
+Colaboradores.belongsTo(Paises, {
+  foreignKey: "paisdocumento_col"
 })
-Colaboradores.belongsTo(TipoDocumentos,{
-  foreignKey:"tipodocumento_col"
+Colaboradores.belongsTo(TipoDocumentos, {
+  foreignKey: "tipodocumento_col"
 })
-Colaboradores.belongsTo(Empresa,{
-  foreignKey:"idemp_col"
+Colaboradores.belongsTo(Empresa, {
+  foreignKey: "idemp_col"
 })
 //---Certificaciones Colaboradores
 CertColaboradores.belongsTo(Colaboradores, {
@@ -72,6 +65,20 @@ CertColaboradores.belongsTo(Certificaciones, {
 CertColaboradores.belongsTo(Empresa, {
   foreignKey: 'idemp_ceco'
 })
+//--Permisos Roles
+PermisosRoles.belongsTo(Roles, {
+  foreignKey: 'idrol_prol'
+})
+PermisosRoles.belongsTo(Modulos, {
+  foreignKey: 'idmodulo_prol'
+})
+//-- Modulos
+Modulos.belongsToMany(Roles, {
+  foreignKey: 'idmodulo_prol',
+  through: 'PermisosRoles',
+  otherKey: 'idrol_prol'
+})
+
 //-----------------------------------
 
 module.exports = {

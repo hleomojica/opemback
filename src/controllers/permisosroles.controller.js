@@ -1,5 +1,5 @@
 const {
-    PermisosRoles, Roles, Modulos
+    PermisosRoles, Roles, Modulos, Sequelize
 } = require('../models');
 
 const Op = Sequelize.Op;
@@ -19,6 +19,7 @@ exports.findAll = (req, res, next) => {
     }
 
     PermisosRoles.findAll({
+
         include: [
             { model: Roles },
             { model: Modulos }

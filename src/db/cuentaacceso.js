@@ -7,7 +7,6 @@ const {
 } = require('../models');
 
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
 require('dotenv').config()
 
 const tkn = process.env.JWT_TOKEN_SECRET
@@ -64,13 +63,7 @@ exports.create = async (params) => {
 
 }
 
-exports.auth = async (params) => {
-    if (!params.username || !params.password) {
-        res.status(400).send({
-            message: "Content can not be empty!"
-        });
-        return;
-    }
+exports.auth = async (params) => {    
     try {
         const user = await sequelize.query(`select id_cue, username_cue,password_cue,idroles_cue,correopersonal_col,nombres_col,id_col,apellidos_col from cuentaaccesos cas INNER JOIN colaboradores cola ON cas.idcolaborador_cue = cola.id_col  WHERE username_cue = :username`, {
             replacements: {

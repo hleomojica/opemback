@@ -1,14 +1,28 @@
-const { Modulos } = require('../models');
+const { Modulos, Sequelize, Roles, } = require('../models');
+const Op = Sequelize.Op;
 
 exports.findAll = (req, res) => {
     const id = req.query.id;
-    var condition = id ? {
-        id: {
-            [Op.like]: `%${id}%`
-        }
-    } : null;
+    const {
+        idrol        
+    } = req.query;
 
+    var conditionrol = {};
+    var condition = {};
+
+    if (idrol) {
+        conditionrol.id_rol = {
+            [Op.eq]: idrol
+        }
+    }
     Modulos.findAll({
+        include: [
+            {
+                model: Roles,
+                where: conditionrol,
+                required: false
+            }
+        ],
         where: condition
     })
         .then(data => {
