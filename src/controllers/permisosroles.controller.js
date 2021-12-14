@@ -62,14 +62,15 @@ exports.create = async (req, res, next) => {
         });
         return;
     }
-    const cercol = {
-        idcer_ceco: req.body.idcer,
-        idcol_ceco: req.body.idcol,
-        idemp_ceco: req.body.idemp,
-        estado_ceco: req.body.estado,
-        descargado_ceco: req.body.descargado
+    const perol = {
+        idrol_prol: req.body.idcer,
+        idmodulo_prol: req.body.idcol,
+        ver_prol: req.body.idemp,
+        crear_prol: req.body.estado,
+        editar_prol: req.body.descargado,
+        eliminar_prol: req.body.descargado
     };
-    PermisosRoles.create(cercol)
+    PermisosRoles.create(perol)
         .then(data => {
             res.send(data);
         })
@@ -81,17 +82,18 @@ exports.create = async (req, res, next) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    const cercol = {
-        idcer_ceco: req.body.idcer,
-        idcol_ceco: req.body.idcol,
-        idemp_ceco: req.body.idemp,
-        estado_ceco: req.body.estado,
-        descargado_ceco: req.body.descargado
+    const perol = {
+        idrol_prol: req.body.idcer,
+        idmodulo_prol: req.body.idcol,
+        ver_prol: req.body.idemp,
+        crear_prol: req.body.estado,
+        editar_prol: req.body.descargado,
+        eliminar_prol: req.body.descargado
     };
-    console.log(id)
-    PermisosRoles.update(cercol, {
+
+    PermisosRoles.update(perol, {
         where: {
-            id_ceco: id
+            id_prol: id
         }
     })
         .then(num => {

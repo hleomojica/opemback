@@ -1,5 +1,5 @@
 const Sequelize = require("sequelize");
-
+const conf = require('./config')
 const cuentaaccesoModel = require("./cuentaacceso.model")
 const cursosModel = require("./cursos.model.js")
 const certificacionesModel = require("./certificaciones.model")
@@ -12,13 +12,8 @@ const tipodocumentosModel = require("./tipodocumentos.model")
 const modulosModel = require("./modulos.model")
 const permisosrolesModel = require("./permisosroles.model")
 
-const sequelize = new Sequelize("opem", "root", "mojica123", {
-  host: "127.0.0.1",
-  dialect: "mariadb",
-  define: {
-    timestamps: false
-  }
-});
+const sequelize = conf(Sequelize)
+
 sequelize.sync({
   force: false
 }).then(() => {
@@ -36,7 +31,6 @@ const Paises = paisesModel(sequelize, Sequelize)
 const TipoDocumentos = tipodocumentosModel(sequelize, Sequelize)
 const Modulos = modulosModel(sequelize, Sequelize)
 const PermisosRoles = permisosrolesModel(sequelize, Sequelize)
-
 
 //----Relaciones----------------------
 //------------------------------------
@@ -69,14 +63,20 @@ CertColaboradores.belongsTo(Empresa, {
 PermisosRoles.belongsTo(Roles, {
   foreignKey: 'idrol_prol'
 })
-PermisosRoles.belongsTo(Modulos, {
-  foreignKey: 'idmodulo_prol'
-})
+// PermisosRoles.hasMany(Modulos, {
+//   foreignKey: 'idmodulo_prol'
+// })
 //-- Modulos
 Modulos.belongsToMany(Roles, {
   foreignKey: 'idmodulo_prol',
-  through: 'PermisosRoles',
+  through: PermisosRoles,
   otherKey: 'idrol_prol'
+})
+
+Roles.belongsToMany(Modulos, {
+  foreignKey: 'idrol_prol',
+  through: PermisosRoles,
+  otherKey: 'idmodulo_prol'
 })
 
 //-----------------------------------

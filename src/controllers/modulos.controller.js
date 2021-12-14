@@ -1,10 +1,10 @@
-const { Modulos, Sequelize, Roles, } = require('../models');
+const { Modulos, Sequelize, Roles, PermisosRoles, } = require('../models');
 const Op = Sequelize.Op;
 
 exports.findAll = (req, res) => {
     const id = req.query.id;
     const {
-        idrol        
+        idrol
     } = req.query;
 
     var conditionrol = {};
@@ -20,8 +20,8 @@ exports.findAll = (req, res) => {
             {
                 model: Roles,
                 where: conditionrol,
-                required: false
-            }
+                required: false                
+            },           
         ],
         where: condition
     })

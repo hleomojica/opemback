@@ -1,5 +1,5 @@
 
-const CuentaAcceso  = require('./../db/cuentaacceso');
+const CuentaAcceso = require('./../db/cuentaacceso');
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 require('dotenv').config()
@@ -44,37 +44,25 @@ exports.findOne = (req, res, next) => {
         });
 };
 
-exports.create = async (req, res) => {
-    if (!req.body.username_cue) {
+exports.create = async (req, res, next) => {
+    if (!req.body.username) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
         return;
     }
-    if (!req.body.password_cue) {
+    if (!req.body.password) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
         return;
     }
-
-    const salt = await bcrypt.genSalt(Number(process.env.SALT));
-    const passcryp = await bcrypt.hash(req.body.password_cue, salt);
-
-    const cursos = {
-        username_cue: req.body.username_cue,
-        password_cue: passcryp,
-        idcolaborador_cue: req.body.idcolaborador_cue,
-        idroles_cue: req.body.idroles_cue,
-    };
-    CuentaAcceso.create(cursos)
+    CuentaAcceso.create(req.body)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while creating the Tutorial."
-            });
+            next(err)            
         });
 
 }
@@ -90,13 +78,13 @@ exports.auth = async (req, res, next) => {
     }
     try {
         const user = await CuentaAcceso.auth(context)
-        
+
         if (!user) return res.status(401).send("Usuario o contraseña incorrecto");
 
         const validPassword = await bcrypt.compare(
             req.body.password,
             user[0].password_cue
-        );        
+        );
         delete user[0].password_cue
         if (!validPassword)
             return res.status(401).send("Invalid email or password");
@@ -106,7 +94,7 @@ exports.auth = async (req, res, next) => {
             username: user[0].username_cue
         }, tkn, {
             expiresIn: '24h'
-        });        
+        });
         res.send({
             accesToken: token,
             dataUser: user[0]

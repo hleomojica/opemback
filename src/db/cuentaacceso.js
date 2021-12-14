@@ -20,8 +20,8 @@ exports.findAll = (params) => {
     } : null;
 
     CuentaAcceso.findAll({
-            where: condition
-        })
+        where: condition
+    })
         .then(data => {
             res.send(data);
         })
@@ -44,26 +44,19 @@ exports.findOne = async (params) => {
 
 exports.create = async (params) => {
 
-    const salt = await bcrypt.genSalt(Number(process.env.SALT));
-    const passcryp = await bcrypt.hash(params.password_cue, salt);
+    const salt = await bcrypt.genSalt(Number(process.env.SALT));    
+    const passcryp = await bcrypt.hash(params.password, salt);
 
-    const cursos = {
-        username_cue: params.username_cue,
+    const cuentas = {
+        username_cue: params.username,
         password_cue: passcryp,
-        idcolaborador_cue: params.idcolaborador_cue,
-        idroles_cue: params.idroles_cue,
+        idcolaborador_cue: params.idcolaborador,
+        idroles_cue: params.idroles,
     };
-    CuentaAcceso.create(cursos)
-        .then(data => {
-            return data;
-        })
-        .catch(err => {
-            return err
-        });
-
+    return await CuentaAcceso.create(cuentas)
 }
 
-exports.auth = async (params) => {    
+exports.auth = async (params) => {
     try {
         const user = await sequelize.query(`select id_cue, username_cue,password_cue,idroles_cue,correopersonal_col,nombres_col,id_col,apellidos_col from cuentaaccesos cas INNER JOIN colaboradores cola ON cas.idcolaborador_cue = cola.id_col  WHERE username_cue = :username`, {
             replacements: {
