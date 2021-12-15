@@ -5,7 +5,7 @@ const cuentaacce = require("../controllers/cuentaacceso.controller");
 const awaitHandlerFactory = require('./../middleware/awaitHandlerFactory.middleware');
 
 router.post("/", awaitHandlerFactory(cuentaacce.create));
-router.get("/", cuentaacce.findAll);
+router.get("/", awaitHandlerFactory(cuentaacce.findAll));
 //router.put("/:id", cuentaacce.update);
 //router.delete("/:id", cuentaacce.delete);
 router.post("/auth", cuentaacce.auth);

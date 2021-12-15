@@ -3,33 +3,40 @@ const {
 } = require('sequelize');
 const {
     CuentaAcceso,
-    sequelize
+    sequelize,
+    Sequelize,
+    Colaboradores
 } = require('../models');
-
+const Op = Sequelize.Op;
 const bcrypt = require("bcrypt");
-require('dotenv').config()
 
-const tkn = process.env.JWT_TOKEN_SECRET
 
-exports.findAll = (params) => {
-    const username = params.username;
-    var condition = username ? {
-        username_cue: {
-            [Op.like]: `%${username}%`
+exports.findAll = async (params) => {
+
+    var condition = {};
+
+    const {
+        idcol,
+        username
+    } = params;
+
+    if (idcol) {
+        condition.idcolaborador_cue = {
+            [Op.eq]: idcol
         }
-    } : null;
-
-    CuentaAcceso.findAll({
+    }
+    if (username) {
+        condition.username_cue = {
+            [Op.eq]: username
+        }
+    }
+    return await CuentaAcceso.findAll({
+        attributes: ['id_cue', 'idcolaborador_cue', 'username_cue', 'idroles_cue'],
+        include: [
+            { model: Colaboradores }
+        ],
         where: condition
     })
-        .then(data => {
-            res.send(data);
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving cuenta acceso."
-            });
-        });
 }
 
 exports.findOne = async (params) => {
@@ -44,7 +51,7 @@ exports.findOne = async (params) => {
 
 exports.create = async (params) => {
 
-    const salt = await bcrypt.genSalt(Number(process.env.SALT));    
+    const salt = await bcrypt.genSalt(Number(process.env.SALT));
     const passcryp = await bcrypt.hash(params.password, salt);
 
     const cuentas = {
@@ -55,6 +62,21 @@ exports.create = async (params) => {
     };
     return await CuentaAcceso.create(cuentas)
 }
+
+exports.update = async (params, id) => {
+
+    const cas = {
+        username_cue: params.username,
+        password_cue: passcryp,
+        idcolaborador_cue: params.idcolaborador,
+        idroles_cue: params.idroles,
+    };
+    return await CuentaAcceso.update(cas, {
+        where: {
+            id_cue: id
+        }
+    })
+};
 
 exports.auth = async (params) => {
     try {

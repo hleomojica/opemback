@@ -49,6 +49,9 @@ Colaboradores.belongsTo(TipoDocumentos, {
 Colaboradores.belongsTo(Empresa, {
   foreignKey: "idemp_col"
 })
+Colaboradores.hasOne(CuentaAcceso, {
+  foreignKey: 'idcolaborador_cue'
+})
 //---Certificaciones Colaboradores
 CertColaboradores.belongsTo(Colaboradores, {
   foreignKey: 'idcol_ceco'
@@ -78,7 +81,10 @@ Roles.belongsToMany(Modulos, {
   through: PermisosRoles,
   otherKey: 'idmodulo_prol'
 })
-
+//--cuenta acceso
+CuentaAcceso.belongsTo(Colaboradores, {
+  foreignKey: 'idcolaborador_cue'
+})
 //-----------------------------------
 
 module.exports = {

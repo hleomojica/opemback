@@ -5,24 +5,13 @@ const jwt = require("jsonwebtoken");
 require('dotenv').config()
 const tkn = process.env.JWT_TOKEN_SECRET
 
-exports.findAll = (req, res) => {
-    const username = req.query.title;
-    var condition = title ? {
-        username: {
-            [Op.like]: `%${username}%`
-        }
-    } : null;
-
-    CuentaAcceso.findAll({
-        where: condition
-    })
+exports.findAll = async (req, res, next) => {
+    CuentaAcceso.findAll(req.query)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving cuenta acceso."
-            });
+            next(err)
         });
 }
 
@@ -62,9 +51,19 @@ exports.create = async (req, res, next) => {
             res.send(data);
         })
         .catch(err => {
-            next(err)            
+            next(err)
         });
+}
 
+exports.update = async (req, res, next) => {
+    const id = req.params.id;
+    CuentaAcceso.update(req.body, id)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            next(err)
+        });
 }
 
 exports.auth = async (req, res, next) => {
