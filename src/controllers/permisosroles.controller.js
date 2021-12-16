@@ -1,67 +1,33 @@
 const {
-    CertColaboradores,
-    Colaboradores,
-    Sequelize,
-    Certificaciones,
-    Empresa,
-    Cursos
+    PermisosRoles, Roles, Modulos, Sequelize
 } = require('../models');
 
 const Op = Sequelize.Op;
-const paging = require("./../utils/Paging.utils");
 
-exports.findAll = (req, res) => {
+exports.findAll = (req, res, next) => {
 
     const {
-        page,
-        size,
-        idcer,
-        idcol,
-        idemp
+        idrol
     } = req.query;
 
     var condition = {};
 
-    if (idcer) {
-        condition.idcer_ceco = {
-            [Op.eq]: idcer
-        }
-    }
-    if (idcol) {
-        condition.idcol_ceco = {
-            [Op.eq]: idcol
-        }
-    }
-    if (idemp) {
-        condition.idemp_ceco = {
-            [Op.eq]: idemp
+    if (idrol) {
+        condition.idrol_prol = {
+            [Op.eq]: idrol
         }
     }
 
-    const {
-        limit,
-        offset
-    } = paging.getPagination(page, size);
+    PermisosRoles.findAll({
 
-    CertColaboradores.findAndCountAll({
         include: [
-            { model: Colaboradores },
-            {
-                model: Certificaciones,
-                include: [
-                    { model: Cursos }
-                ]
-
-            },
-            { model: Empresa },
+            { model: Roles },
+            { model: Modulos }
         ],
         where: condition,
-        limit,
-        offset
     })
         .then(data => {
-            const response = paging.getPagingData(data, page, limit);
-            res.send(response);
+            res.send(data);
         })
         .catch(err => {
             next(err)
@@ -71,7 +37,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
     const id = req.params.id;
 
-    CertColaboradores.findByPk(id)
+    PermisosRoles.findByPk(id)
         .then(data => {
             if (data) {
                 res.send(data);
@@ -96,14 +62,15 @@ exports.create = async (req, res, next) => {
         });
         return;
     }
-    const cercol = {
-        idcer_ceco: req.body.idcer,
-        idcol_ceco: req.body.idcol,
-        idemp_ceco: req.body.idemp,
-        estado_ceco: req.body.estado,
-        descargado_ceco: req.body.descargado
+    const perol = {
+        idrol_prol: req.body.idcer,
+        idmodulo_prol: req.body.idcol,
+        ver_prol: req.body.idemp,
+        crear_prol: req.body.estado,
+        editar_prol: req.body.descargado,
+        eliminar_prol: req.body.descargado
     };
-    CertColaboradores.create(cercol)
+    PermisosRoles.create(perol)
         .then(data => {
             res.send(data);
         })
@@ -115,17 +82,18 @@ exports.create = async (req, res, next) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    const cercol = {
-        idcer_ceco: req.body.idcer,
-        idcol_ceco: req.body.idcol,
-        idemp_ceco: req.body.idemp,
-        estado_ceco: req.body.estado,
-        descargado_ceco: req.body.descargado
+    const perol = {
+        idrol_prol: req.body.idcer,
+        idmodulo_prol: req.body.idcol,
+        ver_prol: req.body.idemp,
+        crear_prol: req.body.estado,
+        editar_prol: req.body.descargado,
+        eliminar_prol: req.body.descargado
     };
-    console.log(id)
-    CertColaboradores.update(cercol, {
+
+    PermisosRoles.update(perol, {
         where: {
-            id_ceco: id
+            id_prol: id
         }
     })
         .then(num => {
@@ -149,7 +117,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
     const id = req.params.id;
 
-    CertColaboradores.destroy({
+    PermisosRoles.destroy({
         where: {
             id_ceco: id
         }

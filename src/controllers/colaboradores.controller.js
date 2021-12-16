@@ -1,4 +1,4 @@
-const { Colaboradores, Sequelize, Paises, TipoDocumentos, Empresa } = require('../models');
+const { Colaboradores, Sequelize, Paises, TipoDocumentos, Empresa, CuentaAcceso } = require('../models');
 const paging = require("./../utils/Paging.utils");
 const Op = Sequelize.Op;
 
@@ -69,7 +69,11 @@ exports.findAllPaging = (req, res, next) => {
         include: [
             { model: Paises },
             { model: TipoDocumentos },
-            { model: Empresa }
+            { model: Empresa },
+            {
+                model: CuentaAcceso,
+                attributes: ['id_cue', 'idcolaborador_cue', 'username_cue', 'idroles_cue'],
+            }
         ],
         where: condition,
         limit,
