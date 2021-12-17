@@ -2,7 +2,7 @@ const { Colaboradores, Sequelize, Paises, TipoDocumentos, Empresa, CuentaAcceso 
 const paging = require("./../utils/Paging.utils");
 const Op = Sequelize.Op;
 
-exports.findAll = (req, res) => {
+exports.findAll = (req, res, next) => {
     const id = req.params.id;
     const {
         idemp
@@ -34,9 +34,7 @@ exports.findAll = (req, res) => {
             res.send(data);
         })
         .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving tutorials."
-            });
+            next(err)
         });
 };
 
@@ -45,7 +43,9 @@ exports.findAllPaging = (req, res, next) => {
     const {
         page,
         size,
-        nombre
+        nombre,
+        idemp,
+        cedula
     } = req.query;
 
     var condition = {};
@@ -55,9 +55,19 @@ exports.findAllPaging = (req, res, next) => {
             [Op.eq]: id
         }
     }
+    if (idemp) {
+        condition.idemp_col = {
+            [Op.eq]: idemp
+        }
+    }
     if (nombre) {
-        condition.nombre_col = {
+        condition.nombres_col = {
             [Op.like]: `%${nombre}%`
+        }
+    }
+    if (cedula) {
+        condition.numerodocumento_col = {
+            [Op.like]: `%${cedula}%`
         }
     }
     const {
@@ -88,7 +98,7 @@ exports.findAllPaging = (req, res, next) => {
         });
 };
 
-exports.create = (req, res) => {
+exports.create = (req, res, next) => {
 
     if (!req.body.numerodocumento) {
         res.status(400).send({
@@ -119,7 +129,7 @@ exports.create = (req, res) => {
         });
 };
 
-exports.update = (req, res) => {
+exports.update = (req, res, next) => {
     const id = req.params.id;
     const cola = {
         paisdocumento_col: req.body.paisdocumento,
@@ -136,7 +146,7 @@ exports.update = (req, res) => {
     };
     Colaboradores.update(cola, {
         where: {
-            id: id
+            id_col: id
         }
     })
         .then(num => {
@@ -151,9 +161,7 @@ exports.update = (req, res) => {
             }
         })
         .catch(err => {
-            res.status(500).send({
-                message: "Error updating Colaboradores with id=" + id
-            });
+            next(err)
         });
 };
 

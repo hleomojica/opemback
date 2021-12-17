@@ -5,7 +5,7 @@ const auth = require('./../middleware/auth');
 const roles = require("../controllers/roles.controller");
 
 router.post("/", auth(), awaitHandlerFactory(roles.create));
-router.get("/", auth(), awaitHandlerFactory(roles.findAll));
+router.get("/:id?", auth(), awaitHandlerFactory(roles.findAll));
 router.put("/:id", auth(), awaitHandlerFactory(roles.update));
 router.delete("/:id", auth(), awaitHandlerFactory(roles.delete));
 

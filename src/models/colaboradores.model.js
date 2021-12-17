@@ -6,7 +6,7 @@ module.exports = (sequelize, type) => {
         },
         paisdocumento_col: type.INTEGER,
         tipodocumento_col: type.INTEGER,
-        numerodocumento_col: type.INTEGER,
+        numerodocumento_col: type.STRING,
         nombres_col: type.STRING,
         apellidos_col: type.STRING,
         fechanacimiento_col: type.DATE,

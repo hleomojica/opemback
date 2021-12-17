@@ -1,10 +1,12 @@
-const { Roles, Modulos } = require('../models');
+const { Roles,Sequelize } = require('../models');
+const Op = Sequelize.Op
 
-exports.findAll = (req, res) => {
-    const id = req.query.id;
+exports.findAll = (req, res, next) => {
+    const id = req.params.id;
+
     var condition = id ? {
-        id: {
-            [Op.like]: id
+        id_rol: {
+            [Op.eq]: id
         }
     } : null;
 
@@ -15,9 +17,7 @@ exports.findAll = (req, res) => {
             res.send(data);
         })
         .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving roles."
-            });
+            next(err)
         });
 };
 

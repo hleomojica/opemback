@@ -24,10 +24,12 @@ const auth = () => {
             if (!user) {
                 throw new HttpException(401, 'Authentication failed!');
             }
-            const ownerAuthorized = req.params.id == user.id;
+            /*
+            const ownerAuthorized = req.params.id == user.id_cue; 
             if (!ownerAuthorized) {
                 throw new HttpException(401, 'Unauthorized');
             }
+            */
             // if the user has permissions
             req.currentUser = user;
             next();
