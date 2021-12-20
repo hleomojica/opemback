@@ -4,7 +4,8 @@ const Op = Sequelize.Op;
 exports.findAll = (req, res) => {
     const id = req.query.id;
     const {
-        idrol
+        idrol,
+        menu
     } = req.query;
 
     var conditionrol = {};
@@ -15,13 +16,19 @@ exports.findAll = (req, res) => {
             [Op.eq]: idrol
         }
     }
+    if (menu) {
+        condition.father_mod = {
+            [Op.eq]: null
+        }
+    }
     Modulos.findAll({
         include: [
             {
                 model: Roles,
                 where: conditionrol,
-                required: false                
-            },           
+                required: false
+            },
+            { model: Modulos, as: "Submodulos" }
         ],
         where: condition
     })

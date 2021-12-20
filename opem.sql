@@ -132,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `cuentaaccesos` (
   CONSTRAINT `FK_cuentaacceso_roles` FOREIGN KEY (`idroles_cue`) REFERENCES `roles` (`id_rol`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.cuentaaccesos: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla opem.cuentaaccesos: ~6 rows (aproximadamente)
 DELETE FROM `cuentaaccesos`;
 /*!40000 ALTER TABLE `cuentaaccesos` DISABLE KEYS */;
 INSERT INTO `cuentaaccesos` (`id_cue`, `username_cue`, `password_cue`, `idcolaborador_cue`, `idroles_cue`) VALUES
@@ -248,17 +248,31 @@ DROP TABLE IF EXISTS `modulos`;
 CREATE TABLE IF NOT EXISTS `modulos` (
   `id_mod` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_mod` varchar(80) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  PRIMARY KEY (`id_mod`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+  `title_mod` varchar(80) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `icon_mod` varchar(50) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `route_mod` varchar(200) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `father_mod` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_mod`) USING BTREE,
+  KEY `FK_modulos_modulos` (`father_mod`),
+  CONSTRAINT `FK_modulos_modulos` FOREIGN KEY (`father_mod`) REFERENCES `modulos` (`id_mod`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.modulos: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla opem.modulos: ~6 rows (aproximadamente)
 DELETE FROM `modulos`;
 /*!40000 ALTER TABLE `modulos` DISABLE KEYS */;
-INSERT INTO `modulos` (`id_mod`, `nombre_mod`) VALUES
-	(8, 'Usuarios'),
-	(9, 'Colaboradores'),
-	(10, 'Cursos'),
-	(11, 'Certificaciones');
+INSERT INTO `modulos` (`id_mod`, `nombre_mod`, `title_mod`, `icon_mod`, `route_mod`, `father_mod`) VALUES
+	(8, 'certcolaboradores', 'Certcolaboradores', 'fa fa-file', '/admin/certcolaboradores', NULL),
+	(9, 'colaboradores', 'Colaboradores', 'fa fa-users', '/admin/colaboradores', NULL),
+	(10, 'cursos', 'Cursos', 'fa fa-graduation-cap', '/admin/cursos', NULL),
+	(11, 'certificaciones', 'Certificaciones', 'fa fa-table', '/admin/certificaciones', NULL),
+	(12, 'configuraciones', 'Configuraciones', 'fa fa-cog', '/admin/configuraciones', NULL),
+	(13, 'pais', 'Pais', NULL, '/admin/configuraciones/paises', 12),
+	(14, 'departamentos', 'Departamentos', NULL, '/admin/configuraciones/departamentos', 12),
+	(15, 'ciudades', 'Ciudades', NULL, '/admin/configuraciones/ciudades', 12),
+	(16, 'tipodocs', 'Tipo Documentos', NULL, '/admin/configuraciones/tipodocs', 12),
+	(17, 'roles', 'Roles', NULL, '/admin/configuraciones/roles', 12),
+	(18, 'permisos', 'Permisos', NULL, '/admin/configuraciones/permisos', 12),
+	(19, 'empresas', 'Empresas', 'bi bi-building', '/admin/empresas', NULL);
 /*!40000 ALTER TABLE `modulos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.municipios
@@ -1433,7 +1447,7 @@ CREATE TABLE IF NOT EXISTS `permisosroles` (
   KEY `FK__modulos` (`idmodulo_prol`) USING BTREE,
   CONSTRAINT `FK_permisosroles_modulos` FOREIGN KEY (`idmodulo_prol`) REFERENCES `modulos` (`id_mod`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_permisosroles_roles` FOREIGN KEY (`idrol_prol`) REFERENCES `roles` (`id_rol`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 -- Volcando datos para la tabla opem.permisosroles: ~5 rows (aproximadamente)
 DELETE FROM `permisosroles`;
@@ -1444,7 +1458,8 @@ INSERT INTO `permisosroles` (`id_prol`, `idrol_prol`, `idmodulo_prol`, `ver_prol
 	(20, 1, 9, 1, 1, 1, 1),
 	(21, 1, 8, 1, 1, 1, 1),
 	(22, 7, 8, 0, 0, 0, 0),
-	(23, 7, 9, 0, NULL, NULL, NULL);
+	(23, 7, 9, 0, NULL, NULL, NULL),
+	(24, 1, 12, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `permisosroles` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.roles

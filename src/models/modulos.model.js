@@ -4,6 +4,10 @@ module.exports = (sequelize, type) => {
             type: type.INTEGER,
             primaryKey: true
         },
-        nombre_mod: type.STRING    
+        nombre_mod: type.STRING,
+        title_mod: type.STRING,
+        icon_mod: type.STRING,
+        father_mod: type.INTEGER,
+        route_mod: type.STRING,
     });
 }

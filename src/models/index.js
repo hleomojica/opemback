@@ -76,6 +76,11 @@ Modulos.belongsToMany(Roles, {
   otherKey: 'idrol_prol'
 })
 
+Modulos.hasMany(Modulos, {
+  as: "Submodulos",
+  foreignKey: 'father_mod'
+})
+
 Roles.belongsToMany(Modulos, {
   foreignKey: 'idrol_prol',
   through: PermisosRoles,
