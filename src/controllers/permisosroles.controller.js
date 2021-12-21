@@ -79,16 +79,16 @@ exports.create = async (req, res, next) => {
         });
 };
 
-exports.update = (req, res) => {
+exports.update = (req, res, next) => {
     const id = req.params.id;
 
     const perol = {
-        idrol_prol: req.body.idcer,
-        idmodulo_prol: req.body.idcol,
-        ver_prol: req.body.idemp,
-        crear_prol: req.body.estado,
-        editar_prol: req.body.descargado,
-        eliminar_prol: req.body.descargado
+        idrol_prol: req.body.idrol,
+        idmodulo_prol: req.body.idmodulo,
+        ver_prol: req.body.ver,
+        crear_prol: req.body.crear,
+        editar_prol: req.body.editar,
+        eliminar_prol: req.body.eliminar
     };
 
     PermisosRoles.update(perol, {
@@ -108,9 +108,7 @@ exports.update = (req, res) => {
             }
         })
         .catch(err => {
-            res.status(500).send({
-                message: "Error updating Tutorial with id=" + id + " error " + err
-            });
+            next(err)
         });
 };
 

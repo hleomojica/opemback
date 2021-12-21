@@ -5,7 +5,7 @@ const awaitHandlerFactory = require('../middleware/awaitHandlerFactory.middlewar
 
 router.post("/", awaitHandlerFactory(perrol.create));
 router.get("/", awaitHandlerFactory(perrol.findAll));
-router.put("/:id", perrol.update);
+router.put("/:id", awaitHandlerFactory(perrol.update));
 router.delete("/:id", perrol.delete);
 
 module.exports = router;
