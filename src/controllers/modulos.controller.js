@@ -1,7 +1,7 @@
 const { Modulos, Sequelize, Roles, PermisosRoles, } = require('../models');
 const Op = Sequelize.Op;
 
-exports.findAll = (req, res) => {
+exports.findAll = (req, res, next) => {
     const id = req.query.id;
     const {
         idrol,
@@ -36,8 +36,6 @@ exports.findAll = (req, res) => {
             res.send(data);
         })
         .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while retrieving roles."
-            });
+            next(err)
         });
 };

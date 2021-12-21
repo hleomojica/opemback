@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `certificaciones_colaboradores` (
   CONSTRAINT `FK_certificaciones_colaboradores_empresas` FOREIGN KEY (`idemp_ceco`) REFERENCES `empresas` (`id_emp`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.certificaciones_colaboradores: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla opem.certificaciones_colaboradores: ~5 rows (aproximadamente)
 DELETE FROM `certificaciones_colaboradores`;
 /*!40000 ALTER TABLE `certificaciones_colaboradores` DISABLE KEYS */;
 INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_ceco`, `idemp_ceco`, `estado_ceco`, `descargado_ceco`) VALUES
@@ -153,7 +153,7 @@ CREATE TABLE IF NOT EXISTS `cursos` (
   PRIMARY KEY (`id_cur`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.cursos: ~4 rows (aproximadamente)
+-- Volcando datos para la tabla opem.cursos: ~5 rows (aproximadamente)
 DELETE FROM `cursos`;
 /*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
 INSERT INTO `cursos` (`id_cur`, `nombre_cur`, `descripcion_cur`) VALUES
@@ -257,7 +257,7 @@ CREATE TABLE IF NOT EXISTS `modulos` (
   CONSTRAINT `FK_modulos_modulos` FOREIGN KEY (`father_mod`) REFERENCES `modulos` (`id_mod`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.modulos: ~6 rows (aproximadamente)
+-- Volcando datos para la tabla opem.modulos: ~12 rows (aproximadamente)
 DELETE FROM `modulos`;
 /*!40000 ALTER TABLE `modulos` DISABLE KEYS */;
 INSERT INTO `modulos` (`id_mod`, `nombre_mod`, `title_mod`, `icon_mod`, `route_mod`, `father_mod`) VALUES
@@ -1449,7 +1449,7 @@ CREATE TABLE IF NOT EXISTS `permisosroles` (
   CONSTRAINT `FK_permisosroles_roles` FOREIGN KEY (`idrol_prol`) REFERENCES `roles` (`id_rol`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.permisosroles: ~5 rows (aproximadamente)
+-- Volcando datos para la tabla opem.permisosroles: ~7 rows (aproximadamente)
 DELETE FROM `permisosroles`;
 /*!40000 ALTER TABLE `permisosroles` DISABLE KEYS */;
 INSERT INTO `permisosroles` (`id_prol`, `idrol_prol`, `idmodulo_prol`, `ver_prol`, `crear_prol`, `editar_prol`, `eliminar_prol`) VALUES
@@ -1468,8 +1468,9 @@ CREATE TABLE IF NOT EXISTS `roles` (
   `id_rol` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_rol` varchar(40) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `descripcion_rol` varchar(200) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  PRIMARY KEY (`id_rol`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+  PRIMARY KEY (`id_rol`) USING BTREE,
+  UNIQUE KEY `NOMBRE` (`nombre_rol`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 -- Volcando datos para la tabla opem.roles: ~7 rows (aproximadamente)
 DELETE FROM `roles`;
@@ -1478,10 +1479,8 @@ INSERT INTO `roles` (`id_rol`, `nombre_rol`, `descripcion_rol`) VALUES
 	(1, 'ADM', 'Administrador de la plataforma'),
 	(7, 'CONSULTA', 'Solo permite consultar datos'),
 	(8, 'REGISTRO', 'registrar informacion'),
-	(9, 'asdfasf', 'asfasfasfasf'),
-	(10, 'fhfdhdfhdfhdfh', 'dfhdfhdhdfhdfh'),
-	(11, 'fgjghjghkhkhj', 'rtyeryeryeryerye'),
-	(12, 'tttttttttttt', 'tttttttttttttttttttttttttt');
+	(9, 'Rol1', 'Roels roles'),
+	(10, 'nene', 'dfhdfhdhdfhdfh');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.tipodocumentos

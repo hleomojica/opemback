@@ -1,5 +1,9 @@
-const { Roles,Sequelize } = require('../models');
+const {
+    Roles,
+    Sequelize
+} = require('../models');
 const Op = Sequelize.Op
+const { ValidationError } = require('sequelize');
 
 exports.findAll = (req, res, next) => {
     const id = req.params.id;
@@ -10,9 +14,9 @@ exports.findAll = (req, res, next) => {
         }
     } : null;
 
-    Roles.findAll({        
-        where: condition
-    })
+    Roles.findAll({
+            where: condition
+        })
         .then(data => {
             res.send(data);
         })
@@ -42,19 +46,18 @@ exports.create = async (req, res, next) => {
         });
 };
 
-exports.update = (req, res) => {
+exports.update = (req, res, next) => {
     const id = req.params.id;
 
     const rols = {
-        id_rol: req.body.id,
         nombre_rol: req.body.nombre,
         descripcion_rol: req.body.descripcion
     };
     Roles.update(rols, {
-        where: {
-            id_ceco: id
-        }
-    })
+            where: {
+                id_rol: id
+            }
+        })
         .then(num => {
             if (num == 1) {
                 res.send({
@@ -67,34 +70,30 @@ exports.update = (req, res) => {
             }
         })
         .catch(err => {
-            res.status(500).send({
-                message: "Error updating Tutorial with id=" + id + " error " + err
-            });
+            next(err)
         });
 };
 
-exports.delete = (req, res) => {
+exports.delete = (req, res, next) => {
     const id = req.params.id;
 
     Roles.destroy({
-        where: {
-            id_ceco: id
-        }
-    })
+            where: {
+                id_rol: id
+            }
+        })
         .then(num => {
             if (num == 1) {
                 res.send({
                     message: "Cursos was deleted successfully!"
                 });
             } else {
-                res.send({
+                next({
                     message: `Cannot delete Cursos with id=${id}. Maybe Cursos was not found!`
                 });
             }
         })
         .catch(err => {
-            res.status(500).send({
-                message: "Could not delete Cursos with id=" + id
-            });
+            next(err)
         });
 };
