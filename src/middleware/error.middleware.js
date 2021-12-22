@@ -7,9 +7,6 @@ function errorMiddleware(error, req, res, next) {
         status = 500, message, data
     } = error;
 
-    console.log("------- Se presento error--->>>>", error)
-    console.log("------- Se presento name--->>>>", error.parent.errno)
-
     if (error && error.parent) {
         if (error.parent.errno === 1451) {
             message = "El registro se encuentra asociado"
@@ -19,6 +16,9 @@ function errorMiddleware(error, req, res, next) {
             status = 403
         }
     }
+
+    console.log("------- Se presento error--->>>>", error)
+    console.log("------- Se presento name--->>>>", error.parent)
     /*
         if (error instanceof ValidationError) {
             message = error.errors[0].message

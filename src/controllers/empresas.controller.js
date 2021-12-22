@@ -5,7 +5,7 @@ const {
 const Op = Sequelize.Op;
 const paging = require("./../utils/Paging.utils");
 
-exports.findAll = (req, res) => {
+exports.findAll = (req, res, next) => {
     const id = req.params.id;
     const {
         page,
@@ -22,12 +22,12 @@ exports.findAll = (req, res) => {
         limit,
         offset
     } = paging.getPagination(page, size);
-    
+
     Empresa.findAndCountAll({
-            where: condition,
-            limit,
-            offset
-        })
+        where: condition,
+        limit,
+        offset
+    })
         .then(data => {
             const response = paging.getPagingData(data, page, limit);
             res.send(response);
@@ -39,7 +39,7 @@ exports.findAll = (req, res) => {
         });
 };
 
-exports.create = (req, res) => {
+exports.create = (req, res, next) => {
 
     if (!req.body.nombre) {
         res.status(400).send({
@@ -60,20 +60,18 @@ exports.create = (req, res) => {
             res.send(data);
         })
         .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while creating the Tutorial."
-            });
+            next(err)
         });
 };
 
-exports.update = (req, res) => {
+exports.update = (req, res, next) => {
     const id = req.params.id;
 
     Empresa.update(req.body, {
-            where: {
-                id: id
-            }
-        })
+        where: {
+            id: id
+        }
+    })
         .then(num => {
             if (num == 1) {
                 res.send({
@@ -86,20 +84,18 @@ exports.update = (req, res) => {
             }
         })
         .catch(err => {
-            res.status(500).send({
-                message: "Error updating Empresa with id=" + id
-            });
+            next(err)
         });
 };
 
-exports.delete = (req, res) => {
+exports.delete = (req, res, next) => {
     const id = req.params.id;
 
     Empresa.destroy({
-            where: {
-                id: id
-            }
-        })
+        where: {
+            id: id
+        }
+    })
         .then(num => {
             if (num == 1) {
                 res.send({
@@ -112,8 +108,6 @@ exports.delete = (req, res) => {
             }
         })
         .catch(err => {
-            res.status(500).send({
-                message: "Could not delete Cursos with id=" + id
-            });
+            next(err)
         });
 };

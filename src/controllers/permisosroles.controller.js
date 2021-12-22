@@ -56,19 +56,13 @@ exports.findOne = (req, res) => {
 
 exports.create = async (req, res, next) => {
 
-    if (!req.body.idcer) {
-        res.status(400).send({
-            message: "Content can not be empty!"
-        });
-        return;
-    }
     const perol = {
-        idrol_prol: req.body.idcer,
-        idmodulo_prol: req.body.idcol,
-        ver_prol: req.body.idemp,
-        crear_prol: req.body.estado,
-        editar_prol: req.body.descargado,
-        eliminar_prol: req.body.descargado
+        idrol_prol: req.body.idrol,
+        idmodulo_prol: req.body.idmodulo,
+        ver_prol: req.body.ver,
+        crear_prol: req.body.crear,
+        editar_prol: req.body.editar,
+        eliminar_prol: req.body.eliminar
     };
     PermisosRoles.create(perol)
         .then(data => {

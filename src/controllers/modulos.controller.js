@@ -28,7 +28,11 @@ exports.findAll = (req, res, next) => {
                 where: conditionrol,
                 required: false
             },
-            { model: Modulos, as: "Submodulos" }
+            {
+                model: Modulos,
+                as: "Submodulos",
+                include: [{ model: Roles }]
+            }
         ],
         where: condition
     })
