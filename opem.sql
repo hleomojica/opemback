@@ -257,7 +257,7 @@ CREATE TABLE IF NOT EXISTS `modulos` (
   PRIMARY KEY (`id_mod`) USING BTREE,
   KEY `FK_modulos_modulos` (`father_mod`),
   CONSTRAINT `FK_modulos_modulos` FOREIGN KEY (`father_mod`) REFERENCES `modulos` (`id_mod`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 -- Volcando datos para la tabla opem.modulos: ~12 rows (aproximadamente)
 DELETE FROM `modulos`;
@@ -274,7 +274,8 @@ INSERT INTO `modulos` (`id_mod`, `nombre_mod`, `title_mod`, `icon_mod`, `route_m
 	(16, 'tipodocs', 'Tipo Documentos', NULL, '/admin/configuraciones/tipodocs', 12),
 	(17, 'roles', 'Roles', NULL, '/admin/configuraciones/roles', 12),
 	(18, 'permisos', 'Permisos', NULL, '/admin/configuraciones/permisos', 12),
-	(19, 'empresas', 'Empresas', 'fa fa-building', '/admin/empresas', NULL);
+	(19, 'empresas', 'Empresas', 'fa fa-building', '/admin/empresas', NULL),
+	(20, 'dashborad', 'Dashboard', 'fa fa-cog', '/admin', NULL);
 /*!40000 ALTER TABLE `modulos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.municipios
@@ -1449,15 +1450,15 @@ CREATE TABLE IF NOT EXISTS `permisosroles` (
   KEY `FK__modulos` (`idmodulo_prol`) USING BTREE,
   CONSTRAINT `FK_permisosroles_modulos` FOREIGN KEY (`idmodulo_prol`) REFERENCES `modulos` (`id_mod`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_permisosroles_roles` FOREIGN KEY (`idrol_prol`) REFERENCES `roles` (`id_rol`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 -- Volcando datos para la tabla opem.permisosroles: ~13 rows (aproximadamente)
 DELETE FROM `permisosroles`;
 /*!40000 ALTER TABLE `permisosroles` DISABLE KEYS */;
 INSERT INTO `permisosroles` (`id_prol`, `idrol_prol`, `idmodulo_prol`, `ver_prol`, `crear_prol`, `editar_prol`, `eliminar_prol`) VALUES
 	(18, 1, 11, 1, 0, 1, 1),
-	(19, 1, 10, 0, 1, 1, 1),
-	(20, 1, 9, 1, 1, 1, 1),
+	(19, 1, 10, 1, 1, 1, 1),
+	(20, 1, 9, 0, 1, 1, 1),
 	(21, 1, 8, 1, 1, 1, 1),
 	(22, 7, 8, 0, 0, 0, 0),
 	(23, 7, 9, 0, NULL, NULL, NULL),
@@ -1467,7 +1468,8 @@ INSERT INTO `permisosroles` (`id_prol`, `idrol_prol`, `idmodulo_prol`, `ver_prol
 	(27, 1, 16, 1, 0, 0, 0),
 	(28, 7, 12, 1, 0, 0, 0),
 	(29, 1, 19, 1, 0, 0, 0),
-	(30, 1, 18, 1, 0, 0, 0);
+	(30, 1, 18, 1, 0, 0, 0),
+	(33, 1, 20, 1, 0, 0, 0);
 /*!40000 ALTER TABLE `permisosroles` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.roles
@@ -1500,7 +1502,7 @@ CREATE TABLE IF NOT EXISTS `tipodocumentos` (
   PRIMARY KEY (`id_tipo`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.tipodocumentos: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla opem.tipodocumentos: ~0 rows (aproximadamente)
 DELETE FROM `tipodocumentos`;
 /*!40000 ALTER TABLE `tipodocumentos` DISABLE KEYS */;
 INSERT INTO `tipodocumentos` (`id_tipo`, `nombre_tipo`, `iniciales_tipo`) VALUES
