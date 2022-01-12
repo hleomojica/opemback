@@ -20,6 +20,33 @@ sequelize.sync({
   console.log('tablas sincronizadas')
 })
 
+/*
+Cursos {
+  iniciales: 
+}
+CertColaboradores {
+  consecutivo autonumerico
+  columna fecha vencimiento  
+}
+pdf {
+  fuente tahoma
+}
+colaboradores: {
+  Crear formulario de registro para cualquier usuario y colocar estado para aporbar registro
+}
+
+
+Cursos - Cursos
+Colaboradores - Aprendices
+Certtificaciones - Cohorte / Grupo
+CertColaboradores - Cursos / Aprendices
+Empresas - Empresas clientes
+
+
+
+
+*/
+
 const Cursos = cursosModel(sequelize, Sequelize);
 const Certificaciones = certificacionesModel(sequelize, Sequelize, Cursos);
 const Empresa = empresasModel(sequelize, Sequelize);
