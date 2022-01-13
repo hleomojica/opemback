@@ -33,12 +33,13 @@ exports.create = (req, res) => {
         });
         return;
     }
-  
+
     const curso = {
         nombre_cur: req.body.nombre,
         descripcion_cur: req.body.descripcion,
+        iniciales_cur: req.body.iniciales,
     };
- 
+
     Cursos.create(curso)
         .then(data => {
             res.send(data);
@@ -50,11 +51,12 @@ exports.create = (req, res) => {
         });
 };
 
-exports.update = (req, res) => {
+exports.update = (req, res, next) => {
     const id = req.params.id;
     const cursos = {
         nombre_cur: req.body.nombre,
         descripcion_cur: req.body.descripcion,
+        iniciales_cur: req.body.iniciales,
     };
     Cursos.update(cursos, {
             where: {
@@ -79,12 +81,12 @@ exports.update = (req, res) => {
         });
 };
 
-exports.delete = (req, res) => {
+exports.delete = (req, res, next) => {
     const id = req.params.id;
 
     Cursos.destroy({
             where: {
-                id: id
+                id_cur: id
             }
         })
         .then(num => {
@@ -99,8 +101,6 @@ exports.delete = (req, res) => {
             }
         })
         .catch(err => {
-            res.status(500).send({
-                message: "Could not delete Cursos with id=" + id
-            });
+            next(err);
         });
 };

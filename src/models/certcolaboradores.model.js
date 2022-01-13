@@ -1,7 +1,8 @@
 module.exports = (sequelize, type) => {
     return sequelize.define('certificaciones_colaboradores', {
         id_ceco: {
-            type: type.UUID,           
+            type: type.UUID,  
+            defaultValue: type.UUIDV4,         
             primaryKey: true
         },
         idcer_ceco: {

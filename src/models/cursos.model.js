@@ -5,6 +5,8 @@ module.exports = (sequelize, type) => {
             primaryKey: true
         },
         nombre_cur: type.STRING,
-        descripcion_cur: type.STRING
+        descripcion_cur: type.STRING,
+        iniciales_cur: type.STRING
+
     });    
 }

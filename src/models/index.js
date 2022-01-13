@@ -26,7 +26,7 @@ Cursos {
 }
 CertColaboradores {
   consecutivo autonumerico
-  columna fecha vencimiento  
+  columna fecha vencimiento
 }
 pdf {
   fuente tahoma
@@ -41,8 +41,6 @@ Colaboradores - Aprendices
 Certtificaciones - Cohorte / Grupo
 CertColaboradores - Cursos / Aprendices
 Empresas - Empresas clientes
-
-
 
 
 */

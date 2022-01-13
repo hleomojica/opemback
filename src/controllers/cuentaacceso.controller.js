@@ -92,7 +92,7 @@ exports.auth = async (req, res, next) => {
             user_id: user[0].id_cue.toString(),
             username: user[0].username_cue
         }, tkn, {
-            expiresIn: '24h'
+            expiresIn: '10h'
         });
         res.send({
             accesToken: token,
