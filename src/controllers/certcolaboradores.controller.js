@@ -11,7 +11,7 @@ const Op = Sequelize.Op;
 const paging = require("./../utils/Paging.utils");
 
 exports.findAll = async (req, res, next) => {
-
+    var numerodocumento = req.params.id
     const {
         page,
         size,
@@ -21,6 +21,13 @@ exports.findAll = async (req, res, next) => {
     } = req.query;
 
     var condition = {};
+    var conditioncol = {}
+
+    if (numerodocumento) {
+        conditioncol.numerodocumento = {
+            [Op.eq]: numerodocumento
+        }
+    }
 
     if (idcer) {
         condition.idcer_ceco = {
@@ -45,7 +52,10 @@ exports.findAll = async (req, res, next) => {
 
     CertColaboradores.findAndCountAll({
         include: [
-            { model: Colaboradores },
+            {
+                model: Colaboradores,
+                where: conditioncol
+            },
             {
                 model: Certificaciones,
                 include: [
