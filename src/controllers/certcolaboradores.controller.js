@@ -10,7 +10,7 @@ const {
 const Op = Sequelize.Op;
 const paging = require("./../utils/Paging.utils");
 
-exports.findAll = (req, res) => {
+exports.findAll = async (req, res, next) => {
 
     const {
         page,
@@ -68,7 +68,7 @@ exports.findAll = (req, res) => {
         });
 };
 
-exports.findOne = (req, res) => {
+exports.findOne = async (req, res, next) => {
     const id = req.params.id;
 
     CertColaboradores.findByPk(id)
@@ -112,7 +112,7 @@ exports.create = async (req, res, next) => {
         });
 };
 
-exports.update = (req, res) => {
+exports.update = async (req, res, next) => {
     const id = req.params.id;
 
     const cercol = {
@@ -146,7 +146,7 @@ exports.update = (req, res) => {
         });
 };
 
-exports.delete = (req, res) => {
+exports.delete = async (req, res, next) => {
     const id = req.params.id;
 
     CertColaboradores.destroy({

@@ -14,5 +14,6 @@ module.exports = (sequelize, type) => {
         idemp_ceco: type.INTEGER,
         estado_ceco: type.INTEGER,
         descargado_ceco: type.INTEGER,
+        consecutivo_ceco: type.INTEGER
     });
 }

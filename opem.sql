@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS `certificaciones` (
   `horas_cer` int(11) DEFAULT NULL,
   `idcur_cer` int(11) DEFAULT NULL,
   `cohorte_cer` int(16) NOT NULL AUTO_INCREMENT,
-  `fechafinvig_cer` date NOT NULL,
   `estado_cer` date NOT NULL,
   PRIMARY KEY (`id_cer`),
   UNIQUE KEY `UQ_cohorte` (`cohorte_cer`) USING BTREE,
@@ -38,8 +37,8 @@ CREATE TABLE IF NOT EXISTS `certificaciones` (
 -- Volcando datos para la tabla opem.certificaciones: ~0 rows (aproximadamente)
 DELETE FROM `certificaciones`;
 /*!40000 ALTER TABLE `certificaciones` DISABLE KEYS */;
-INSERT INTO `certificaciones` (`id_cer`, `fechainicio_cer`, `fechafin_cer`, `horas_cer`, `idcur_cer`, `cohorte_cer`, `fechafinvig_cer`, `estado_cer`) VALUES
-	('9b781da3-7fef-4b39-8d5e-9ee01bb36279', '2022-01-12', '2022-01-12', 5, 1, 19, '0000-00-00', '0000-00-00');
+INSERT INTO `certificaciones` (`id_cer`, `fechainicio_cer`, `fechafin_cer`, `horas_cer`, `idcur_cer`, `cohorte_cer`, `estado_cer`) VALUES
+	('9b781da3-7fef-4b39-8d5e-9ee01bb36279', '2022-01-12', '2022-01-12', 5, 1, 19, '0000-00-00');
 /*!40000 ALTER TABLE `certificaciones` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.certificaciones_colaboradores
@@ -60,11 +59,13 @@ CREATE TABLE IF NOT EXISTS `certificaciones_colaboradores` (
   CONSTRAINT `FK_certificaciones_colaboradores_certificaciones` FOREIGN KEY (`idcer_ceco`) REFERENCES `certificaciones` (`id_cer`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_certificaciones_colaboradores_colaboradores` FOREIGN KEY (`idcol_ceco`) REFERENCES `colaboradores` (`id_col`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_certificaciones_colaboradores_empresas` FOREIGN KEY (`idemp_ceco`) REFERENCES `empresas` (`id_emp`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.certificaciones_colaboradores: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla opem.certificaciones_colaboradores: ~1 rows (aproximadamente)
 DELETE FROM `certificaciones_colaboradores`;
 /*!40000 ALTER TABLE `certificaciones_colaboradores` DISABLE KEYS */;
+INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_ceco`, `idemp_ceco`, `estado_ceco`, `descargado_ceco`, `consecutivo_ceco`) VALUES
+	('e0c5d693-37f3-4c3f-b8d8-ea029436e343', '9b781da3-7fef-4b39-8d5e-9ee01bb36279', 1, 1, 0, 0, 1);
 /*!40000 ALTER TABLE `certificaciones_colaboradores` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.colaboradores
@@ -128,11 +129,11 @@ CREATE TABLE IF NOT EXISTS `cursos` (
   `id_cur` int(11) NOT NULL AUTO_INCREMENT,
   `nombre_cur` varchar(200) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `descripcion_cur` varchar(2000) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
-  `iniciales_cur` varchar(4) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `iniciales_cur` varchar(8) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_cur`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.cursos: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla opem.cursos: ~1 rows (aproximadamente)
 DELETE FROM `cursos`;
 /*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
 INSERT INTO `cursos` (`id_cur`, `nombre_cur`, `descripcion_cur`, `iniciales_cur`) VALUES
@@ -227,8 +228,8 @@ CREATE TABLE IF NOT EXISTS `modulos` (
 DELETE FROM `modulos`;
 /*!40000 ALTER TABLE `modulos` DISABLE KEYS */;
 INSERT INTO `modulos` (`id_mod`, `nombre_mod`, `title_mod`, `icon_mod`, `route_mod`, `father_mod`) VALUES
-	(8, 'certcolaboradores', 'CertColaboradores', 'fa fa-file', '/admin/certcolaboradores', NULL),
-	(9, 'colaboradores', 'Colaboradores', 'fa fa-users', '/admin/colaboradores', NULL),
+	(8, 'certcolaboradores', 'Cursos/Aprendices', 'fa fa-file', '/admin/certcolaboradores', NULL),
+	(9, 'colaboradores', 'Aprendices', 'fa fa-users', '/admin/colaboradores', NULL),
 	(10, 'cursos', 'Cursos', 'fa fa-graduation-cap', '/admin/cursos', NULL),
 	(11, 'certificaciones', 'Certificaciones', 'fa fa-table', '/admin/certificaciones', NULL),
 	(12, 'configuraciones', 'Configuraciones', 'fa fa-cog', '/admin/configuraciones', NULL),
