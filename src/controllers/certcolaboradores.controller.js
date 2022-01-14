@@ -78,6 +78,54 @@ exports.findAll = async (req, res, next) => {
         });
 };
 
+exports.findByCedula = async (req, res, next) => {
+    
+    const {
+        numerodocumento,
+        page,
+        size,     
+    } = req.query;
+     var conditioncol = {}
+     console.log("entro->>>>>>>>>>>>")
+    if (numerodocumento) {
+        conditioncol.numerodocumento = {
+            [Op.eq]: numerodocumento
+        }
+    }else{
+        return
+    }
+    const {
+        limit,
+        offset
+    } = paging.getPagination(page, size);
+
+    CertColaboradores.findAndCountAll({
+        include: [
+            {
+                model: Colaboradores,
+                where: conditioncol
+            },
+            {
+                model: Certificaciones,
+                include: [
+                    { model: Cursos }
+                ]
+
+            },
+            { model: Empresa },
+        ],      
+        limit,
+        offset
+    })
+        .then(data => {
+            const response = paging.getPagingData(data, page, limit);
+            res.send(response);
+        })
+        .catch(err => {
+            next(err)
+        });
+};
+
 exports.findOne = async (req, res, next) => {
     const id = req.params.id;
 
