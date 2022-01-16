@@ -6,7 +6,8 @@ const auth = require('./../middleware/auth');
 
 router.post("/", auth(), awaitHandlerFactory(cercol.create));
 router.get("/GetByCedula", cercol.findByCedula);
-router.get("/:id?", cercol.findAll);
+router.get("/:id?", auth(), cercol.findAll);
+router.put("/updateEstado/:id", auth(), cercol.updateEstado);
 router.put("/:id", auth(), cercol.update);
 router.delete("/:id", cercol.delete);
 

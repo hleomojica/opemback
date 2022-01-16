@@ -34,14 +34,11 @@ pdf {
 colaboradores: {
   Crear formulario de registro para cualquier usuario y colocar estado para aporbar registro
 }
-
-
 Cursos - Cursos
 Colaboradores - Aprendices
 Certtificaciones - Cohorte / Grupo
 CertColaboradores - Cursos / Aprendices
 Empresas - Empresas clientes
-
 
 */
 

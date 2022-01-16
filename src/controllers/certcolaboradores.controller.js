@@ -51,24 +51,25 @@ exports.findAll = async (req, res, next) => {
     } = paging.getPagination(page, size);
 
     CertColaboradores.findAndCountAll({
-        include: [
-            {
-                model: Colaboradores,
-                where: conditioncol
-            },
-            {
-                model: Certificaciones,
-                include: [
-                    { model: Cursos }
-                ]
+            include: [{
+                    model: Colaboradores,
+                    where: conditioncol
+                },
+                {
+                    model: Certificaciones,
+                    include: [{
+                        model: Cursos
+                    }]
 
-            },
-            { model: Empresa },
-        ],
-        where: condition,
-        limit,
-        offset
-    })
+                },
+                {
+                    model: Empresa
+                },
+            ],
+            where: condition,
+            limit,
+            offset
+        })
         .then(data => {
             const response = paging.getPagingData(data, page, limit);
             res.send(response);
@@ -79,44 +80,48 @@ exports.findAll = async (req, res, next) => {
 };
 
 exports.findByCedula = async (req, res, next) => {
-    
+
     const {
         numerodocumento,
         page,
-        size,     
+        size,
     } = req.query;
-     var conditioncol = {}
-     console.log("entro->>>>>>>>>>>>")
+    var conditioncol = {}
     if (numerodocumento) {
-        conditioncol.numerodocumento = {
+        conditioncol.numerodocumento_col = {
             [Op.eq]: numerodocumento
         }
-    }else{
-        return
+    } else {
+        next({
+            message: 'Cedula requerida',
+            status: 500
+        })
     }
+    
     const {
         limit,
         offset
     } = paging.getPagination(page, size);
 
     CertColaboradores.findAndCountAll({
-        include: [
-            {
-                model: Colaboradores,
-                where: conditioncol
-            },
-            {
-                model: Certificaciones,
-                include: [
-                    { model: Cursos }
-                ]
+            include: [{
+                    model: Colaboradores,
+                    where: conditioncol
+                },
+                {
+                    model: Certificaciones,
+                    include: [{
+                        model: Cursos
+                    }]
 
-            },
-            { model: Empresa },
-        ],      
-        limit,
-        offset
-    })
+                },
+                {
+                    model: Empresa
+                },
+            ],
+            limit,
+            offset
+        })
         .then(data => {
             const response = paging.getPagingData(data, page, limit);
             res.send(response);
@@ -124,6 +129,7 @@ exports.findByCedula = async (req, res, next) => {
         .catch(err => {
             next(err)
         });
+
 };
 
 exports.findOne = async (req, res, next) => {
@@ -182,10 +188,10 @@ exports.update = async (req, res, next) => {
     };
     console.log(id)
     CertColaboradores.update(cercol, {
-        where: {
-            id_ceco: id
-        }
-    })
+            where: {
+                id_ceco: id
+            }
+        })
         .then(num => {
             if (num == 1) {
                 res.send({
@@ -204,14 +210,41 @@ exports.update = async (req, res, next) => {
         });
 };
 
+exports.updateEstado = async (req, res, next) => {
+    const id = req.params.id;
+
+    const cercol = {        
+        estado_ceco: req.body.estado,
+    };
+    CertColaboradores.update(cercol, {
+            where: {
+                id_ceco: id
+            }
+        })
+        .then(num => {
+            if (num == 1) {
+                res.send({
+                    message: "Certificacion was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update Certificacion with id=${id}. Maybe Certificacion was not found or req.body is empty!`
+                });
+            }
+        })
+        .catch(err => {
+            next(err)
+        });
+};
+
 exports.delete = async (req, res, next) => {
     const id = req.params.id;
 
     CertColaboradores.destroy({
-        where: {
-            id_ceco: id
-        }
-    })
+            where: {
+                id_ceco: id
+            }
+        })
         .then(num => {
             if (num == 1) {
                 res.send({
