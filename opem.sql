@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `certificaciones_colaboradores` (
   CONSTRAINT `FK_certificaciones_colaboradores_empresas` FOREIGN KEY (`idemp_ceco`) REFERENCES `empresas` (`id_emp`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.certificaciones_colaboradores: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla opem.certificaciones_colaboradores: ~0 rows (aproximadamente)
 DELETE FROM `certificaciones_colaboradores`;
 /*!40000 ALTER TABLE `certificaciones_colaboradores` DISABLE KEYS */;
 INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_ceco`, `idemp_ceco`, `estado_ceco`, `descargado_ceco`, `consecutivo_ceco`) VALUES
@@ -90,13 +90,167 @@ CREATE TABLE IF NOT EXISTS `colaboradores` (
   CONSTRAINT `FK_colaboradores_empresa` FOREIGN KEY (`idemp_col`) REFERENCES `empresas` (`id_emp`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_colaboradores_pais` FOREIGN KEY (`paisdocumento_col`) REFERENCES `pais` (`id_pais`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_colaboradores_tipodocumentos` FOREIGN KEY (`tipodocumento_col`) REFERENCES `tipodocumentos` (`id_tipo`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=156 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.colaboradores: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla opem.colaboradores: ~155 rows (aproximadamente)
 DELETE FROM `colaboradores`;
 /*!40000 ALTER TABLE `colaboradores` DISABLE KEYS */;
 INSERT INTO `colaboradores` (`id_col`, `paisdocumento_col`, `tipodocumento_col`, `numerodocumento_col`, `nombres_col`, `apellidos_col`, `fechanacimiento_col`, `correopersonal_col`, `telefono_col`, `direccion_col`, `idemp_col`) VALUES
-	(1, 1, 1, '1095811763', 'Jorge Enrique', 'Mojica', '1992-04-12', 'jorge.mojica92@gmail.com', '3175391309', 'calle falsa 123', 1);
+	(1, 1, 1, '1095811763', 'Jorge Enrique', 'Mojica', '1992-04-12', 'jorge.mojica92@gmail.com', '3175391309', 'calle falsa 123', 1),
+	(2, 1, 1, '71383190', 'Lopez Ramirez ', 'Jorge Mario', NULL, 'na', '123456', 'calle 124', 0),
+	(3, 1, 1, '9915289', 'Marin Ramirez ', 'Juan Carlos', NULL, 'na', '123456', 'calle 125', 0),
+	(4, 1, 1, '1042005364', 'Mendez Vidales ', 'Diego Alejandro', NULL, 'na', '123456', 'calle 126', 0),
+	(5, 1, 1, '98711636', 'Ramirez Velasquez ', 'Juan Luis', NULL, 'na', '123456', 'calle 127', 0),
+	(6, 1, 1, '1128399777', 'Rivas Restrepo ', 'Carlos Dario', NULL, 'na', '123456', 'calle 128', 0),
+	(7, 1, 1, '1053782659', 'Uribe Lopez ', 'Raul Andres', NULL, 'na', '123456', 'calle 129', 0),
+	(8, 1, 1, '1017181274', 'Vargas Ramirez ', 'Jorge Andres', NULL, 'na', '123456', 'calle 130', 0),
+	(9, 1, 1, '1128264918', 'Zuluaga Urrea ', 'Ruben Dario', NULL, 'na', '123456', 'calle 131', 0),
+	(10, 1, 1, '1152705350', 'Osorio Adarve ', 'Duvan Felipe', NULL, 'na', '123456', 'calle 132', 0),
+	(11, 1, 1, '1192725392', 'frank Sneyder ', 'Rubio Canabal', NULL, 'na', '123456', 'calle 133', 0),
+	(12, 1, 1, '1098628165', 'Jhonnathan Julian ', 'Ramirez Suarez', NULL, 'na', '123456', 'calle 134', 0),
+	(13, 1, 1, '1098722738', 'Diego Fabian ', 'Suarez orduz', NULL, 'na', '123456', 'calle 135', 0),
+	(14, 1, 1, '1098612967', 'Edinson Alfonso ', 'Traslaviña Garcia', NULL, 'na', '123456', 'calle 136', 0),
+	(15, 1, 1, '1095822252', 'Jhon Alexander ', 'Montaña Lopez', NULL, 'na', '123456', 'calle 137', 0),
+	(16, 1, 1, '1098662062', 'Jhonathan Fabian ', 'Lozada Reyes', NULL, 'na', '123456', 'calle 138', 0),
+	(17, 1, 1, '1102368463', 'Luis Carlos ', 'Pimiento Jaimes', NULL, 'na', '123456', 'calle 139', 0),
+	(18, 1, 1, '1098624629', 'Sergio Eduardo ', 'Chacon Monsalve', NULL, 'na', '123456', 'calle 140', 0),
+	(19, 1, 1, '72273551', 'Luis ', 'Ramos Mejia', NULL, 'na', '123456', 'calle 141', 0),
+	(20, 1, 1, '1098700758', 'Jose Luis ', 'Florez Villamizar', NULL, 'na', '123456', 'calle 142', 0),
+	(21, 1, 1, '91527580', 'Sergio ', 'Medina Torres', NULL, 'na', '123456', 'calle 143', 0),
+	(22, 1, 1, '1100895232', 'JOSE JOAQUIN ', 'RINCON CACERES', NULL, 'na', '123456', 'calle 144', 0),
+	(23, 1, 1, '15508881', 'EDILBERTO RENDON', 'MENESES DUQUE', NULL, 'na', '123456', 'calle 145', 0),
+	(24, 1, 1, '70139816', 'JORGE BALMORY ', 'RAVE CASTRILLON', NULL, 'na', '123456', 'calle 146', 0),
+	(25, 1, 1, '70137293', 'WILSON ANTONIO ', 'ZAPATA HOLGUIN', NULL, 'na', '123456', 'calle 147', 0),
+	(26, 1, 1, '98500257', 'LUIS GUILLERMO ', 'ECHEVERRI ZAPATA', NULL, 'na', '123456', 'calle 148', 0),
+	(27, 1, 1, '1152463776', 'YOJAN ESNEIDER ', 'JARA CORDOBA', NULL, 'na', '123456', 'calle 149', 0),
+	(28, 1, 1, '1017129684', 'ORLANDO ', 'O RODRIGUEZ', NULL, 'na', '123456', 'calle 150', 0),
+	(29, 1, 1, '98480633', 'JULIO CESAR LONDO?', 'SANDOVAL DURAN', NULL, 'na', '123456', 'calle 151', 0),
+	(30, 1, 1, '93386896', 'LUIS YAIR ', 'SANCHEZ GUERRERO', NULL, 'na', '123456', 'calle 152', 0),
+	(31, 1, 1, '1110448624', 'NIXON ARMANDO ', 'PLATA GOMEZ', NULL, 'na', '123456', 'calle 153', 0),
+	(32, 1, 1, '1056783024', 'CESAR AUGUSTO ', 'MONTOYA RODRIGUEZ', NULL, 'na', '123456', 'calle 154', 0),
+	(33, 1, 1, '1013650399', 'SERGIO ALBERTO ', 'PULIDO MORA', NULL, 'na', '123456', 'calle 155', 0),
+	(34, 1, 1, '1057413007', 'SEBASTIAN ', 'MENDEZ RUIZ', NULL, 'na', '123456', 'calle 156', 0),
+	(35, 1, 1, '1015461707', 'SERGIO MIGUEL ', 'SANABRIA MULFORD', NULL, 'na', '123456', 'calle 157', 0),
+	(36, 1, 1, '91430568', 'JAVIER ENRIQUE ', 'FORERO MOGOLLON', NULL, 'na', '123456', 'calle 158', 0),
+	(37, 1, 1, '1110516748', 'OSCAR ALVEIRO ', '', NULL, 'na', '123456', 'calle 159', 0),
+	(38, 1, 1, '13571257', 'JAIRO ', 'NEL PE', NULL, 'na', '123456', 'calle 160', 0),
+	(39, 1, 1, '15371010', 'JUAN ESTEBAN ', 'HOYOS CORREA', NULL, 'na', '123456', 'calle 161', 0),
+	(40, 1, 1, '71318945', 'GABRIEL ', 'JAIME IBARRA', NULL, 'na', '123456', 'calle 162', 0),
+	(41, 1, 1, '98628440', 'ALEJANDRO ', 'SOSA ALVAREZ', NULL, 'na', '123456', 'calle 163', 0),
+	(42, 1, 1, '79796119', 'JAVIER DE JESUS ', 'GRAJALES O', NULL, 'na', '123456', 'calle 164', 0),
+	(43, 1, 1, '1098738015', 'NAYI YURANI ', 'BELTRAN ABRIL', NULL, 'na', '123456', 'calle 165', 0),
+	(44, 1, 1, '1082928644', 'NATALIA JULIETH ', 'QUICENO GONZALEZ', NULL, 'na', '123456', 'calle 166', 0),
+	(45, 1, 1, '1018417055', 'JUAN DAVID ', 'ALARCON RIVERA', NULL, 'na', '123456', 'calle 167', 0),
+	(46, 1, 1, '80829910', 'JHON FREDY ', 'GARZON ARIAS', NULL, 'na', '123456', 'calle 168', 0),
+	(47, 1, 1, '1102368827', 'GABRIEL FERNANDO ', 'GUEVARA ANGARITA', NULL, 'na', '123456', 'calle 169', 0),
+	(48, 1, 1, '91524968', 'CARLOS ', 'ANDRES JAIMES', NULL, 'na', '123456', 'calle 170', 0),
+	(49, 1, 1, '1152694585', 'DIEGO ALEJANDRO ', 'ROJAS LONDOÑO', NULL, 'na', '123456', 'calle 171', 0),
+	(50, 1, 1, '70325740', 'JHON JAIRO ', 'LONDOÑO RUIZ', NULL, 'na', '123456', 'calle 172', 0),
+	(51, 1, 1, '11720211', 'ERNESTO WILLIAN ', 'ANDRADES PALACIOS', NULL, 'na', '123456', 'calle 173', 0),
+	(52, 1, 1, '14323600', 'JOSE OSCAR ', 'DIAZ NUÑEZ', NULL, 'na', '123456', 'calle 174', 0),
+	(53, 1, 1, '1017254592', 'NENYIS PAOLA ', 'AVILA VELASQUEZ', NULL, 'na', '123456', 'calle 175', 0),
+	(54, 1, 1, '7721569', 'HECTOR FAVIO ', 'GUZMAN CARDOZO', NULL, 'na', '123456', 'calle 176', 0),
+	(55, 1, 1, '1111198763', 'JEISSON EDUARDO ', 'ARBOLEDA BARRIOS', NULL, 'na', '123456', 'calle 177', 0),
+	(56, 1, 1, '43611136', 'CLAUDIA ', 'PATRICIA AREIZA', NULL, 'na', '123456', 'calle 178', 0),
+	(57, 1, 1, '1037602937', 'CYNDY ELENA ', 'QUINTERO PARRA', NULL, 'na', '123456', 'calle 179', 0),
+	(58, 1, 1, '1082932644', 'NATALIA JULIETH ', 'QUICENO GONZALEZ', NULL, 'na', '123456', 'calle 180', 0),
+	(59, 1, 1, '1092357946', 'BREYNER GUSTAVO ', 'GOYENECHE MARTINEZ', NULL, 'na', '123456', 'calle 181', 0),
+	(60, 1, 1, '1003204269', 'WILSON ', 'ORTEGA ORTEGA', NULL, 'na', '123456', 'calle 182', 0),
+	(61, 1, 1, '1095941044', 'OSCAR FABIAN ', 'DIAZ LONDOÑO', NULL, 'na', '123456', 'calle 183', 0),
+	(62, 1, 1, '17788271', 'ARLINSON ', 'GARCIA MONJE', NULL, 'na', '123456', 'calle 184', 0),
+	(63, 1, 1, '1095942775', 'YEFERSON ARNULFO ', 'OLAVE DURAN', NULL, 'na', '123456', 'calle 185', 0),
+	(64, 1, 1, '1017179461', 'ANDRES ', 'CAMILO ARBOLEDA', NULL, 'na', '123456', 'calle 186', 0),
+	(65, 1, 1, '1214716528', 'YEISON ANDRES ', 'CASAS HENAO', NULL, 'na', '123456', 'calle 187', 0),
+	(66, 1, 1, '1098659608', 'JORGE ALBERTO ', 'MENESES FIALLO', NULL, 'na', '123456', 'calle 188', 0),
+	(67, 1, 1, '1095931197', 'JEFFERSON ', 'VEGA ROJAS', NULL, 'na', '123456', 'calle 189', 0),
+	(68, 1, 1, '1017209975', 'JEYSON STYVEN ', 'VELEZ LONDOÑO', NULL, 'na', '123456', 'calle 190', 0),
+	(69, 1, 1, '91523846', 'FREDY ARMANDO ', 'CORONEL PABON', NULL, 'na', '123456', 'calle 191', 0),
+	(70, 1, 1, '98569080', 'JHON FELIX ', 'SALDARRIAGA MONA', NULL, 'na', '123456', 'calle 192', 0),
+	(71, 1, 1, '77081839', 'YEISON ', 'PINEDA MALDONADO', NULL, 'na', '123456', 'calle 193', 0),
+	(72, 1, 1, '13169257', 'JAVIER ENRIQUE ', 'ALVAREZ CASTRO', NULL, 'na', '123456', 'calle 194', 0),
+	(73, 1, 1, '77095930', 'YUSY ', 'MACHADO ARQUEZ', NULL, 'na', '123456', 'calle 195', 0),
+	(74, 1, 1, '1128266293', 'JHONATAN PABLO ', 'LUGO RESTREPO', NULL, 'na', '123456', 'calle 196', 0),
+	(75, 1, 1, '1120869692', 'DARWIN ALEXANDER ', 'ACERO JIMENEZ', NULL, 'na', '123456', 'calle 197', 0),
+	(76, 1, 1, '1096220780', 'JEFFERSON ', 'SAMPAYO CARDENAS', NULL, 'na', '123456', 'calle 198', 0),
+	(77, 1, 1, '1063302413', 'CRISTIAN CAMILO ', 'VILLERA LEZCANO', NULL, 'na', '123456', 'calle 199', 0),
+	(78, 1, 1, '72242526', 'ORLANDO ', 'ZUÑIGA FLOREZ', NULL, 'na', '123456', 'calle 200', 0),
+	(79, 1, 1, '1098729364', 'JESUS ALBERTO ', 'RINCON BARON', NULL, 'na', '123456', 'calle 201', 0),
+	(80, 1, 1, '12646735', 'CESAR AUGUSTO ', 'BARRERA ROBLES', NULL, 'na', '123456', 'calle 202', 0),
+	(81, 1, 1, '12502390', 'ROBERTO DE JESUS ', 'SALAZAR ALVARADO', NULL, 'na', '123456', 'calle 203', 0),
+	(82, 1, 1, '1095928095', 'LEIDY CAROLINA ', 'ARENAS RODRIGUEZ', NULL, 'na', '123456', 'calle 204', 0),
+	(83, 1, 1, '71594191', 'HERNAN DARIO ', 'TASCON MIRANDA', NULL, 'na', '123456', 'calle 205', 0),
+	(84, 1, 1, '71685262', 'DIEGO MAURICIO ', 'GUERRA MORENO', NULL, 'na', '123456', 'calle 206', 0),
+	(85, 1, 1, '25233887', 'DORA EMERCY ', 'SALAZAR HERNANDEZ', NULL, 'na', '123456', 'calle 207', 0),
+	(86, 1, 1, '13379699', 'JESUS EVELIO ', 'RIOS VERJEL', NULL, 'na', '123456', 'calle 208', 0),
+	(87, 1, 1, '80472488', 'HERNAN ', 'VENEGAS MARTINEZ', NULL, 'na', '123456', 'calle 209', 0),
+	(88, 1, 1, '71273209', 'OSCAR ALEXIS ', 'CASTRO BEDOYA', NULL, 'na', '123456', 'calle 210', 0),
+	(89, 1, 1, '91539177', 'JORGE ', 'JAIMES AVILA', NULL, 'na', '123456', 'calle 211', 0),
+	(90, 1, 1, '1023902957', 'LIZETH JOHANA ', 'UNIBIO LEON', NULL, 'na', '123456', 'calle 212', 0),
+	(91, 1, 1, '1002364212', 'ANGIE CAROLINE ', 'DIAZ LOZANO', NULL, 'na', '123456', 'calle 213', 0),
+	(92, 1, 1, '71686035', 'ARCANGEL DE JESUS ', 'SILVA MESA', NULL, 'na', '123456', 'calle 214', 0),
+	(93, 1, 1, '71379920', 'JOHN JAIRO ', 'DIEZ AGUIRRE', NULL, 'na', '123456', 'calle 215', 0),
+	(94, 1, 1, '1091663102', 'YIMER JOSE ', 'SALAZAR SALAZAR', NULL, 'na', '123456', 'calle 216', 0),
+	(95, 1, 1, '91298742', 'CARLOS EMIRO ', 'FLORIAN JIMENEZ', NULL, 'na', '123456', 'calle 217', 0),
+	(96, 1, 1, '1052404020', 'JESSICA CATHERINE ', 'HIGUERA VARGAS', NULL, 'na', '123456', 'calle 218', 0),
+	(97, 1, 1, '1056552854', 'YENIFER KATERIN ', 'ROMAN GOYENECHE', NULL, 'na', '123456', 'calle 219', 0),
+	(98, 1, 1, '88281760', 'LUIS CARLOS ', 'VERGEL CLARO', NULL, 'na', '123456', 'calle 220', 0),
+	(99, 1, 1, '1005196248', 'PEDRO ', 'EULISES NIEVES', NULL, 'na', '123456', 'calle 221', 0),
+	(100, 1, 1, '1030584844', 'ARTURO ANDREY ', 'PUENTES PEÑATE', NULL, 'na', '123456', 'calle 222', 0),
+	(101, 1, 1, '1143369580', 'LEONARDO ', 'ZARCA CATALAN', NULL, 'na', '123456', 'calle 223', 0),
+	(102, 1, 1, '1098623167', 'INGRID JOHANNA ', 'CORDOBA FLOREZ', NULL, 'na', '123456', 'calle 224', 0),
+	(103, 1, 1, '91216063', 'ALVARO ENRIQUE ', 'REYES GONZALEZ', NULL, 'na', '123456', 'calle 225', 0),
+	(104, 1, 1, '13929350', 'CARLOS YESID ', 'BETANCOURTH FLOREZ', NULL, 'na', '123456', 'calle 226', 0),
+	(105, 1, 1, '91511291', 'DAVID ALBERTO ', 'DIAZ JAIMES', NULL, 'na', '123456', 'calle 227', 0),
+	(106, 1, 1, '1098688792', 'DIEGO FERNANDO ', 'SUAREZ ORDUZ', NULL, 'na', '123456', 'calle 228', 0),
+	(107, 1, 1, '88273432', 'EDER GEOVANNY ', 'MORENO RODRIGUEZ', NULL, 'na', '123456', 'calle 229', 0),
+	(108, 1, 1, '91160244', 'EDISON HUMBERTO ', 'CORDERO BARAJAS', NULL, 'na', '123456', 'calle 230', 0),
+	(109, 1, 1, '1095915076', 'FERNANDO ', 'PINZON LOPEZ', NULL, 'na', '123456', 'calle 231', 0),
+	(110, 1, 1, '91152257', 'GABRIEL ', 'GOMEZ ALMEIDA', NULL, 'na', '123456', 'calle 232', 0),
+	(111, 1, 1, '3925018', 'GERMAN ', 'HERAZO REVUELTAS', NULL, 'na', '123456', 'calle 233', 0),
+	(112, 1, 1, '91161502', 'HERNAN DARIO ', 'VARGAS GARCIA', NULL, 'na', '123456', 'calle 234', 0),
+	(113, 1, 1, '91161413', 'JORGE ARMANDO ', 'PEDRAZA HERNANDEZ', NULL, 'na', '123456', 'calle 235', 0),
+	(114, 1, 1, '91242341', 'JOSE ANTONIO ', 'PORRAS ESTEVEZ', NULL, 'na', '123456', 'calle 236', 0),
+	(115, 1, 1, '1098786433', 'JUAN DAVID ', 'GUALDRON NIETO', NULL, 'na', '123456', 'calle 237', 0),
+	(116, 1, 1, '1232889456', 'LUIS FERNANDO ', 'MANTILLA SILVA', NULL, 'na', '123456', 'calle 238', 0),
+	(117, 1, 1, '91541762', 'LUSBIN YAHIR ', 'MELGAREJO MALDONADO', NULL, 'na', '123456', 'calle 239', 0),
+	(118, 1, 1, '1098734397', 'MAYCOL LEON ', 'JAIMES CARVAJAL', NULL, 'na', '123456', 'calle 240', 0),
+	(119, 1, 1, '1096955590', 'MICHEL STEVENT ', 'ANAYA CACERES', NULL, 'na', '123456', 'calle 241', 0),
+	(120, 1, 1, '91156366', 'RAUL ', 'JAIMES PORRAS', NULL, 'na', '123456', 'calle 242', 0),
+	(121, 1, 1, '1104125132', 'VICTOR ALFONSO ', 'ANAYA LEON', NULL, 'na', '123456', 'calle 243', 0),
+	(122, 1, 1, '91517414', 'OSCAR ALBERTO ', 'SANCHEZ BAYONA', NULL, 'na', '123456', 'calle 244', 0),
+	(123, 1, 1, '13538132', 'GUILLERMO ALEXANDER ', 'CADENA VELASCO', NULL, 'na', '123456', 'calle 245', 0),
+	(124, 1, 1, '1129500401', 'DAYANA ISABEL ', 'CAMARGO JULIO', NULL, 'na', '123456', 'calle 246', 0),
+	(125, 1, 1, '1099368398', 'PEDRO JAVIER ', 'SILVA PADILLA', NULL, 'na', '123456', 'calle 247', 0),
+	(126, 1, 1, '1099375354', 'JHON ALEXANDER ', 'LOZANO GARCIA', NULL, 'na', '123456', 'calle 248', 0),
+	(127, 1, 1, '1005157494', 'HERMES ANDRES ', 'RUEDA GARCIA', NULL, 'na', '123456', 'calle 249', 0),
+	(128, 1, 1, '91453143', 'ALEXANDER ', 'LOPEZ HERNANDEZ', NULL, 'na', '123456', 'calle 250', 0),
+	(129, 1, 1, '1039447017', 'ANDRES ESTEBAN ', 'RESTREPO ECHAVARRIA', NULL, 'na', '123456', 'calle 251', 0),
+	(130, 1, 1, '1100968092', 'OMAR YESID ', 'FIGUEROA AVILA', NULL, 'na', '123456', 'calle 252', 0),
+	(131, 1, 1, '91495136', 'EDWIN ORTIZ DE ', 'LA ROSA', NULL, 'na', '123456', 'calle 253', 0),
+	(132, 1, 1, '63551117', 'ANDREA DEL PILAR ', 'SERRANO JAIME', NULL, 'na', '123456', 'calle 254', 0),
+	(133, 1, 1, '5605371', 'ARMANDO ', 'ROJAS CONTRERAS', NULL, 'na', '123456', 'calle 255', 0),
+	(134, 1, 1, '1082883012', 'EDWIN JOSE ', 'VELASQUEZ SOLANO', NULL, 'na', '123456', 'calle 256', 0),
+	(135, 1, 1, '1101340275', 'ASTRID CAROLINA ', 'LIZCANO GAMBOA', NULL, 'na', '123456', 'calle 257', 0),
+	(136, 1, 1, '13544772', 'JOHANNY BERNARDO ', 'RANGEL DIAZ', NULL, 'na', '123456', 'calle 258', 0),
+	(137, 1, 1, '1098741364', 'JOHANA ', 'VILLAMIZAR RODRIGUEZ', NULL, 'na', '123456', 'calle 259', 0),
+	(138, 1, 1, '1098699970', 'JHON ALEXANDER ', 'LANDAZABAL ARIAS', NULL, 'na', '123456', 'calle 260', 0),
+	(139, 1, 1, '1090397608', 'FABIAN ANDRES ', 'HERNANDEZ DAZA', NULL, 'na', '123456', 'calle 261', 0),
+	(140, 1, 1, '1214735345', 'ANDRES FELIPE ', 'TABARES SUAREZ ', NULL, 'na', '123456', 'calle 262', 0),
+	(141, 1, 1, '71796796', 'JUAN CARLOS ', 'HERRERA ALZATE', NULL, 'na', '123456', 'calle 263', 0),
+	(142, 1, 1, '70525217', 'JOSE FRANCISCO ', 'HERNANDEZ ARRIETA', NULL, 'na', '123456', 'calle 264', 0),
+	(143, 1, 1, '63541465', 'ELIZABETH ', 'VILLARREAL GARAVITO', NULL, 'na', '123456', 'calle 265', 0),
+	(144, 1, 1, '1012382310', 'JEISON ALEXANDER ', 'GAMBA VALLEJO', NULL, 'na', '123456', 'calle 266', 0),
+	(145, 1, 1, '1143432472', 'KELLY JOHANNA ', 'CASTRO CANTILLO', NULL, 'na', '123456', 'calle 267', 0),
+	(146, 1, 1, '8507294', 'OMAR JESUS CARRILLO DE ', 'LA ROSA', NULL, 'na', '123456', 'calle 268', 0),
+	(147, 1, 1, '91277632', 'JAVIER', 'ALARCON', NULL, 'na', '123456', 'calle 269', 0),
+	(148, 1, 1, '88138706', 'LUIS FELIPE ', 'TORRADO VELASQUEZ', NULL, 'na', '123456', 'calle 270', 0),
+	(149, 1, 1, '1041325196', 'JESUS ANDRES ', 'MONSALVE SALAZAR', NULL, 'na', '123456', 'calle 271', 0),
+	(150, 1, 1, '71796068', 'JUAN CAMILO ', 'FLOREZ GALLEGO', NULL, 'na', '123456', 'calle 272', 0),
+	(151, 1, 1, '71295555', 'JOHN ALEXANDER ', 'VANEGAS TORO', NULL, 'na', '123456', 'calle 273', 0),
+	(152, 1, 1, '63556646', 'JAZMIN ROCIO ', 'CELY ARIAS', NULL, 'na', '123456', 'calle 274', 0),
+	(153, 1, 1, '63559400', 'LUZ EMIR ', 'QUINTERO BACCA', NULL, 'na', '123456', 'calle 275', 0),
+	(154, 1, 1, '1007027275', 'NINIBETH MARISELA ', 'CASTELLANOS GELVEZ', NULL, 'na', '123456', 'calle 276', 0),
+	(155, 1, 1, '13373751', 'JOSE DE DIOS ', 'SOLANO URQUIJO', NULL, 'na', '123456', 'calle 277', 0);
 /*!40000 ALTER TABLE `colaboradores` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.cuentaaccesos
@@ -131,13 +285,24 @@ CREATE TABLE IF NOT EXISTS `cursos` (
   `descripcion_cur` varchar(2000) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `iniciales_cur` varchar(8) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_cur`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.cursos: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla opem.cursos: ~13 rows (aproximadamente)
 DELETE FROM `cursos`;
 /*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
 INSERT INTO `cursos` (`id_cur`, `nombre_cur`, `descripcion_cur`, `iniciales_cur`) VALUES
-	(1, 'Desarrollo web', 'Desarrollar en los diferentes frameworks', 'DW');
+	(1, 'Desarrollo web', 'Desarrollar en los diferentes frameworks', 'DW'),
+	(3, 'TRABAJO SEGURO EN CALIENTE', 'TRABAJO SEGURO EN CALIENTE', 'AAR-TC'),
+	(4, 'TRABAJO SEGURO EN ENERGIAS PELIGORSAS "BLOQUEO Y ETIQUETADO"', 'TRABAJO SEGURO EN ENERGIAS PELIGORSAS "BLOQUEO Y ETIQUETADO"', 'AAR-EP'),
+	(5, 'SEGURIDAD EN ESPACIOS CONFINADOS', 'SEGURIDAD EN ESPACIOS CONFINADOS', 'AAR-EC'),
+	(6, 'MANEJO SEGURO DE HERRAMIENTA DE CORTE Y PULIDORA', 'MANEJO SEGURO DE HERRAMIENTA DE CORTE Y PULIDORA', 'AAR-CP'),
+	(7, 'BRIGADA DE EMERGENCIA', 'BRIGADA DE EMERGENCIA', 'AAR-PE'),
+	(8, 'SISTEMA DE GESTION DE SEGURIDAD Y SALUD EN EL TRABAJO - 50 HORAS', 'SISTEMA DE GESTION DE SEGURIDAD Y SALUD EN EL TRABAJO - 50 HORAS', 'SGSST'),
+	(9, 'MANEJO SEGURO DE SUSTANCIAS PELIGROSAS', 'MANEJO SEGURO DE SUSTANCIAS PELIGROSAS', 'AAR-SP'),
+	(10, 'GESTION ADMINISTRATIVA', 'GESTION ADMINISTRATIVA', 'GA'),
+	(11, 'PEDAGOGIA AL ALCANCE DE PROFESIONALES NO LICENCIADOS', 'PEDAGOGIA AL ALCANCE DE PROFESIONALES NO LICENCIADOS', 'PD_'),
+	(12, 'RESCATE EN ESPACIOS CONFINADOS', 'RESCATE EN ESPACIOS CONFINADOS', 'AAR_RC'),
+	(13, 'FUMIGACION Y CONTROL DE PLAGAS', 'FUMIGACION Y CONTROL DE PLAGAS', 'AAR-FC');
 /*!40000 ALTER TABLE `cursos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.departamentos
@@ -200,14 +365,26 @@ CREATE TABLE IF NOT EXISTS `empresas` (
   `direccion_emp` varchar(200) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `personacontacto_emp` varchar(200) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_emp`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.empresas: ~2 rows (aproximadamente)
+-- Volcando datos para la tabla opem.empresas: ~14 rows (aproximadamente)
 DELETE FROM `empresas`;
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
 INSERT INTO `empresas` (`id_emp`, `nombre_emp`, `nit_emp`, `telefono_emp`, `correo_emp`, `direccion_emp`, `personacontacto_emp`) VALUES
 	(0, 'No Aplica', '0', '0', '', 'NA', 'NA'),
-	(1, 'urv marin valencia', '800456123', '3175391309', 'malval@marval.com.co', 'calle 29 47-56', 'Deyson Delgado');
+	(1, 'urv marin valencia', '800456123', '3175391309', 'malval@marval.com.co', 'calle 29 47-56', 'Deyson Delgado'),
+	(2, 'SOLPAK S.A', NULL, NULL, NULL, NULL, NULL),
+	(3, 'MAQUINADOS Y MONTAJES SAS', NULL, NULL, NULL, NULL, NULL),
+	(4, 'OPEM SAS', NULL, NULL, NULL, NULL, NULL),
+	(5, 'INDUTECMI SAS', NULL, NULL, NULL, NULL, NULL),
+	(6, 'MAPER SA', NULL, NULL, NULL, NULL, NULL),
+	(7, 'SANITUBOS', NULL, NULL, NULL, NULL, NULL),
+	(8, 'SANITUBO MONTAJES', NULL, NULL, NULL, NULL, NULL),
+	(9, 'FULHERS SERVICE', NULL, NULL, NULL, NULL, NULL),
+	(10, 'GESTION METALMECANICA', NULL, NULL, NULL, NULL, NULL),
+	(11, 'PETROMAC', NULL, NULL, NULL, NULL, NULL),
+	(12, 'REINA DE ORO SAS', NULL, NULL, NULL, NULL, NULL),
+	(13, 'MR SALCHICHA', NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.modulos
@@ -228,7 +405,7 @@ CREATE TABLE IF NOT EXISTS `modulos` (
 DELETE FROM `modulos`;
 /*!40000 ALTER TABLE `modulos` DISABLE KEYS */;
 INSERT INTO `modulos` (`id_mod`, `nombre_mod`, `title_mod`, `icon_mod`, `route_mod`, `father_mod`) VALUES
-	(8, 'certcolaboradores', 'Cursos/Aprendices', 'fa fa-file', '/admin/certcolaboradores', NULL),
+	(8, 'certcolaboradores', 'Cursos-Aprendices', 'fa fa-file', '/admin/certcolaboradores', NULL),
 	(9, 'colaboradores', 'Aprendices', 'fa fa-users', '/admin/colaboradores', NULL),
 	(10, 'cursos', 'Cursos', 'fa fa-graduation-cap', '/admin/cursos', NULL),
 	(11, 'certificaciones', 'Certificaciones', 'fa fa-table', '/admin/certificaciones', NULL),
@@ -240,7 +417,7 @@ INSERT INTO `modulos` (`id_mod`, `nombre_mod`, `title_mod`, `icon_mod`, `route_m
 	(17, 'roles', 'roles', NULL, '/admin/configuraciones/roles', 12),
 	(18, 'Permisos', 'permisos', NULL, '/admin/configuraciones/permisos', 12),
 	(19, 'empresas', 'Empresas', 'fa fa-building', '/admin/empresas', NULL),
-	(20, 'dashboard', 'Dashboard', 'fa fa-cog', '/admin', NULL);
+	(20, 'dashboard', 'Dashboard', 'fa fa-cog', '/app/dashboard', NULL);
 /*!40000 ALTER TABLE `modulos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.municipios
@@ -1425,13 +1602,13 @@ INSERT INTO `permisosroles` (`id_prol`, `idrol_prol`, `idmodulo_prol`, `ver_prol
 	(19, 1, 10, 1, 1, 1, 1),
 	(20, 1, 9, 1, 1, 1, 1),
 	(21, 1, 8, 1, 1, 1, 1),
-	(22, 7, 8, 0, 0, 0, 0),
+	(22, 7, 8, 1, 0, 0, 0),
 	(23, 7, 9, 0, NULL, NULL, NULL),
 	(24, 1, 12, 1, 0, 0, 0),
 	(25, 1, 13, 1, 0, 0, 0),
 	(26, 1, 14, NULL, NULL, NULL, 0),
 	(27, 1, 16, 1, 0, 0, 0),
-	(28, 7, 12, 1, 0, 0, 0),
+	(28, 7, 12, 0, 0, 0, 0),
 	(29, 1, 19, 1, 0, 0, 0),
 	(30, 1, 18, 1, 0, 0, 0),
 	(33, 1, 20, 1, 0, 0, 0),
