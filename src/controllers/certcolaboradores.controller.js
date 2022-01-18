@@ -67,6 +67,7 @@ exports.findAll = async (req, res, next) => {
         },
         ],
         where: condition,
+        order: ['consecutivo_ceco'],
         limit,
         offset
     })
@@ -168,21 +169,8 @@ exports.findOne = async (req, res, next) => {
 };
 
 exports.create = async (req, res, next) => {
-
-    if (!req.body.idcer) {
-        res.status(400).send({
-            message: "Content can not be empty!"
-        });
-        return;
-    }
-    const cercol = {
-        idcer_ceco: req.body.idcer,
-        idcol_ceco: req.body.idcol,
-        idemp_ceco: req.body.idemp,
-        estado_ceco: req.body.estado,
-        descargado_ceco: req.body.descargado
-    };
-    CertColaboradores.create(cercol)
+   
+    CertColaboradores.bulkCreate(req.body)
         .then(data => {
             res.send(data);
         })

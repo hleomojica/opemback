@@ -116,7 +116,8 @@ exports.create = (req, res, next) => {
         correopersonal_col: req.body.correopersonal,
         telefono_col: req.body.telefono,
         direccion_col: req.body.direccion,
-        idemp_col: req.body.idemp
+        idemp_col: req.body.idemp,
+        estado_col: req.body.estado,
     };
     Colaboradores.create(cola)
         .then(data => {
@@ -141,7 +142,8 @@ exports.update = (req, res, next) => {
         correopersonal_col: req.body.correopersonal,
         telefono_col: req.body.telefono,
         direccion_col: req.body.direccion,
-        idemp_col: req.body.idemp
+        idemp_col: req.body.idemp,
+        estado_col: req.body.estado
 
     };
     Colaboradores.update(cola, {
