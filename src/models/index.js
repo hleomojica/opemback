@@ -40,6 +40,37 @@ Certtificaciones - Cohorte / Grupo
 CertColaboradores - Cursos / Aprendices
 Empresas - Empresas clientes
 
+Certificados:{
+  Fecha expedicion
+  Fecha vencimiento
+
+  Que no se puede eliminar, solo editar el estado a :
+  -Cancelado
+  -Finalizado
+  -En Curso
+}
+
+Cursos-Aprendiz: {
+  Agregar tabla de colaboradores para asocirlos al certificado,
+  Filtros:{
+    Cohorte
+    Empresa
+    Curso
+  }
+}
+Empresa: {
+  Agregar telefono persona contacto
+  Agregar correo persona contacto
+}
+Aprendices: {
+  Descargar formato para cargue
+  Importar datos de excel
+  Exportar en excel
+}
+Modulos:{
+  Orden del menu
+}
+
 */
 
 const Cursos = cursosModel(sequelize, Sequelize);

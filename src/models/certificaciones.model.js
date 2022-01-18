@@ -11,6 +11,7 @@ module.exports = (sequelize, type) => {
         idcur_cer: {
             type: type.INTEGER           
         },
-        cohorte_cer: type.INTEGER
+        cohorte_cer: type.INTEGER,
+        estado_cer:type.INTEGER
     });
 }

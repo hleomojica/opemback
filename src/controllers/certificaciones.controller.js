@@ -1,3 +1,4 @@
+
 const {
     Certificaciones,
     Cursos,
@@ -75,7 +76,7 @@ exports.findAllPaging = (req, res) => {
 
 }
 
-exports.create = (req, res) => {
+exports.create = (req, res, next) => {
 
     if (!req.body.fechainicio) {
         res.status(400).send({
@@ -87,6 +88,7 @@ exports.create = (req, res) => {
         fechainicio_cer: req.body.fechainicio,
         fechafin_cer: req.body.fechafin,
         horas_cer: req.body.horas,
+        estado_cer:req.body.estado,
         idcur_cer: req.body.idcur,
     };
     Certificaciones.create(cert)
@@ -94,13 +96,11 @@ exports.create = (req, res) => {
             res.send(data);
         })
         .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while creating the Certificaciones."
-            });
+            next(err)
         });
 };
 
-exports.update = (req, res) => {
+exports.update = (req, res, next) => {
     const id = req.params.id;
 
     const cert = {
@@ -126,9 +126,34 @@ exports.update = (req, res) => {
             }
         })
         .catch(err => {
-            res.status(500).send({
-                message: "Error updating Certificaciones with id=" + id
-            });
+            next(err)
+        });
+};
+
+exports.updateEstado = (req, res, next) => {
+    const id = req.params.id;
+
+    const cert = {
+        estado_cer: req.body.estado       
+    };
+    Certificaciones.update(cert, {
+            where: {
+                id_cer: id
+            }
+        })
+        .then(num => {
+            if (num == 1) {             
+                res.send({
+                    message: "Certificaciones was updated successfully."
+                });
+            } else {
+                res.send({
+                    message: `Cannot update Certificaciones with id=${id}. Maybe Certificaciones was not found or req.body is empty!`
+                });
+            }
+        })
+        .catch(err => {
+            next(err)
         });
 };
 

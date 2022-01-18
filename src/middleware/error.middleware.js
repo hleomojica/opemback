@@ -17,7 +17,7 @@ function errorMiddleware(error, req, res, next) {
         }
     }
 
-    //console.log("------- Se presento error--->>>>", error)
+    console.log("------- Se presento error--->>>>", error)
     //console.log("------- Se presento name--->>>>", error.parent)
     /*
         if (error instanceof ValidationError) {

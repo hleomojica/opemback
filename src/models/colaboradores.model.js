@@ -14,7 +14,8 @@ module.exports = (sequelize, type) => {
         telefono_col: type.STRING,
         direccion_col: type.STRING,
         idemp_col: {
-            type: type.INTEGER           
-        }
+            type: type.INTEGER
+        },
+        estado_col: type.INTEGER
     });
 }
