@@ -34,13 +34,9 @@ CREATE TABLE IF NOT EXISTS `certificaciones` (
   CONSTRAINT `FK_certificaciones_cursos` FOREIGN KEY (`idcur_cer`) REFERENCES `cursos` (`id_cur`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.certificaciones: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla opem.certificaciones: ~3 rows (aproximadamente)
 DELETE FROM `certificaciones`;
 /*!40000 ALTER TABLE `certificaciones` DISABLE KEYS */;
-INSERT INTO `certificaciones` (`id_cer`, `fechainicio_cer`, `fechafin_cer`, `horas_cer`, `idcur_cer`, `cohorte_cer`, `estado_cer`) VALUES
-	('0412102d-cfc4-48b9-8848-e33ccecabc5a', '2020-05-21', '2021-05-12', 10, 4, 22, 0),
-	('9b781da3-7fef-4b39-8d5e-9ee01bb36279', '2022-01-01', '2022-01-12', 5, 1, 19, 1),
-	('c5fbdb79-9737-494f-9510-49cb1f1ff326', '2020-09-15', '2021-09-15', 10, 3, 21, 2);
 /*!40000 ALTER TABLE `certificaciones` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.certificaciones_colaboradores
@@ -61,18 +57,11 @@ CREATE TABLE IF NOT EXISTS `certificaciones_colaboradores` (
   CONSTRAINT `FK_certificaciones_colaboradores_certificaciones` FOREIGN KEY (`idcer_ceco`) REFERENCES `certificaciones` (`id_cer`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_certificaciones_colaboradores_colaboradores` FOREIGN KEY (`idcol_ceco`) REFERENCES `colaboradores` (`id_col`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_certificaciones_colaboradores_empresas` FOREIGN KEY (`idemp_ceco`) REFERENCES `empresas` (`id_emp`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.certificaciones_colaboradores: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla opem.certificaciones_colaboradores: ~6 rows (aproximadamente)
 DELETE FROM `certificaciones_colaboradores`;
 /*!40000 ALTER TABLE `certificaciones_colaboradores` DISABLE KEYS */;
-INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_ceco`, `idemp_ceco`, `estado_ceco`, `descargado_ceco`, `consecutivo_ceco`) VALUES
-	('1fdd3ee1-3272-446f-90fe-c0043cfa11d7', 'c5fbdb79-9737-494f-9510-49cb1f1ff326', 5, 0, 0, 0, 6),
-	('33690648-3628-4b66-a38b-0bb299d433c6', 'c5fbdb79-9737-494f-9510-49cb1f1ff326', 11, 0, 1, 0, 3),
-	('5db3b4a5-4290-48c4-8d97-725fd72003d8', 'c5fbdb79-9737-494f-9510-49cb1f1ff326', 4, 0, 0, 0, 5),
-	('7c67d2f3-f42e-4519-8be2-4e6e87873bd6', 'c5fbdb79-9737-494f-9510-49cb1f1ff326', 1, 1, 1, 0, 7),
-	('7f55bf55-a604-4148-81fc-7401004629ca', 'c5fbdb79-9737-494f-9510-49cb1f1ff326', 3, 0, 0, 0, 4),
-	('e0c5d693-37f3-4c3f-b8d8-ea029436e343', '9b781da3-7fef-4b39-8d5e-9ee01bb36279', 1, 1, 0, 0, 1);
 /*!40000 ALTER TABLE `certificaciones_colaboradores` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.colaboradores
@@ -278,7 +267,7 @@ CREATE TABLE IF NOT EXISTS `cuentaaccesos` (
   CONSTRAINT `FK_cuentaacceso_roles` FOREIGN KEY (`idroles_cue`) REFERENCES `roles` (`id_rol`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.cuentaaccesos: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla opem.cuentaaccesos: ~2 rows (aproximadamente)
 DELETE FROM `cuentaaccesos`;
 /*!40000 ALTER TABLE `cuentaaccesos` DISABLE KEYS */;
 INSERT INTO `cuentaaccesos` (`id_cue`, `username_cue`, `password_cue`, `idcolaborador_cue`, `idroles_cue`) VALUES
@@ -424,8 +413,8 @@ INSERT INTO `modulos` (`id_mod`, `nombre_mod`, `title_mod`, `icon_mod`, `route_m
 	(14, 'departamentos', 'Departamentos', NULL, '/admin/configuraciones/departamentos', 12),
 	(15, 'ciudades', 'Ciudades', NULL, '/admin/configuraciones/ciudades', 12),
 	(16, 'tipodocs', 'Tipo Documentos', NULL, '/admin/configuraciones/tipodocs', 12),
-	(17, 'roles', 'roles', NULL, '/admin/configuraciones/roles', 12),
-	(18, 'Permisos', 'permisos', NULL, '/admin/configuraciones/permisos', 12),
+	(17, 'roles', 'Roles', NULL, '/admin/configuraciones/roles', 12),
+	(18, 'Permisos', 'Permisos', NULL, '/admin/configuraciones/permisos', 12),
 	(19, 'empresas', 'Empresas', 'fa fa-building', '/admin/empresas', NULL),
 	(20, 'dashboard', 'Dashboard', 'fa fa-cog', '/app/dashboard', NULL);
 /*!40000 ALTER TABLE `modulos` ENABLE KEYS */;

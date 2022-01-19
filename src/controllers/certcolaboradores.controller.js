@@ -17,11 +17,25 @@ exports.findAll = async (req, res, next) => {
         size,
         idcer,
         idcol,
-        idemp
+        idcur,
+        idemp,
+        cohorte
     } = req.query;
 
     var condition = {};
-    var conditioncol = {}
+    var conditioncol = {};
+    var conditioncert = {}
+
+    if (idcur) {
+        conditioncert.idcur_cer = {
+            [Op.eq]: idcur
+        }
+    }
+    if (cohorte) {
+        conditioncert.cohorte_cer = {
+            [Op.eq]: cohorte
+        }
+    }
 
     if (numerodocumento) {
         conditioncol.numerodocumento = {
@@ -58,9 +72,9 @@ exports.findAll = async (req, res, next) => {
         {
             model: Certificaciones,
             include: [{
-                model: Cursos
-            }]
-
+                model: Cursos,
+            }],
+            where: conditioncert
         },
         {
             model: Empresa
@@ -169,7 +183,7 @@ exports.findOne = async (req, res, next) => {
 };
 
 exports.create = async (req, res, next) => {
-   
+
     CertColaboradores.bulkCreate(req.body)
         .then(data => {
             res.send(data);

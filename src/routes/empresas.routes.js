@@ -5,7 +5,7 @@ const awaitHandlerFactory = require('./../middleware/awaitHandlerFactory.middlew
 const auth = require('./../middleware/auth');
 
 router.post("/", auth(), awaitHandlerFactory(empresas.create));
-router.get("/:id?", auth(), awaitHandlerFactory(empresas.findAll));
+router.get("/:id?", awaitHandlerFactory(empresas.findAll));
 router.put("/:id", auth(), awaitHandlerFactory(empresas.update));
 router.delete("/:id", auth(), awaitHandlerFactory(empresas.delete));
 
