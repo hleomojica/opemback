@@ -70,6 +70,7 @@ exports.update = async (params, id) => {
         password_cue: passcryp,
         idcolaborador_cue: params.idcolaborador,
         idroles_cue: params.idroles,
+        intentosbloqueo_cue:params.intentosbloqueo,
     };
     return await CuentaAcceso.update(cas, {
         where: {

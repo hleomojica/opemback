@@ -16,6 +16,7 @@ module.exports = (sequelize, type) => {
         idemp_col: {
             type: type.INTEGER
         },
-        estado_col: type.INTEGER
+        estado_col: type.INTEGER,
+        terminos_col: type.INTEGER,
     });
 }

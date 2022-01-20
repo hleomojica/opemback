@@ -11,6 +11,7 @@ module.exports = app => {
   const tipodocs = require('./tipodocumentos.routes')
   const modulos = require('./modulos.routes')
   const permisosroles = require('./permisosroles.routes')
+  const email = require('./email.routes')
 
   app.use(`/api/v1/cursos`, cursos);
   app.use(`/api/v1/certificaciones`, cert);
@@ -23,5 +24,6 @@ module.exports = app => {
   app.use(`/api/v1/tipodocs`, tipodocs);
   app.use(`/api/v1/modulos`, modulos);
   app.use(`/api/v1/permisosroles`, permisosroles);
+  app.use(`/api/v1/email`, email);
 
 };

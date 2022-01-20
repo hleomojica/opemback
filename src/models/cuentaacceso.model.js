@@ -8,5 +8,6 @@ module.exports = (sequelize, type) => {
         password_cue: type.STRING,
         idcolaborador_cue : type.INTEGER,
         idroles_cue : type.INTEGER,
+        intentosbloqueo_cue: type.INTEGER,
     });    
 }

@@ -118,15 +118,14 @@ exports.create = (req, res, next) => {
         direccion_col: req.body.direccion,
         idemp_col: req.body.idemp,
         estado_col: req.body.estado,
+        terminos_col: req.body.terminos,
     };
     Colaboradores.create(cola)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
-            res.status(500).send({
-                message: err.message || "Some error occurred while creating the Certificaciones."
-            });
+            next(err)
         });
 };
 
@@ -144,7 +143,6 @@ exports.update = (req, res, next) => {
         direccion_col: req.body.direccion,
         idemp_col: req.body.idemp,
         estado_col: req.body.estado
-
     };
     Colaboradores.update(cola, {
         where: {
