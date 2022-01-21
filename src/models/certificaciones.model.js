@@ -9,9 +9,11 @@ module.exports = (sequelize, type) => {
         fechafin_cer: type.STRING,
         horas_cer: type.INTEGER,
         idcur_cer: {
-            type: type.INTEGER           
+            type: type.INTEGER
         },
         cohorte_cer: type.INTEGER,
-        estado_cer:type.INTEGER
+        estado_cer: type.INTEGER,
+        periodo_cer: type.INTEGER,
+        tiempovigencia_cer: type.INTEGER,
     });
 }

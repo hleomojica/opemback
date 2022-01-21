@@ -28,15 +28,19 @@ CREATE TABLE IF NOT EXISTS `certificaciones` (
   `idcur_cer` int(11) DEFAULT NULL,
   `cohorte_cer` int(16) NOT NULL AUTO_INCREMENT,
   `estado_cer` int(1) NOT NULL,
+  `periodo_cer` int(1) NOT NULL,
+  `tiempovigencia_cer` int(3) NOT NULL,
   PRIMARY KEY (`id_cer`),
   UNIQUE KEY `UQ_cohorte` (`cohorte_cer`) USING BTREE,
   KEY `FK_certificaciones_cursos` (`idcur_cer`),
   CONSTRAINT `FK_certificaciones_cursos` FOREIGN KEY (`idcur_cer`) REFERENCES `cursos` (`id_cur`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 -- Volcando datos para la tabla opem.certificaciones: ~0 rows (aproximadamente)
 DELETE FROM `certificaciones`;
 /*!40000 ALTER TABLE `certificaciones` DISABLE KEYS */;
+INSERT INTO `certificaciones` (`id_cer`, `fechainicio_cer`, `fechafin_cer`, `horas_cer`, `idcur_cer`, `cohorte_cer`, `estado_cer`, `periodo_cer`, `tiempovigencia_cer`) VALUES
+	('6802f196-b6b3-4d10-a9ac-e0ec8e6b9ff3', '2022-01-07', '2023-01-07', 20, 4, 23, 0, 3, 1);
 /*!40000 ALTER TABLE `certificaciones` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.certificaciones_colaboradores
@@ -370,7 +374,7 @@ CREATE TABLE IF NOT EXISTS `empresas` (
   PRIMARY KEY (`id_emp`)
 ) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.empresas: ~14 rows (aproximadamente)
+-- Volcando datos para la tabla opem.empresas: ~15 rows (aproximadamente)
 DELETE FROM `empresas`;
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
 INSERT INTO `empresas` (`id_emp`, `nombre_emp`, `nit_emp`, `telefono_emp`, `correo_emp`, `direccion_emp`, `personacontacto_emp`, `numpersonacontacto_emp`, `correopersonacontacto_emp`) VALUES

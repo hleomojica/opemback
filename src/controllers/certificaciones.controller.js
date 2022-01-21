@@ -90,6 +90,8 @@ exports.create = (req, res, next) => {
         horas_cer: req.body.horas,
         estado_cer:req.body.estado,
         idcur_cer: req.body.idcur,
+        periodo_cer: req.body.periodo,
+        tiempovigencia_cer: req.body.tiempovigencia,
     };
     Certificaciones.create(cert)
         .then(data => {
@@ -108,6 +110,8 @@ exports.update = (req, res, next) => {
         fechafin_cer: req.body.fechafin,
         horas_cer: req.body.horas,
         idcur_cer: req.body.idcur,
+        periodo_cer: req.body.periodo,
+        tiempovigencia_cer: req.body.tiempovigencia,
     };
     Certificaciones.update(cert, {
             where: {
