@@ -53,7 +53,9 @@ exports.create = (req, res, next) => {
         telefono_emp: req.body.telefono,
         correo_emp: req.body.correo,
         direccion_emp: req.body.direccion,
-        personacontacto_emp: req.body.personacontacto
+        personacontacto_emp: req.body.personacontacto,      
+        numpersonacontacto_emp: req.body.numpersonacontacto,
+        correopersonacontacto_emp: req.body.correopersonacontacto,
     };
     Empresa.create(empresa)
         .then(data => {
@@ -66,8 +68,17 @@ exports.create = (req, res, next) => {
 
 exports.update = (req, res, next) => {
     const id = req.params.id;
-
-    Empresa.update(req.body, {
+    const empresa = {
+        nombre_emp: req.body.nombre,
+        nit_emp: req.body.nit,
+        telefono_emp: req.body.telefono,
+        correo_emp: req.body.correo,
+        direccion_emp: req.body.direccion,
+        personacontacto_emp: req.body.personacontacto,      
+        numpersonacontacto_emp: req.body.numpersonacontacto,
+        correopersonacontacto_emp: req.body.correopersonacontacto,
+    };
+    Empresa.update(empresa, {
         where: {
             id: id
         }

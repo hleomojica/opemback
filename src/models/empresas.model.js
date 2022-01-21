@@ -10,5 +10,8 @@ module.exports = (sequelize, type) => {
         correo_emp: type.STRING,
         direccion_emp: type.STRING,
         personacontacto_emp: type.STRING,
+        numpersonacontacto_emp: type.STRING,
+        correopersonacontacto_emp: type.STRING,
+ 
     });    
 }

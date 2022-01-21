@@ -71,6 +71,14 @@ Modulos:{
   Orden del menu
 }
 
+------------------------------------
+Consulta certificados: {
+  Aprendiz: Nombre completa apellido
+  Fecha Expedicion, Fecha vencimiento
+  que no pueda descargar
+}
+
+
 */
 
 const Cursos = cursosModel(sequelize, Sequelize);

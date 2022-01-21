@@ -366,27 +366,29 @@ CREATE TABLE IF NOT EXISTS `empresas` (
   `direccion_emp` varchar(200) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `personacontacto_emp` varchar(200) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `numpersonacontacto_emp` varchar(15) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
+  `correopersonacontacto_emp` varchar(100) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_emp`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 -- Volcando datos para la tabla opem.empresas: ~14 rows (aproximadamente)
 DELETE FROM `empresas`;
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
-INSERT INTO `empresas` (`id_emp`, `nombre_emp`, `nit_emp`, `telefono_emp`, `correo_emp`, `direccion_emp`, `personacontacto_emp`, `numpersonacontacto_emp`) VALUES
-	(0, 'No Aplica', '0', '0', '', 'NA', 'NA', NULL),
-	(1, 'urv marin valencia', '800456123', '3175391309', 'malval@marval.com.co', 'calle 29 47-56', 'Deyson Delgado', NULL),
-	(2, 'SOLPAK S.A', NULL, NULL, NULL, NULL, NULL, NULL),
-	(3, 'MAQUINADOS Y MONTAJES SAS', NULL, NULL, NULL, NULL, NULL, NULL),
-	(4, 'OPEM SAS', NULL, NULL, NULL, NULL, NULL, NULL),
-	(5, 'INDUTECMI SAS', NULL, NULL, NULL, NULL, NULL, NULL),
-	(6, 'MAPER SA', NULL, NULL, NULL, NULL, NULL, NULL),
-	(7, 'SANITUBOS', NULL, NULL, NULL, NULL, NULL, NULL),
-	(8, 'SANITUBO MONTAJES', NULL, NULL, NULL, NULL, NULL, NULL),
-	(9, 'FULHERS SERVICE', NULL, NULL, NULL, NULL, NULL, NULL),
-	(10, 'GESTION METALMECANICA', NULL, NULL, NULL, NULL, NULL, NULL),
-	(11, 'PETROMAC', NULL, NULL, NULL, NULL, NULL, NULL),
-	(12, 'REINA DE ORO SAS', NULL, NULL, NULL, NULL, NULL, NULL),
-	(13, 'MR SALCHICHA', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `empresas` (`id_emp`, `nombre_emp`, `nit_emp`, `telefono_emp`, `correo_emp`, `direccion_emp`, `personacontacto_emp`, `numpersonacontacto_emp`, `correopersonacontacto_emp`) VALUES
+	(0, 'No Aplica', '0', '0', '', 'NA', 'NA', NULL, NULL),
+	(1, 'urv marin valencia', '800456123', '3175391309', 'malval@marval.com.co', 'calle 29 47-56', 'Deyson Delgado', NULL, NULL),
+	(2, 'SOLPAK S.A', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(3, 'MAQUINADOS Y MONTAJES SAS', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(4, 'OPEM SAS', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(5, 'INDUTECMI SAS', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(6, 'MAPER SA', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(7, 'SANITUBOS', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(8, 'SANITUBO MONTAJES', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(9, 'FULHERS SERVICE', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(10, 'GESTION METALMECANICA', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(11, 'PETROMAC', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(12, 'REINA DE ORO SAS', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(13, 'MR SALCHICHA', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+	(29, 'aaaaa', '11111111111', '11111111111', 'aaaaaaaaa@aaaaa.com', '11111111111111', '1ssssssssssss', 's11111111', '111111111');
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.modulos
