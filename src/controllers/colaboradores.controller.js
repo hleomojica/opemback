@@ -1,4 +1,11 @@
-const { Colaboradores, Sequelize, Paises, TipoDocumentos, Empresa, CuentaAcceso } = require('../models');
+const {
+    Colaboradores,
+    Sequelize,
+    Paises,
+    TipoDocumentos,
+    Empresa,
+    CuentaAcceso
+} = require('../models');
 const paging = require("./../utils/Paging.utils");
 const Op = Sequelize.Op;
 
@@ -22,14 +29,19 @@ exports.findAll = (req, res, next) => {
     }
 
     Colaboradores.findAll({
-        include: [
-            { model: Paises },
-            { model: TipoDocumentos },
-            { model: Empresa }
-        ],
-        where: condition,
+            include: [{
+                    model: Paises
+                },
+                {
+                    model: TipoDocumentos
+                },
+                {
+                    model: Empresa
+                }
+            ],
+            where: condition,
 
-    })
+        })
         .then(data => {
             res.send(data);
         })
@@ -76,19 +88,24 @@ exports.findAllPaging = (req, res, next) => {
     } = paging.getPagination(page, size);
 
     Colaboradores.findAndCountAll({
-        include: [
-            { model: Paises },
-            { model: TipoDocumentos },
-            { model: Empresa },
-            {
-                model: CuentaAcceso,
-                attributes: ['id_cue', 'idcolaborador_cue', 'username_cue', 'idroles_cue'],
-            }
-        ],
-        where: condition,
-        limit,
-        offset
-    })
+            include: [{
+                    model: Paises
+                },
+                {
+                    model: TipoDocumentos
+                },
+                {
+                    model: Empresa
+                },
+                {
+                    model: CuentaAcceso,
+                    attributes: ['id_cue', 'idcolaborador_cue', 'username_cue', 'idroles_cue'],
+                }
+            ],
+            where: condition,
+            limit,
+            offset
+        })
         .then(data => {
             const response = paging.getPagingData(data, page, limit);
             res.send(response);
@@ -129,6 +146,16 @@ exports.create = (req, res, next) => {
         });
 };
 
+exports.createArray = async (req, res, next) => {
+    Colaboradores.bulkCreate(req.body)
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            next(err)
+        });
+};
+
 exports.update = (req, res, next) => {
     const id = req.params.id;
     const cola = {
@@ -145,10 +172,10 @@ exports.update = (req, res, next) => {
         estado_col: req.body.estado
     };
     Colaboradores.update(cola, {
-        where: {
-            id_col: id
-        }
-    })
+            where: {
+                id_col: id
+            }
+        })
         .then(num => {
             if (num == 1) {
                 res.send({
@@ -169,10 +196,10 @@ exports.delete = (req, res) => {
     const id = req.params.id;
 
     Colaboradores.destroy({
-        where: {
-            id: id
-        }
-    })
+            where: {
+                id: id
+            }
+        })
         .then(num => {
             if (num == 1) {
                 res.send({
