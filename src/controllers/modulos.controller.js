@@ -34,7 +34,10 @@ exports.findAll = (req, res, next) => {
                 include: [{ model: Roles }]
             }
         ],
-        where: condition
+        where: condition,
+        order: [
+            ['orden_mod', 'ASC']
+        ],
     })
         .then(data => {
             res.send(data);
@@ -48,13 +51,13 @@ exports.update = (req, res, next) => {
     const id = req.params.id;
     const modu = {
         title_mod: req.body.title,
-        father_mod: req.body.father,     
+        father_mod: req.body.father,
     };
     Modulos.update(modu, {
-            where: {
-                id_mod: id
-            }
-        })
+        where: {
+            id_mod: id
+        }
+    })
         .then(num => {
             if (num == 1) {
                 res.send({

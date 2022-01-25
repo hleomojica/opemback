@@ -9,5 +9,6 @@ module.exports = (sequelize, type) => {
         icon_mod: type.STRING,
         father_mod: type.INTEGER,
         route_mod: type.STRING,
+        orden_mod:type.STRING
     });
 }

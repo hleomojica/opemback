@@ -58,7 +58,7 @@ exports.create = async (params) => {
         username_cue: params.username,
         password_cue: passcryp,
         idcolaborador_cue: params.idcolaborador,
-        idroles_cue: params.idroles,
+        idroles_cue: params.idrol,
     };
     return await CuentaAcceso.create(cuentas)
 }

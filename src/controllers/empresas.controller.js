@@ -104,7 +104,7 @@ exports.delete = (req, res, next) => {
 
     Empresa.destroy({
         where: {
-            id: id
+            id_emp: id
         }
     })
         .then(num => {
