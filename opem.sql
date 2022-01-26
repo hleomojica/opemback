@@ -34,13 +34,11 @@ CREATE TABLE IF NOT EXISTS `certificaciones` (
   UNIQUE KEY `UQ_cohorte` (`cohorte_cer`) USING BTREE,
   KEY `FK_certificaciones_cursos` (`idcur_cer`),
   CONSTRAINT `FK_certificaciones_cursos` FOREIGN KEY (`idcur_cer`) REFERENCES `cursos` (`id_cur`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.certificaciones: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla opem.certificaciones: ~0 rows (aproximadamente)
 DELETE FROM `certificaciones`;
 /*!40000 ALTER TABLE `certificaciones` DISABLE KEYS */;
-INSERT INTO `certificaciones` (`id_cer`, `fechainicio_cer`, `fechafin_cer`, `horas_cer`, `idcur_cer`, `cohorte_cer`, `estado_cer`, `periodo_cer`, `tiempovigencia_cer`) VALUES
-	('6802f196-b6b3-4d10-a9ac-e0ec8e6b9ff3', '2022-01-07', '2023-01-07', 20, 4, 23, 0, 3, 1);
 /*!40000 ALTER TABLE `certificaciones` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.certificaciones_colaboradores
@@ -61,13 +59,11 @@ CREATE TABLE IF NOT EXISTS `certificaciones_colaboradores` (
   CONSTRAINT `FK_certificaciones_colaboradores_certificaciones` FOREIGN KEY (`idcer_ceco`) REFERENCES `certificaciones` (`id_cer`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_certificaciones_colaboradores_colaboradores` FOREIGN KEY (`idcol_ceco`) REFERENCES `colaboradores` (`id_col`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_certificaciones_colaboradores_empresas` FOREIGN KEY (`idemp_ceco`) REFERENCES `empresas` (`id_emp`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.certificaciones_colaboradores: ~1 rows (aproximadamente)
+-- Volcando datos para la tabla opem.certificaciones_colaboradores: ~0 rows (aproximadamente)
 DELETE FROM `certificaciones_colaboradores`;
 /*!40000 ALTER TABLE `certificaciones_colaboradores` DISABLE KEYS */;
-INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_ceco`, `idemp_ceco`, `estado_ceco`, `descargado_ceco`, `consecutivo_ceco`) VALUES
-	('113cf572-bc67-41ef-8175-b17abfdcac2f', '6802f196-b6b3-4d10-a9ac-e0ec8e6b9ff3', 1, 4, 0, 0, 1);
 /*!40000 ALTER TABLE `certificaciones_colaboradores` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.colaboradores
@@ -96,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `colaboradores` (
   CONSTRAINT `FK_colaboradores_tipodocumentos` FOREIGN KEY (`tipodocumento_col`) REFERENCES `tipodocumentos` (`id_tipo`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=176 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.colaboradores: ~157 rows (aproximadamente)
+-- Volcando datos para la tabla opem.colaboradores: ~156 rows (aproximadamente)
 DELETE FROM `colaboradores`;
 /*!40000 ALTER TABLE `colaboradores` DISABLE KEYS */;
 INSERT INTO `colaboradores` (`id_col`, `paisdocumento_col`, `tipodocumento_col`, `numerodocumento_col`, `nombres_col`, `apellidos_col`, `fechanacimiento_col`, `correopersonal_col`, `telefono_col`, `direccion_col`, `idemp_col`, `estado_col`, `terminos_col`) VALUES
@@ -255,8 +251,7 @@ INSERT INTO `colaboradores` (`id_col`, `paisdocumento_col`, `tipodocumento_col`,
 	(153, 1, 1, '63559400', 'LUZ EMIR ', 'QUINTERO BACCA', NULL, 'na', '123456', 'calle 275', 0, NULL, NULL),
 	(154, 1, 1, '1007027275', 'NINIBETH MARISELA ', 'CASTELLANOS GELVEZ', NULL, 'na', '123456', 'calle 276', 0, NULL, NULL),
 	(155, 1, 1, '13373751', 'JOSE DE DIOS ', 'SOLANO URQUIJO', NULL, 'na', '123456', 'calle 277', 0, NULL, NULL),
-	(172, 1, 1, '63367012', 'aaaaaaaaaa', 'aaaaaaaaaa', '2022-01-04', '', '1111111111', 'diag 15', 0, 1, 1),
-	(175, 1, 1, '1098526824', 'Henrry Leonardo', 'Mojica Martinez', '1995-05-25', 'hleomojica@gmail.com', '3175391309', 'AU merburne calle 666', 4, 1, 1);
+	(175, 1, 1, '1095824338', 'Henrry Leonardo', 'Mojica Martinez', '1995-05-25', 'hleomojica@gmail.com', '3175391309', 'AU merburne calle 666', 4, 1, 1);
 /*!40000 ALTER TABLE `colaboradores` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.cuentaaccesos
@@ -275,14 +270,14 @@ CREATE TABLE IF NOT EXISTS `cuentaaccesos` (
   KEY `FKUSER` (`idcolaborador_cue`) USING BTREE,
   CONSTRAINT `FK_cuentaacceso_colaboradores` FOREIGN KEY (`idcolaborador_cue`) REFERENCES `colaboradores` (`id_col`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_cuentaacceso_roles` FOREIGN KEY (`idroles_cue`) REFERENCES `roles` (`id_rol`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 -- Volcando datos para la tabla opem.cuentaaccesos: ~2 rows (aproximadamente)
 DELETE FROM `cuentaaccesos`;
 /*!40000 ALTER TABLE `cuentaaccesos` DISABLE KEYS */;
 INSERT INTO `cuentaaccesos` (`id_cue`, `username_cue`, `password_cue`, `idcolaborador_cue`, `idroles_cue`, `intentosbloqueo_cue`) VALUES
 	(1, '1095811763', '$2b$10$3AeyrrrArf/byZhnuvCIbuCyJChDoB.r5mCPzu3ZgGS8KoGbxIF5S', 1, 1, NULL),
-	(2, '1098526824', '$2b$08$hqb/6e0yWEuPDgqKngw8je.vAoHokPU9Eet7ADTpU2jASWFbvZhxi', 175, 7, NULL);
+	(2, '1095824338', '$2b$08$hqb/6e0yWEuPDgqKngw8je.vAoHokPU9Eet7ADTpU2jASWFbvZhxi', 175, 7, NULL);
 /*!40000 ALTER TABLE `cuentaaccesos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.cursos
@@ -293,24 +288,23 @@ CREATE TABLE IF NOT EXISTS `cursos` (
   `descripcion_cur` varchar(2000) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `iniciales_cur` varchar(8) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_cur`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.cursos: ~12 rows (aproximadamente)
+-- Volcando datos para la tabla opem.cursos: ~11 rows (aproximadamente)
 DELETE FROM `cursos`;
 /*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
 INSERT INTO `cursos` (`id_cur`, `nombre_cur`, `descripcion_cur`, `iniciales_cur`) VALUES
-	(1, 'Desarrollo web', 'Desarrollar en los diferentes frameworks', 'DW'),
-	(3, 'TRABAJO SEGURO EN CALIENTE', 'TRABAJO SEGURO EN CALIENTE', 'AAR-TC'),
-	(4, 'TRABAJO SEGURO EN ENERGIAS PELIGORSAS "BLOQUEO Y ETIQUETADO"', 'TRABAJO SEGURO EN ENERGIAS PELIGORSAS "BLOQUEO Y ETIQUETADO"', 'AAR-EP'),
-	(5, 'SEGURIDAD EN ESPACIOS CONFINADOS', 'SEGURIDAD EN ESPACIOS CONFINADOS', 'AAR-EC'),
-	(6, 'MANEJO SEGURO DE HERRAMIENTA DE CORTE Y PULIDORA', 'MANEJO SEGURO DE HERRAMIENTA DE CORTE Y PULIDORA', 'AAR-CP'),
-	(7, 'BRIGADA DE EMERGENCIA', 'BRIGADA DE EMERGENCIA', 'AAR-PE'),
-	(8, 'SISTEMA DE GESTION DE SEGURIDAD Y SALUD EN EL TRABAJO - 50 HORAS', 'SISTEMA DE GESTION DE SEGURIDAD Y SALUD EN EL TRABAJO - 50 HORAS', 'SGSST'),
-	(9, 'MANEJO SEGURO DE SUSTANCIAS PELIGROSAS', 'MANEJO SEGURO DE SUSTANCIAS PELIGROSAS', 'AAR-SP'),
-	(10, 'GESTION ADMINISTRATIVA', 'GESTION ADMINISTRATIVA', 'GA'),
-	(11, 'PEDAGOGIA AL ALCANCE DE PROFESIONALES NO LICENCIADOS', 'PEDAGOGIA AL ALCANCE DE PROFESIONALES NO LICENCIADOS', 'PD_'),
-	(12, 'RESCATE EN ESPACIOS CONFINADOS', 'RESCATE EN ESPACIOS CONFINADOS', 'AAR_RC'),
-	(13, 'FUMIGACION Y CONTROL DE PLAGAS', 'FUMIGACION Y CONTROL DE PLAGAS', 'AAR-FC');
+	(1, 'TRABAJO SEGURO EN CALIENTE', 'TRABAJO SEGURO EN CALIENTE', 'AAR-TC'),
+	(2, 'TRABAJO SEGURO EN ENERGIAS PELIGORSAS "BLOQUEO Y ETIQUETADO"', 'TRABAJO SEGURO EN ENERGIAS PELIGORSAS "BLOQUEO Y ETIQUETADO"', 'AAR-EP'),
+	(3, 'SEGURIDAD EN ESPACIOS CONFINADOS', 'SEGURIDAD EN ESPACIOS CONFINADOS', 'AAR-EC'),
+	(4, 'MANEJO SEGURO DE HERRAMIENTA DE CORTE Y PULIDORA', 'MANEJO SEGURO DE HERRAMIENTA DE CORTE Y PULIDORA', 'AAR-CP'),
+	(5, 'BRIGADA DE EMERGENCIA', 'BRIGADA DE EMERGENCIA', 'AAR-PE'),
+	(6, 'SISTEMA DE GESTION DE SEGURIDAD Y SALUD EN EL TRABAJO - 50 HORAS', 'SISTEMA DE GESTION DE SEGURIDAD Y SALUD EN EL TRABAJO - 50 HORAS', 'SGSST'),
+	(7, 'MANEJO SEGURO DE SUSTANCIAS PELIGROSAS', 'MANEJO SEGURO DE SUSTANCIAS PELIGROSAS', 'AAR-SP'),
+	(8, 'GESTION ADMINISTRATIVA', 'GESTION ADMINISTRATIVA', 'GA'),
+	(9, 'PEDAGOGIA AL ALCANCE DE PROFESIONALES NO LICENCIADOS', 'PEDAGOGIA AL ALCANCE DE PROFESIONALES NO LICENCIADOS', 'PD_'),
+	(10, 'RESCATE EN ESPACIOS CONFINADOS', 'RESCATE EN ESPACIOS CONFINADOS', 'AAR_RC'),
+	(11, 'FUMIGACION Y CONTROL DE PLAGAS', 'FUMIGACION Y CONTROL DE PLAGAS', 'AAR-FC');
 /*!40000 ALTER TABLE `cursos` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.departamentos
@@ -375,7 +369,7 @@ CREATE TABLE IF NOT EXISTS `empresas` (
   `numpersonacontacto_emp` varchar(15) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   `correopersonacontacto_emp` varchar(100) COLLATE utf8mb3_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`id_emp`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
 -- Volcando datos para la tabla opem.empresas: ~13 rows (aproximadamente)
 DELETE FROM `empresas`;
@@ -1600,6 +1594,7 @@ CREATE TABLE IF NOT EXISTS `permisosroles` (
   `crear_prol` int(1) DEFAULT NULL,
   `editar_prol` int(1) DEFAULT NULL,
   `eliminar_prol` int(1) DEFAULT NULL,
+  `filtrar_prol` int(1) DEFAULT NULL,
   PRIMARY KEY (`id_prol`) USING BTREE,
   UNIQUE KEY `Índice 4` (`idrol_prol`,`idmodulo_prol`),
   KEY `FK__roles` (`idrol_prol`) USING BTREE,
@@ -1611,23 +1606,23 @@ CREATE TABLE IF NOT EXISTS `permisosroles` (
 -- Volcando datos para la tabla opem.permisosroles: ~16 rows (aproximadamente)
 DELETE FROM `permisosroles`;
 /*!40000 ALTER TABLE `permisosroles` DISABLE KEYS */;
-INSERT INTO `permisosroles` (`id_prol`, `idrol_prol`, `idmodulo_prol`, `ver_prol`, `crear_prol`, `editar_prol`, `eliminar_prol`) VALUES
-	(18, 1, 11, 1, 0, 1, 1),
-	(19, 1, 10, 1, 1, 1, 1),
-	(20, 1, 9, 1, 1, 1, 1),
-	(21, 1, 8, 1, 1, 1, 1),
-	(22, 7, 8, 1, 0, 0, 0),
-	(23, 7, 9, 0, NULL, NULL, NULL),
-	(24, 1, 12, 1, 0, 0, 0),
-	(25, 1, 13, 0, 0, 0, 0),
-	(26, 1, 14, NULL, NULL, NULL, 0),
-	(27, 1, 16, 0, 0, 0, 0),
-	(28, 7, 12, 0, 0, 0, 0),
-	(29, 1, 19, 1, 0, 0, 0),
-	(30, 1, 18, 1, 0, 0, 0),
-	(33, 1, 20, 1, 0, 0, 0),
-	(36, 1, 17, 1, 0, 0, 0),
-	(37, 7, 20, 1, 0, 0, 0);
+INSERT INTO `permisosroles` (`id_prol`, `idrol_prol`, `idmodulo_prol`, `ver_prol`, `crear_prol`, `editar_prol`, `eliminar_prol`, `filtrar_prol`) VALUES
+	(18, 1, 11, 1, 0, 1, 1, 0),
+	(19, 1, 10, 1, 1, 1, 1, 0),
+	(20, 1, 9, 1, 1, 1, 1, NULL),
+	(21, 1, 8, 1, 0, 0, 1, 0),
+	(22, 7, 8, 1, 0, 0, 0, NULL),
+	(23, 7, 9, 0, NULL, NULL, NULL, NULL),
+	(24, 1, 12, 1, 0, 0, 0, NULL),
+	(25, 1, 13, 0, 0, 0, 0, NULL),
+	(26, 1, 14, NULL, NULL, NULL, 0, NULL),
+	(27, 1, 16, 0, 0, 0, 0, NULL),
+	(28, 7, 12, 0, 0, 0, 0, NULL),
+	(29, 1, 19, 1, 0, 0, 0, NULL),
+	(30, 1, 18, 1, 0, 0, 0, NULL),
+	(33, 1, 20, 1, 0, 0, 0, NULL),
+	(36, 1, 17, 1, 0, 0, 0, NULL),
+	(37, 7, 20, 1, 0, 0, 0, NULL);
 /*!40000 ALTER TABLE `permisosroles` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.roles

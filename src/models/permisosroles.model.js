@@ -11,7 +11,8 @@ module.exports = (sequelize, type) => {
         ver_prol:type.INTEGER,
         crear_prol:type.INTEGER,
         editar_prol:type.INTEGER,
-        eliminar_prol: type.INTEGER    
+        eliminar_prol: type.INTEGER,
+        filtrar_prol: type.INTEGER    
     });
 }
 

@@ -8,8 +8,8 @@ const transport = {
     secure: true, // use TLS
     //create a .env file and define the process.env variables with your credentials.
     auth: {
-        user: "jorge.mojica92@gmail.com",
-        pass: "bzjbawsifqellozv",
+        user: "opemsas@gmail.com",
+        pass: "gokqjwuumeilnxvy",
     },
 }
 

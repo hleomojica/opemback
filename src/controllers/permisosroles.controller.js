@@ -62,7 +62,8 @@ exports.create = async (req, res, next) => {
         ver_prol: req.body.ver,
         crear_prol: req.body.crear,
         editar_prol: req.body.editar,
-        eliminar_prol: req.body.eliminar
+        eliminar_prol: req.body.eliminar,
+        filtrar_prol: req.body.filtrar,
     };
     PermisosRoles.create(perol)
         .then(data => {
@@ -82,7 +83,8 @@ exports.update = (req, res, next) => {
         ver_prol: req.body.ver,
         crear_prol: req.body.crear,
         editar_prol: req.body.editar,
-        eliminar_prol: req.body.eliminar
+        eliminar_prol: req.body.eliminar,
+        filtrar_prol: req.body.filtrar,
     };
 
     PermisosRoles.update(perol, {
