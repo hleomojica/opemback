@@ -65,6 +65,9 @@ exports.create = async (params) => {
 
 exports.update = async (params, id) => {
 
+    const salt = await bcrypt.genSalt(Number(process.env.SALT));
+    const passcryp = await bcrypt.hash(params.password, salt);
+    
     const cas = {
         username_cue: params.username,
         password_cue: passcryp,

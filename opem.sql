@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS `certificaciones_colaboradores` (
   CONSTRAINT `FK_certificaciones_colaboradores_empresas` FOREIGN KEY (`idemp_ceco`) REFERENCES `empresas` (`id_emp`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.certificaciones_colaboradores: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla opem.certificaciones_colaboradores: ~1 rows (aproximadamente)
 DELETE FROM `certificaciones_colaboradores`;
 /*!40000 ALTER TABLE `certificaciones_colaboradores` DISABLE KEYS */;
 /*!40000 ALTER TABLE `certificaciones_colaboradores` ENABLE KEYS */;
@@ -92,12 +92,12 @@ CREATE TABLE IF NOT EXISTS `colaboradores` (
   CONSTRAINT `FK_colaboradores_tipodocumentos` FOREIGN KEY (`tipodocumento_col`) REFERENCES `tipodocumentos` (`id_tipo`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=176 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.colaboradores: ~156 rows (aproximadamente)
+-- Volcando datos para la tabla opem.colaboradores: ~157 rows (aproximadamente)
 DELETE FROM `colaboradores`;
 /*!40000 ALTER TABLE `colaboradores` DISABLE KEYS */;
 INSERT INTO `colaboradores` (`id_col`, `paisdocumento_col`, `tipodocumento_col`, `numerodocumento_col`, `nombres_col`, `apellidos_col`, `fechanacimiento_col`, `correopersonal_col`, `telefono_col`, `direccion_col`, `idemp_col`, `estado_col`, `terminos_col`) VALUES
 	(1, 1, 1, '1095811763', 'Jorge Enrique', 'Mojica', '1992-04-12', 'jorge.mojica92@gmail.com', '3175391309', 'calle falsa 123', 4, NULL, NULL),
-	(2, 1, 1, '71383190', 'Lopez Ramirez ', 'Jorge Mario', NULL, 'na', '123456', 'calle 124', 0, NULL, NULL),
+	(2, 1, 1, '71383190', 'Lopez Ramirez ', 'Jorge Mario', NULL, 'sdfadsf', '1234562345', 'calle 124', 0, NULL, NULL),
 	(3, 1, 1, '9915289', 'Marin Ramirez ', 'Juan Carlos', NULL, 'na', '123456', 'calle 125', 0, NULL, NULL),
 	(4, 1, 1, '1042005364', 'Mendez Vidales ', 'Diego Alejandro', NULL, 'na', '123456', 'calle 126', 0, NULL, NULL),
 	(5, 1, 1, '98711636', 'Ramirez Velasquez ', 'Juan Luis', NULL, 'na', '123456', 'calle 127', 0, NULL, NULL),
@@ -276,7 +276,7 @@ CREATE TABLE IF NOT EXISTS `cuentaaccesos` (
 DELETE FROM `cuentaaccesos`;
 /*!40000 ALTER TABLE `cuentaaccesos` DISABLE KEYS */;
 INSERT INTO `cuentaaccesos` (`id_cue`, `username_cue`, `password_cue`, `idcolaborador_cue`, `idroles_cue`, `intentosbloqueo_cue`) VALUES
-	(1, '1095811763', '$2b$10$3AeyrrrArf/byZhnuvCIbuCyJChDoB.r5mCPzu3ZgGS8KoGbxIF5S', 1, 1, NULL),
+	(1, '1095811763', '$2b$08$4dE3wcvdtPV4LzOl0TlJ9OpQomXp5BFj7L2DVcNBmwIHluxL.3kQq', 1, 1, NULL),
 	(2, '1095824338', '$2b$08$hqb/6e0yWEuPDgqKngw8je.vAoHokPU9Eet7ADTpU2jASWFbvZhxi', 175, 7, NULL);
 /*!40000 ALTER TABLE `cuentaaccesos` ENABLE KEYS */;
 
@@ -290,7 +290,7 @@ CREATE TABLE IF NOT EXISTS `cursos` (
   PRIMARY KEY (`id_cur`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_spanish_ci;
 
--- Volcando datos para la tabla opem.cursos: ~11 rows (aproximadamente)
+-- Volcando datos para la tabla opem.cursos: ~12 rows (aproximadamente)
 DELETE FROM `cursos`;
 /*!40000 ALTER TABLE `cursos` DISABLE KEYS */;
 INSERT INTO `cursos` (`id_cur`, `nombre_cur`, `descripcion_cur`, `iniciales_cur`) VALUES
@@ -1610,7 +1610,7 @@ INSERT INTO `permisosroles` (`id_prol`, `idrol_prol`, `idmodulo_prol`, `ver_prol
 	(18, 1, 11, 1, 0, 1, 1, 0),
 	(19, 1, 10, 1, 1, 1, 1, 0),
 	(20, 1, 9, 1, 1, 1, 1, NULL),
-	(21, 1, 8, 1, 0, 0, 1, 0),
+	(21, 1, 8, 1, 0, 0, 0, 0),
 	(22, 7, 8, 1, 0, 0, 0, NULL),
 	(23, 7, 9, 0, NULL, NULL, NULL, NULL),
 	(24, 1, 12, 1, 0, 0, 0, NULL),

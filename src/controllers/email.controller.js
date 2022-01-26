@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer');
-const template = require('../utils/EmailTemplate');
+const utilEmail = require('../utils/EmailTemplate');
 
 const transport = {
     //this is the authentication for sending email.
@@ -27,18 +27,19 @@ exports.get = (req, res, next) => {
 }
 
 exports.send = (req, res, next) => {
-    /*
-    to
-    nombre
-    tipo
-    */
-    const { params } = req.body
+
+    const { to } = req.body
     const mail = {
-        from: "Opem SAS",
-        to: params.to,
-        subject: 'Informacion Opem SAS',
+        from: "Optimizacion Empresarial - OPEM SAS",
+        to: to,
+        subject: 'Informacion OPEM SAS',
         text: "",
-        html: template(params)
+        attachments: [{
+            filename: 'seguridad.png',
+            path: './src/assets/seguridad.png',
+            cid: 'logo'
+        }],
+        html: utilEmail.contentEmail(req.body)
     }
     transporter.sendMail(mail, (err, data) => {
         if (err) {
