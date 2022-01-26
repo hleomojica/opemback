@@ -2,11 +2,9 @@ const nodemailer = require('nodemailer');
 const utilEmail = require('../utils/EmailTemplate');
 
 const transport = {
-    //this is the authentication for sending email.
     host: 'smtp.gmail.com',
     port: 465,
-    secure: true, // use TLS
-    //create a .env file and define the process.env variables with your credentials.
+    secure: true,
     auth: {
         user: "opemsas@gmail.com",
         pass: "gokqjwuumeilnxvy",
@@ -23,7 +21,7 @@ transporter.verify((error, success) => {
 })
 
 exports.get = (req, res, next) => {
-    res.status(200).json({ msg: 'Working' })
+    res.status(200).json({ msg: 'servicio trabajando' })
 }
 
 exports.send = (req, res, next) => {
