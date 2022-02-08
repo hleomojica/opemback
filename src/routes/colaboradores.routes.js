@@ -8,7 +8,7 @@ router.get("/:id?", awaitHandlerFactory(colabo.findAllPaging));
 router.post("/", awaitHandlerFactory(colabo.create));
 router.post("/createArray", awaitHandlerFactory(colabo.createArray));
 router.put("/:id",  awaitHandlerFactory(colabo.update));
-//router.delete("/:id", colabo.delete);
+router.delete("/:id", colabo.delete);
 
 
 module.exports = router;

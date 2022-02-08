@@ -7,6 +7,27 @@ const paging = require("./../utils/Paging.utils");
 
 exports.findAll = (req, res, next) => {
     const id = req.params.id;
+
+    var condition = id ? {
+        id_emp: {
+            [Op.eq]: id
+        }
+    } : null;
+
+
+    Empresa.findAll({
+            where: condition,
+        })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            next(err)
+        });
+};
+
+exports.findPaging = (req, res, next) => {
+    const id = req.params.id;
     const {
         page,
         size
@@ -24,10 +45,10 @@ exports.findAll = (req, res, next) => {
     } = paging.getPagination(page, size);
 
     Empresa.findAndCountAll({
-        where: condition,
-        limit,
-        offset
-    })
+            where: condition,
+            limit,
+            offset
+        })
         .then(data => {
             const response = paging.getPagingData(data, page, limit);
             res.send(response);
@@ -53,7 +74,7 @@ exports.create = (req, res, next) => {
         telefono_emp: req.body.telefono,
         correo_emp: req.body.correo,
         direccion_emp: req.body.direccion,
-        personacontacto_emp: req.body.personacontacto,      
+        personacontacto_emp: req.body.personacontacto,
         numpersonacontacto_emp: req.body.numpersonacontacto,
         correopersonacontacto_emp: req.body.correopersonacontacto,
     };
@@ -74,15 +95,15 @@ exports.update = (req, res, next) => {
         telefono_emp: req.body.telefono,
         correo_emp: req.body.correo,
         direccion_emp: req.body.direccion,
-        personacontacto_emp: req.body.personacontacto,      
+        personacontacto_emp: req.body.personacontacto,
         numpersonacontacto_emp: req.body.numpersonacontacto,
         correopersonacontacto_emp: req.body.correopersonacontacto,
     };
     Empresa.update(empresa, {
-        where: {
-            id: id
-        }
-    })
+            where: {
+                id_emp: id
+            }
+        })
         .then(num => {
             if (num == 1) {
                 res.send({
@@ -103,10 +124,10 @@ exports.delete = (req, res, next) => {
     const id = req.params.id;
 
     Empresa.destroy({
-        where: {
-            id_emp: id
-        }
-    })
+            where: {
+                id_emp: id
+            }
+        })
         .then(num => {
             if (num == 1) {
                 res.send({

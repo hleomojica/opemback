@@ -192,12 +192,12 @@ exports.update = (req, res, next) => {
         });
 };
 
-exports.delete = (req, res) => {
+exports.delete = (req, res, next) => {
     const id = req.params.id;
 
     Colaboradores.destroy({
             where: {
-                id: id
+                id_col: id
             }
         })
         .then(num => {
@@ -206,14 +206,12 @@ exports.delete = (req, res) => {
                     message: "Colaboradores was deleted successfully!"
                 });
             } else {
-                res.send({
-                    message: `Cannot delete Colaboradores with id=${id}. Maybe Colaboradores was not found!`
-                });
+                next({
+                    message: "Could not delete Colaboradores with id=" + id
+                })
             }
         })
         .catch(err => {
-            res.status(500).send({
-                message: "Could not delete Colaboradores with id=" + id
-            });
+            next(err)
         });
 };
