@@ -203,7 +203,7 @@ exports.update = async (req, res, next) => {
         estado_ceco: req.body.estado,
         descargado_ceco: req.body.descargado
     };
-    console.log(id)
+
     CertColaboradores.update(cercol, {
         where: {
             id_ceco: id

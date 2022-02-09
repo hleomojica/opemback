@@ -78,6 +78,20 @@ Consulta certificados: {
   que no pueda descargar
 }
 
+REUNION JJ - MOJICA 07/02/2022
+Hallazgos de opemapp:
+1. Al editar una empresa e incluir todos los datos, sale error code 500 (solo al editar)
+2. Al eliminar un aprendiz, no me deja; sale error code 404 
+3. Al exportar la plantilla, no se actualiza con los ultimos datos (en este caso, emrpesa creada) Solo esta sacando los primeros 10
+4. Editar Cursos-Aprendices para que se peuda agregar la empresa 
+5. despeus de finalizada la edicion, que me devuleva al listado incial
+6. Limpiar los aprendices en cursos aprendices
+7. revisar error al seleccionar / despues de guardar toca refrescarlo
+8. Error cursos aprendices - paginación, cuando pruebo me manda a la pagina 
+9. pONERLA OPCION DE APROBAR TODOS LOS CURSOS Q UNO ACABE DE INCLUIR (NO UNO POR UNO)
+10. la desplegable de empresas solo salen 10, las otras no cargan y estan en otras paginas
+11. ordenar cohorte-grupo poner las opciones
+
 
 */
 

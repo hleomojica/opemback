@@ -18,5 +18,6 @@ module.exports = (sequelize, type) => {
         },
         estado_col: type.INTEGER,
         terminos_col: type.INTEGER,
+        cargo_col: type.STRING,
     });
 }
