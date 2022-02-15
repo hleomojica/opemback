@@ -26,17 +26,27 @@ exports.get = (req, res, next) => {
 
 exports.send = (req, res, next) => {
 
-    const { to } = req.body
+    const { to, pdf } = req.body
+    var adjuntopdf = {}
+    if (pdf) {
+        adjuntopdf = {
+            filename: 'Certificado.pdf',
+            contents: new Buffer(pdf.replace(/^data:pdf\/(pdf);base64,/, ''), 'base64')
+        }
+    }
     const mail = {
         from: "Optimizacion Empresarial - OPEM SAS",
         to: to,
         subject: 'Informacion OPEM SAS',
         text: "",
-        attachments: [{
-            filename: 'seguridad.png',
-            path: './src/assets/seguridad.png',
-            cid: 'logo'
-        }],
+        attachments: [
+            {
+                filename: 'seguridad.png',
+                path: './src/assets/seguridad.png',
+                cid: 'logo'
+            },
+            adjuntopdf
+        ],
         html: utilEmail.contentEmail(req.body)
     }
     transporter.sendMail(mail, (err, data) => {

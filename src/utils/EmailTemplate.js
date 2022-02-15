@@ -6,6 +6,8 @@ exports.contentEmail = (params) => {
             <li>Usuario: ${params.username}</li>
             <li>Contraseña: ${params.pass}</li>
         </ul>`
+    } else if (params.tipo === 2) {
+        mensaje = `El certificado se encuentra disponible`
     }
 
     return `<div style="width:100%;text-align:center;font-family:Tahoma">
