@@ -21,17 +21,24 @@ transporter.verify((error, success) => {
 })
 
 exports.get = (req, res, next) => {
-    res.status(200).json({ msg: 'servicio trabajando' })
+    res.status(200).json({
+        msg: 'servicio trabajando'
+    })
 }
 
 exports.send = (req, res, next) => {
 
-    const { to, pdf } = req.body
+    const {
+        to,
+        pdf
+    } = req.body
     var adjuntopdf = {}
+
     if (pdf) {
         adjuntopdf = {
             filename: 'Certificado.pdf',
-            contents: new Buffer(pdf.replace(/^data:pdf\/(pdf);base64,/, ''), 'base64')
+            content: pdf,
+            encoding: 'base64',
         }
     }
     const mail = {
@@ -39,8 +46,7 @@ exports.send = (req, res, next) => {
         to: to,
         subject: 'Informacion OPEM SAS',
         text: "",
-        attachments: [
-            {
+        attachments: [{
                 filename: 'seguridad.png',
                 path: './src/assets/seguridad.png',
                 cid: 'logo'
