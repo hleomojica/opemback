@@ -93,6 +93,11 @@ Hallazgos de opemapp:
 11. ordenar cohorte-grupo poner las opciones
 
 
+12. Error paginado certcolaboradores
+13. el nombre del certificado con el nombre del aprendiz iniciales curso nombre
+14. 
+
+
 */
 
 const Cursos = cursosModel(sequelize, Sequelize);
