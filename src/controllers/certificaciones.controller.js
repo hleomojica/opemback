@@ -1,4 +1,3 @@
-
 const {
     Certificaciones,
     Cursos,
@@ -8,15 +7,21 @@ const Op = Sequelize.Op;
 const paging = require("./../utils/Paging.utils");
 
 exports.findAll = (req, res) => {
-    
+
     const {
-        idcur
+        idcur,
+        estado
     } = req.query;
     var condition = {}
-       
+
     if (idcur) {
         condition.idcur_cer = {
             [Op.eq]: idcur
+        }
+    }
+    if (estado) {
+        condition.estado_cer = {
+            [Op.eq]: estado
         }
     }
     Certificaciones.findAll({
@@ -40,7 +45,9 @@ exports.findAllPaging = (req, res) => {
     const id = req.params.id;
     const {
         page,
-        size
+        size,
+        idcur,
+        cohorte
     } = req.query;
 
     var condition = {}
@@ -48,6 +55,16 @@ exports.findAllPaging = (req, res) => {
     if (id) {
         condition.id_cer = {
             [Op.eq]: id
+        }
+    }
+    if (idcur) {
+        condition.idcur_cer = {
+            [Op.eq]: idcur
+        }
+    }
+    if (cohorte) {
+        condition.cohorte_cer = {
+            [Op.eq]: cohorte
         }
     }
 
@@ -61,6 +78,9 @@ exports.findAllPaging = (req, res) => {
                 model: Cursos,
             }],
             where: condition,
+            order: [
+                ['cohorte_cer', 'DESC']
+            ],
             limit,
             offset
         })
@@ -88,7 +108,7 @@ exports.create = (req, res, next) => {
         fechainicio_cer: req.body.fechainicio,
         fechafin_cer: req.body.fechafin,
         horas_cer: req.body.horas,
-        estado_cer:req.body.estado,
+        estado_cer: req.body.estado,
         idcur_cer: req.body.idcur,
         periodo_cer: req.body.periodo,
         tiempovigencia_cer: req.body.tiempovigencia,
@@ -138,7 +158,7 @@ exports.updateEstado = (req, res, next) => {
     const id = req.params.id;
 
     const cert = {
-        estado_cer: req.body.estado       
+        estado_cer: req.body.estado
     };
     Certificaciones.update(cert, {
             where: {
@@ -146,7 +166,7 @@ exports.updateEstado = (req, res, next) => {
             }
         })
         .then(num => {
-            if (num == 1) {             
+            if (num == 1) {
                 res.send({
                     message: "Certificaciones was updated successfully."
                 });

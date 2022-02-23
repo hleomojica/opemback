@@ -95,7 +95,9 @@ Hallazgos de opemapp:
 
 12. Error paginado certcolaboradores
 13. el nombre del certificado con el nombre del aprendiz iniciales curso nombre
-14. 
+
+14. Crear filtro en cohorte-grupo para el curso
+15. Slucionar paginado de cohorte-grupo
 
 
 */

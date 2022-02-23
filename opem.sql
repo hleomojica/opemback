@@ -34,9 +34,9 @@ CREATE TABLE IF NOT EXISTS `certificaciones` (
   UNIQUE KEY `UQ_cohorte` (`cohorte_cer`) USING BTREE,
   KEY `FK_certificaciones_cursos` (`idcur_cer`),
   CONSTRAINT `FK_certificaciones_cursos` FOREIGN KEY (`idcur_cer`) REFERENCES `cursos` (`id_cur`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
 
--- Volcando datos para la tabla opem.certificaciones: ~45 rows (aproximadamente)
+-- Volcando datos para la tabla opem.certificaciones: ~46 rows (aproximadamente)
 DELETE FROM `certificaciones`;
 /*!40000 ALTER TABLE `certificaciones` DISABLE KEYS */;
 INSERT INTO `certificaciones` (`id_cer`, `fechainicio_cer`, `fechafin_cer`, `horas_cer`, `idcur_cer`, `cohorte_cer`, `estado_cer`, `periodo_cer`, `tiempovigencia_cer`) VALUES
@@ -81,6 +81,7 @@ INSERT INTO `certificaciones` (`id_cer`, `fechainicio_cer`, `fechafin_cer`, `hor
 	('ca5fd3a5-84b4-46e4-8013-ad915c7d9918', '2021-08-19', '2022-08-19', 10, 1, 30, 0, 3, 1),
 	('cf09d1cd-9619-472a-9e2a-ed3d8ff7aa99', '2021-11-02', '2022-11-02', 10, 14, 38, 0, 3, 1),
 	('e73c7dc0-f22e-46a2-b5f0-49a7cee21a31', '2020-10-30', '2021-10-30', 10, 1, 14, 0, 3, 1),
+	('f7d25aa4-d03c-4303-9da5-da4ae18c5132', '2020-11-01', '2021-11-01', 10, 5, 46, 0, 3, 1),
 	('fac7a315-1182-41cd-9846-a8901e1ae515', '2021-02-12', '2022-02-12', 10, 3, 19, 0, 3, 1),
 	('fbb08e56-3b52-4c21-91f0-bf2401b57765', '2021-02-15', '2022-02-15', 10, 1, 20, 0, 3, 1),
 	('fc43dea7-7154-481c-a18d-1f64f25af429', '2021-03-19', '2022-03-19', 10, 1, 23, 0, 3, 1),
@@ -105,16 +106,17 @@ CREATE TABLE IF NOT EXISTS `certificaciones_colaboradores` (
   CONSTRAINT `FK_certificaciones_colaboradores_certificaciones` FOREIGN KEY (`idcer_ceco`) REFERENCES `certificaciones` (`id_cer`),
   CONSTRAINT `FK_certificaciones_colaboradores_colaboradores` FOREIGN KEY (`idcol_ceco`) REFERENCES `colaboradores` (`id_col`),
   CONSTRAINT `FK_certificaciones_colaboradores_empresas` FOREIGN KEY (`idemp_ceco`) REFERENCES `empresas` (`id_emp`)
-) ENGINE=InnoDB AUTO_INCREMENT=219 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=303 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
 
--- Volcando datos para la tabla opem.certificaciones_colaboradores: ~218 rows (aproximadamente)
+-- Volcando datos para la tabla opem.certificaciones_colaboradores: ~236 rows (aproximadamente)
 DELETE FROM `certificaciones_colaboradores`;
 /*!40000 ALTER TABLE `certificaciones_colaboradores` DISABLE KEYS */;
 INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_ceco`, `idemp_ceco`, `estado_ceco`, `descargado_ceco`, `consecutivo_ceco`) VALUES
+	('036b7f55-6d19-4e11-8ce3-69b4bf871e1a', '46406be5-9055-4267-a02f-441f70e846fe', 197, 14, 1, 0, 251),
 	('0381fd7c-e43f-4d7f-9189-b17c1984e89a', 'fac7a315-1182-41cd-9846-a8901e1ae515', 88, 6, 0, 0, 130),
 	('06774184-4dff-45dd-b80c-f9471c0d35e3', 'b6cf6186-9f4f-4593-add9-4acfcf4724b2', 138, 0, 0, 0, 145),
 	('067bfcac-440a-4b7d-bd84-f39dd23f41c0', '516ffca0-3579-44e9-8d07-7688e7342de2', 57, 4, 1, 0, 26),
-	('06ec4626-5656-4331-b425-d8b7e999841e', '63e91b88-814c-4686-811c-df12fa0eef91', 45, 3, 0, 0, 218),
+	('06ec4626-5656-4331-b425-d8b7e999841e', '63e91b88-814c-4686-811c-df12fa0eef91', 45, 3, 1, 0, 218),
 	('0708484b-5d11-4389-a028-ed300e7a1c95', '8f48911c-7154-4d1b-9d6f-ae6a65d4ade7', 116, 9, 0, 0, 163),
 	('090022c5-ec53-4cef-8496-2b43143568b0', '83baa88c-b4e8-4067-8782-8b4cf427e009', 143, 8, 0, 0, 180),
 	('0978d7ef-e301-42f4-a859-e426aa682c2d', '25c555e0-d587-4777-b1e3-623d868f9482', 52, 3, 1, 0, 58),
@@ -130,6 +132,7 @@ INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_cec
 	('142fdec9-6ed6-44fd-a3ad-927db5d3f019', '9fd8081d-ba54-40fd-8c3c-bb895782ee41', 202, 14, 0, 0, 121),
 	('16576328-0b9a-42de-bfdd-1d8f04b3f4b6', 'a6b71931-9a18-40cf-8fef-a3b870ecdb18', 20, 3, 1, 0, 70),
 	('1680b93e-bc87-4033-bc42-78a8431e4e3f', '5bc8bd16-7641-49ea-81d9-6fd2fce2c016', 34, 3, 1, 0, 32),
+	('168d02e1-6be6-4f8c-b9b7-98ffa99e79e6', '46406be5-9055-4267-a02f-441f70e846fe', 201, 14, 1, 0, 264),
 	('16c23ed3-f109-46ff-8236-cea137b1174b', '25c555e0-d587-4777-b1e3-623d868f9482', 44, 3, 1, 0, 55),
 	('1869473a-cbc8-4dad-b40e-86cedd4f3c2e', 'a6b71931-9a18-40cf-8fef-a3b870ecdb18', 78, 3, 1, 0, 78),
 	('1893031f-6938-44b5-bb80-9e9acf2fe72d', '9fd8081d-ba54-40fd-8c3c-bb895782ee41', 211, 14, 0, 0, 128),
@@ -139,11 +142,13 @@ INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_cec
 	('1bee8c90-56a7-4b76-bcb7-c86be03c46b7', 'a6b71931-9a18-40cf-8fef-a3b870ecdb18', 61, 3, 1, 0, 66),
 	('1e7d0473-68cc-4151-8845-c7ea9859798f', 'a6b71931-9a18-40cf-8fef-a3b870ecdb18', 62, 3, 1, 0, 67),
 	('1e9546cb-2380-411b-aabf-0c58da3b11fd', '00d9eae0-8718-4a04-9d81-032c7ed8159b', 153, 4, 0, 0, 209),
+	('1f04df38-52cf-4815-aa17-6817fcaae325', '46406be5-9055-4267-a02f-441f70e846fe', 195, 14, 1, 0, 250),
 	('208c75eb-8eca-4a4e-ac0f-51ce879f484e', '8f48911c-7154-4d1b-9d6f-ae6a65d4ade7', 112, 9, 0, 0, 159),
 	('20a6e465-c553-44eb-b122-74abfd3530b2', '9fd8081d-ba54-40fd-8c3c-bb895782ee41', 192, 14, 0, 0, 113),
 	('22342d72-2854-4f7d-9fbe-bfc66c554939', '8f48911c-7154-4d1b-9d6f-ae6a65d4ade7', 119, 9, 0, 0, 166),
-	('24c7eca4-f0a9-4752-84eb-5f29d159fa6e', '3eb5ba82-6b16-460f-8f87-e487005b4dcf', 151, 2, 0, 0, 216),
-	('259d99f1-72f2-404e-9d2e-3823c2ce940c', '3eb5ba82-6b16-460f-8f87-e487005b4dcf', 150, 0, 0, 0, 214),
+	('248fad20-f54a-4145-ac67-0cea4f463484', '46406be5-9055-4267-a02f-441f70e846fe', 192, 14, 1, 0, 248),
+	('24c7eca4-f0a9-4752-84eb-5f29d159fa6e', '3eb5ba82-6b16-460f-8f87-e487005b4dcf', 151, 2, 1, 0, 216),
+	('259d99f1-72f2-404e-9d2e-3823c2ce940c', '3eb5ba82-6b16-460f-8f87-e487005b4dcf', 150, 0, 1, 0, 214),
 	('26c9bf08-cbf2-4013-94ad-63b5ad0ada9a', 'e73c7dc0-f22e-46a2-b5f0-49a7cee21a31', 62, 3, 0, 0, 89),
 	('26d9f7d4-50c2-4bcc-bb10-23703ce82460', '9fd8081d-ba54-40fd-8c3c-bb895782ee41', 179, 14, 0, 0, 104),
 	('272566ed-e0fe-4530-84d7-0c9b8d6abc07', '9fd8081d-ba54-40fd-8c3c-bb895782ee41', 191, 14, 0, 0, 111),
@@ -166,11 +171,13 @@ INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_cec
 	('3b34934e-1731-4b22-84a3-c16fe168af1e', '516ffca0-3579-44e9-8d07-7688e7342de2', 54, 3, 1, 0, 30),
 	('3c7eb9b0-e8cc-4b62-8447-d4257d8c3f82', 'a6b71931-9a18-40cf-8fef-a3b870ecdb18', 69, 3, 1, 0, 72),
 	('3de113dd-fd59-499c-bf4f-52f1a6bfa128', 'cf09d1cd-9619-472a-9e2a-ed3d8ff7aa99', 147, 8, 0, 0, 203),
+	('4184b17b-0936-48db-806b-a076877527df', '83fc9efe-a9a3-4dd1-9823-2e8501a3bec5', 218, 0, 0, 0, 301),
 	('424d5df6-4f7f-41fd-a5f4-cd1e9abca4b3', '6c18348e-0f52-45b0-bfa3-0ab849020be8', 22, 3, 1, 0, 11),
 	('4310ed97-cf75-4e7f-9b60-010ca08b5d1c', '895446ba-4aad-4784-9aa4-709f1f2d614d', 148, 0, 0, 0, 202),
 	('4364bc57-8f1f-4d37-94ed-3c45656c946c', 'e73c7dc0-f22e-46a2-b5f0-49a7cee21a31', 87, 3, 0, 0, 100),
 	('44f9b459-2d8e-4315-9c5e-00b845203a8b', '2071b300-390e-4bf0-b688-88fb080535ec', 50, 3, 1, 0, 63),
 	('456eff39-0d36-4761-869f-24512e735bcd', 'c54debe4-b0ea-4eea-84f7-ea701693074e', 7, 2, 0, 0, 193),
+	('45868c0c-257a-4189-8fd9-21e15026e252', '46406be5-9055-4267-a02f-441f70e846fe', 194, 14, 1, 0, 249),
 	('45b71e17-dc58-45a8-a24e-6a9341104858', '0d8ea35b-094b-47e2-a84d-711486170b74', 124, 0, 0, 0, 178),
 	('4620ed1b-2ed8-46d1-ba8b-76c2def72ec3', 'c8babb61-d2ed-40be-9087-88d20eff8208', 145, 8, 0, 0, 200),
 	('4735230c-857b-417a-b45c-ae0730476ad9', 'e73c7dc0-f22e-46a2-b5f0-49a7cee21a31', 76, 3, 0, 0, 97),
@@ -184,7 +191,8 @@ INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_cec
 	('4b15adb3-7824-43c3-bac6-b1d7e9beec8f', '5bc8bd16-7641-49ea-81d9-6fd2fce2c016', 66, 3, 1, 0, 40),
 	('4b98e8fd-6d9d-4eed-bd92-3f57d4c4f638', '3eb5ba82-6b16-460f-8f87-e487005b4dcf', 3, 2, 0, 0, 210),
 	('4d690f2e-39c8-427c-a8c6-3e21e512299d', 'fac7a315-1182-41cd-9846-a8901e1ae515', 93, 6, 0, 0, 133),
-	('4ec5d32d-4d57-4480-b21a-222637002648', '9fd8081d-ba54-40fd-8c3c-bb895782ee41', 204, 14, 0, 0, 123),
+	('4e10d95a-5065-4356-9f4f-1b4b82f120ae', '46406be5-9055-4267-a02f-441f70e846fe', 200, 14, 1, 0, 263),
+	('4ec5d32d-4d57-4480-b21a-222637002648', '9fd8081d-ba54-40fd-8c3c-bb895782ee41', 204, 14, 1, 0, 123),
 	('4f32166c-94ca-4c1f-8cb9-66cf078eed95', 'c54debe4-b0ea-4eea-84f7-ea701693074e', 141, 2, 0, 0, 195),
 	('50524de9-d953-46ac-8878-21d47bc9921e', 'fbb08e56-3b52-4c21-91f0-bf2401b57765', 67, 3, 0, 0, 134),
 	('507e7fb2-eb9f-434d-8bff-9fdaac080b85', '02aa23d2-dcdc-42ae-8869-a205ea84f50b', 145, 8, 0, 0, 198),
@@ -193,7 +201,8 @@ INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_cec
 	('55591ea5-3aff-4850-9d50-3688bcde67fa', '357effc4-e152-4ff5-9cec-43548768c182', 28, 3, 1, 0, 48),
 	('58c425d3-8d2e-45df-9fb6-9e239e909315', '8f48911c-7154-4d1b-9d6f-ae6a65d4ade7', 127, 10, 0, 0, 173),
 	('5a2c6826-1781-41ad-8b4a-35af518a18cc', 'cf09d1cd-9619-472a-9e2a-ed3d8ff7aa99', 152, 4, 0, 0, 204),
-	('605e33bf-cf8c-400d-b56f-a05387380b0d', '3eb5ba82-6b16-460f-8f87-e487005b4dcf', 149, 2, 0, 0, 213),
+	('5aea0f63-07e3-4f41-b82b-e6e1301b5828', '83fc9efe-a9a3-4dd1-9823-2e8501a3bec5', 217, 0, 0, 0, 300),
+	('605e33bf-cf8c-400d-b56f-a05387380b0d', '3eb5ba82-6b16-460f-8f87-e487005b4dcf', 149, 2, 1, 0, 213),
 	('6078c994-257e-4381-9d4f-9fe42ea7cd85', '9148eab4-9861-461b-9d04-a7dd5c60a7f4', 22, 3, 1, 0, 22),
 	('61641a51-4586-48cd-8be2-af5d08c56f4c', 'cf09d1cd-9619-472a-9e2a-ed3d8ff7aa99', 153, 4, 0, 0, 205),
 	('6431eaea-79e6-42e3-a7ba-4a152da66b75', '46406be5-9055-4267-a02f-441f70e846fe', 204, 14, 1, 0, 85),
@@ -217,14 +226,16 @@ INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_cec
 	('7d7a48cc-4c0f-47dc-8703-a247cfe5f021', '9fd8081d-ba54-40fd-8c3c-bb895782ee41', 213, 14, 0, 0, 129),
 	('7ea54120-f6ba-4f50-a81e-93ecf1a9e7da', '8f48911c-7154-4d1b-9d6f-ae6a65d4ade7', 125, 10, 0, 0, 171),
 	('7ff1f459-d941-465e-9987-daac3aaf9867', '357effc4-e152-4ff5-9cec-43548768c182', 27, 3, 1, 0, 47),
+	('8257c779-ced5-471d-84d9-24712f3feb0e', '46406be5-9055-4267-a02f-441f70e846fe', 202, 14, 1, 0, 265),
 	('831aa794-7427-4a85-b718-5db6bd1bbe7b', '516ffca0-3579-44e9-8d07-7688e7342de2', 58, 4, 1, 0, 27),
 	('83362ea7-8b4c-4120-a58f-77b0d28f75ef', '3419442e-93fd-4416-9d2c-abd6d3132dea', 8, 2, 1, 0, 7),
+	('838ee576-eaf0-498f-94bd-70cfd9cef036', '83fc9efe-a9a3-4dd1-9823-2e8501a3bec5', 216, 0, 0, 0, 273),
 	('865273e0-e97a-4558-b496-67801ba650d7', '0d8ea35b-094b-47e2-a84d-711486170b74', 101, 8, 0, 0, 177),
 	('865efd2f-aea2-4597-aefd-a918636924a5', '013e235a-e9b4-499c-b065-194a628aebd1', 133, 0, 0, 0, 187),
 	('8944d20c-0712-4f5c-8c72-30cc7b3589aa', '9273033e-1e90-4ff3-b3c4-64bc1883f31a', 18, 3, 1, 0, 18),
 	('8a80d961-48f7-4e6f-8de4-0cb7fa52d5c2', '9fd8081d-ba54-40fd-8c3c-bb895782ee41', 189, 14, 0, 0, 110),
 	('8ae7b532-e35f-4e39-be8a-a99c87d5ce53', '357effc4-e152-4ff5-9cec-43548768c182', 23, 3, 1, 0, 42),
-	('8b083287-71e3-465e-8b5d-622cce0b3a94', '3eb5ba82-6b16-460f-8f87-e487005b4dcf', 10, 2, 0, 0, 212),
+	('8b083287-71e3-465e-8b5d-622cce0b3a94', '3eb5ba82-6b16-460f-8f87-e487005b4dcf', 10, 2, 1, 0, 212),
 	('8b592422-67df-4397-9182-33f03018db86', '8f48911c-7154-4d1b-9d6f-ae6a65d4ade7', 110, 9, 0, 0, 157),
 	('8c364e05-a3ac-4b3a-bcc5-26a6e39c32a6', '357effc4-e152-4ff5-9cec-43548768c182', 24, 3, 1, 0, 43),
 	('8f94806e-bb34-46e3-8979-d4a30e4b384c', '357effc4-e152-4ff5-9cec-43548768c182', 32, 3, 1, 0, 52),
@@ -232,16 +243,19 @@ INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_cec
 	('907f879a-4cd2-4435-9cf5-3563973e06aa', '516ffca0-3579-44e9-8d07-7688e7342de2', 43, 3, 1, 0, 29),
 	('90ad1f0f-d529-44e0-8121-d9d0f4a96197', '9fd8081d-ba54-40fd-8c3c-bb895782ee41', 193, 14, 0, 0, 114),
 	('91770d2f-7f45-48eb-bd2b-62124a117178', 'a6b71931-9a18-40cf-8fef-a3b870ecdb18', 80, 0, 1, 0, 80),
-	('921fcafb-0bfe-45cd-abd2-92bce4cd1284', '3eb5ba82-6b16-460f-8f87-e487005b4dcf', 8, 2, 0, 0, 211),
+	('921fcafb-0bfe-45cd-abd2-92bce4cd1284', '3eb5ba82-6b16-460f-8f87-e487005b4dcf', 8, 2, 1, 0, 211),
 	('92466928-007c-4fd2-a478-560b28f64c34', 'a6b71931-9a18-40cf-8fef-a3b870ecdb18', 84, 6, 1, 0, 83),
 	('935ff710-d137-4cd3-a094-cf172faadf0d', '5bc8bd16-7641-49ea-81d9-6fd2fce2c016', 36, 3, 1, 0, 34),
+	('9523e3fd-da16-4c92-976b-edb74e4b2ea8', '46406be5-9055-4267-a02f-441f70e846fe', 180, 14, 1, 0, 235),
 	('95fa4c1e-acd2-4645-aa4e-361a13c00e2e', '8f48911c-7154-4d1b-9d6f-ae6a65d4ade7', 122, 10, 0, 0, 169),
 	('9603de6a-11db-4c45-abe4-b47cd5d04827', 'fc43dea7-7154-481c-a18d-1f64f25af429', 91, 2, 0, 0, 140),
 	('96793dcb-a1fe-4870-bf57-eef8e2878804', 'a6b71931-9a18-40cf-8fef-a3b870ecdb18', 63, 3, 1, 0, 68),
 	('97b73e05-f66d-4427-8bc4-ed82dd707c3b', '8f48911c-7154-4d1b-9d6f-ae6a65d4ade7', 142, 0, 0, 0, 176),
-	('984c88d3-01e6-4117-bcda-79a5fcd63c17', '3eb5ba82-6b16-460f-8f87-e487005b4dcf', 4, 2, 0, 0, 215),
+	('97d3a4b1-009f-480f-a346-377535b14271', '46406be5-9055-4267-a02f-441f70e846fe', 182, 14, 1, 0, 236),
+	('984c88d3-01e6-4117-bcda-79a5fcd63c17', '3eb5ba82-6b16-460f-8f87-e487005b4dcf', 4, 2, 1, 0, 215),
 	('9eb342ca-a347-47ed-8867-370e6315e924', '013e235a-e9b4-499c-b065-194a628aebd1', 130, 0, 0, 0, 186),
 	('9ee7f318-3ba9-463a-b539-615df64b2706', '9fd8081d-ba54-40fd-8c3c-bb895782ee41', 203, 14, 0, 0, 122),
+	('9f1b3e0c-da13-48a7-9741-dc97f7c2e6ec', '46406be5-9055-4267-a02f-441f70e846fe', 203, 14, 1, 0, 266),
 	('9f2f3da8-8d97-4184-a371-99c8501e18cb', 'fc43dea7-7154-481c-a18d-1f64f25af429', 90, 2, 0, 0, 141),
 	('a0dc2103-4c40-4bf5-8981-1e8ee5541ea4', '8f48911c-7154-4d1b-9d6f-ae6a65d4ade7', 123, 10, 0, 0, 170),
 	('a1134bb6-6e9b-405d-8728-d6d5c7b9bb3f', 'b6cf6186-9f4f-4593-add9-4acfcf4724b2', 136, 0, 0, 0, 143),
@@ -264,7 +278,9 @@ INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_cec
 	('b20a5062-6045-4fef-9892-9992721e0f55', '8f48911c-7154-4d1b-9d6f-ae6a65d4ade7', 120, 0, 0, 0, 168),
 	('b34a8ea9-4bbe-491e-8a5b-6b5529d5c2f1', 'c54debe4-b0ea-4eea-84f7-ea701693074e', 6, 2, 0, 0, 190),
 	('b3aef118-8c45-4ad0-a748-318e1420c91a', '8f48911c-7154-4d1b-9d6f-ae6a65d4ade7', 107, 9, 0, 0, 154),
+	('b3bb828f-d37b-467f-9fd8-0c2086756ab6', '46406be5-9055-4267-a02f-441f70e846fe', 206, 14, 1, 0, 267),
 	('b4a0317b-7d2b-450a-b99b-ec58108c89db', 'a6b71931-9a18-40cf-8fef-a3b870ecdb18', 83, 6, 1, 0, 82),
+	('b5303108-57ca-483b-a801-a6f071c2f28f', '83fc9efe-a9a3-4dd1-9823-2e8501a3bec5', 219, 0, 0, 0, 302),
 	('b6578f12-d792-4377-bec3-010ffd8cbaf9', 'a6b71931-9a18-40cf-8fef-a3b870ecdb18', 70, 3, 1, 0, 73),
 	('b76f4ea6-8915-444c-a485-2b068124924a', '5bc8bd16-7641-49ea-81d9-6fd2fce2c016', 37, 3, 1, 0, 35),
 	('b7ab7f8a-5a98-4f07-923a-9890964c9576', '9fd8081d-ba54-40fd-8c3c-bb895782ee41', 198, 14, 0, 0, 118),
@@ -279,7 +295,7 @@ INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_cec
 	('be3b82ed-4ea1-48a5-b995-f3aa19cab980', '7ea5cc03-7636-4e4d-bbf4-7af1baf22afb', 155, 0, 0, 0, 101),
 	('befed17b-6040-4852-be75-c1e97c54e7c6', '00d9eae0-8718-4a04-9d81-032c7ed8159b', 147, 8, 0, 0, 208),
 	('c016874b-98c5-4c45-a4e8-fe2d932e71f4', '9273033e-1e90-4ff3-b3c4-64bc1883f31a', 13, 3, 1, 0, 14),
-	('c0c254a6-830d-479a-b2b9-bba0cc6d2936', '3eb5ba82-6b16-460f-8f87-e487005b4dcf', 152, 4, 0, 0, 217),
+	('c0c254a6-830d-479a-b2b9-bba0cc6d2936', '3eb5ba82-6b16-460f-8f87-e487005b4dcf', 152, 4, 1, 0, 217),
 	('c2548759-5671-4467-aeb2-13dd86635659', '9fd8081d-ba54-40fd-8c3c-bb895782ee41', 207, 14, 0, 0, 125),
 	('c2b7460a-37ac-4499-b247-e369897e705b', 'e73c7dc0-f22e-46a2-b5f0-49a7cee21a31', 64, 3, 0, 0, 91),
 	('c3f0fda9-88e1-4f8c-9829-cdfbf8e57cd7', '83baa88c-b4e8-4067-8782-8b4cf427e009', 144, 4, 0, 0, 181),
@@ -320,6 +336,8 @@ INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_cec
 	('ee95978f-3565-4b27-8363-57980c0d0c1a', 'a6b71931-9a18-40cf-8fef-a3b870ecdb18', 59, 3, 1, 0, 64),
 	('ef5c955d-60c9-4cf3-9fe4-1cbbef88991a', '3419442e-93fd-4416-9d2c-abd6d3132dea', 4, 2, 1, 0, 5),
 	('effd3c79-2201-422f-95af-967753f50cd0', '5bc8bd16-7641-49ea-81d9-6fd2fce2c016', 33, 3, 1, 0, 31),
+	('f06fda6c-acfc-4564-a312-e6cb0e577bba', '46406be5-9055-4267-a02f-441f70e846fe', 178, 14, 1, 0, 234),
+	('f169a375-c4a3-4db6-a149-9df347dbd2d4', '46406be5-9055-4267-a02f-441f70e846fe', 208, 14, 1, 0, 268),
 	('f2961c5c-2156-4ac1-a208-b308506cb00f', 'fe70d917-5f71-4529-bca1-1e832eacab8f', 134, 0, 0, 0, 185),
 	('f57f0aae-8d44-452b-9d5a-2983d43873e6', '9273033e-1e90-4ff3-b3c4-64bc1883f31a', 21, 3, 1, 0, 20),
 	('f6cd606e-1a76-4d4c-b32a-883136917292', '7ade3df6-e70c-42b6-bfd0-a45de7f68df4', 154, 4, 0, 0, 206),
@@ -327,6 +345,7 @@ INSERT INTO `certificaciones_colaboradores` (`id_ceco`, `idcer_ceco`, `idcol_cec
 	('f6cf0fed-a4fc-4acd-89d3-db6c9260de8f', 'ca5fd3a5-84b4-46e4-8013-ad915c7d9918', 101, 8, 0, 0, 182),
 	('f701f7ed-7261-4854-ae07-62681b9492df', 'a6b71931-9a18-40cf-8fef-a3b870ecdb18', 79, 3, 1, 0, 79),
 	('f8540ab6-8230-4c91-9a5f-f63709bb02f8', '25c555e0-d587-4777-b1e3-623d868f9482', 50, 3, 1, 0, 59),
+	('f875ae6f-07d3-4ab9-95c9-95242e8fabb8', '46406be5-9055-4267-a02f-441f70e846fe', 198, 14, 1, 0, 252),
 	('f893d0eb-0972-4158-91f7-775df4703fe8', 'a6b71931-9a18-40cf-8fef-a3b870ecdb18', 85, 0, 1, 0, 84),
 	('fb57a5ff-1a0d-44c1-98f6-79e9ded201b4', '25dad620-e524-44d3-bbdf-cfd300a82ff7', 74, 3, 0, 0, 102);
 /*!40000 ALTER TABLE `certificaciones_colaboradores` ENABLE KEYS */;
@@ -356,9 +375,9 @@ CREATE TABLE IF NOT EXISTS `colaboradores` (
   CONSTRAINT `FK_colaboradores_empresa` FOREIGN KEY (`idemp_col`) REFERENCES `empresas` (`id_emp`),
   CONSTRAINT `FK_colaboradores_pais` FOREIGN KEY (`paisdocumento_col`) REFERENCES `pais` (`id_pais`),
   CONSTRAINT `FK_colaboradores_tipodocumentos` FOREIGN KEY (`tipodocumento_col`) REFERENCES `tipodocumentos` (`id_tipo`)
-) ENGINE=InnoDB AUTO_INCREMENT=216 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=229 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_spanish_ci;
 
--- Volcando datos para la tabla opem.colaboradores: ~194 rows (aproximadamente)
+-- Volcando datos para la tabla opem.colaboradores: ~207 rows (aproximadamente)
 DELETE FROM `colaboradores`;
 /*!40000 ALTER TABLE `colaboradores` DISABLE KEYS */;
 INSERT INTO `colaboradores` (`id_col`, `paisdocumento_col`, `tipodocumento_col`, `numerodocumento_col`, `nombres_col`, `apellidos_col`, `fechanacimiento_col`, `correopersonal_col`, `telefono_col`, `direccion_col`, `idemp_col`, `estado_col`, `terminos_col`, `cargo_col`) VALUES
@@ -546,7 +565,7 @@ INSERT INTO `colaboradores` (`id_col`, `paisdocumento_col`, `tipodocumento_col`,
 	(201, 1, 1, '91222924', 'GONZALO ENRIQUE', 'OJEDA CAICEDO ', '1970-01-01', 'na', '0', 'cra 2', 14, 1, 1, NULL),
 	(202, 1, 1, '37556186', 'HELGA CONSUELO', 'OLAYA RODRIGUEZ', '1970-01-01', 'na', '0', 'cra 2', 14, 1, 1, NULL),
 	(203, 1, 1, '1098611517', 'WILLINTON', 'ORTEGA HERNANDEZ', '1970-01-01', 'na', '0', 'cra 2', 14, 1, 1, NULL),
-	(204, 1, 1, '1096200121', 'LUZ DANIELA', 'OTERO HURTADO', '1970-01-01', 'sauledutrujillo@gmail.com', '3173890903', 'cra 2', 14, 1, 1, 'LIDER SST'),
+	(204, 1, 1, '1096200121', 'LUZ DANIELA', 'OTERO HURTADO', '1970-01-01', 'juanj.sm@hotmail.com', '3173890903', 'cra 2', 14, 1, 1, 'LIDER SST'),
 	(205, 1, 1, '1098725122', 'EDINSON ALFREDO', 'ROJAS ARAUJO', '1970-01-01', 'na', '0', 'cra 2', 14, 1, 1, NULL),
 	(206, 1, 1, '1098666589', 'ALVARO JAVIER ', 'ROJAS LOPEZ ', '1970-01-01', 'na', '0', 'cra 2', 14, 1, 1, NULL),
 	(207, 1, 1, '1098737371', 'LUIS MIGUEL', 'SAAVEDRA ANAYA', '1970-01-01', 'na', '0', 'cra 2', 14, 1, 1, NULL),
@@ -555,7 +574,20 @@ INSERT INTO `colaboradores` (`id_col`, `paisdocumento_col`, `tipodocumento_col`,
 	(210, 1, 1, '1102352276', 'FRANCISCO', 'TELLO DIAZ', '1970-01-01', 'na', '0', 'cra 2', 14, 1, 1, NULL),
 	(211, 1, 1, '37713050', 'ÁNGELA MARÍA', 'TARAZONA MALAVER', '1970-01-01', 'na', '0', 'cra 2', 14, 1, 1, NULL),
 	(212, 1, 1, '1096950563', 'JORGE ALIRIO ', 'TARAZONA MARTINEZ', '1970-01-01', 'na', '0', 'cra 2', 14, 1, 1, NULL),
-	(213, 1, 1, '1098646626', 'JOHN ALEXANDER', ' VILLAMIL GARCIA ', '1970-01-01', '', '1234567890', 'cra 2', 14, 1, 1, NULL);
+	(213, 1, 1, '1098646626', 'JOHN ALEXANDER', ' VILLAMIL GARCIA ', '1970-01-01', '', '1234567890', 'cra 2', 14, 1, 1, NULL),
+	(216, 1, 1, '1097608945', 'DIANA MARCELA', 'PLATA RUEBA', '2022-02-01', '', '0123456789', 'diag 15', 0, 0, 1, 'NA'),
+	(217, 1, 1, '5641179', 'JAIME ', 'URIBE SANCHEZ', '2022-01-01', '', '0123456789', '', 0, 1, 1, ''),
+	(218, 1, 1, '13635673', 'VICTOR ALFONSO', 'PLATA ADARME', '2022-02-01', '', '0123456789', '', 0, 1, 1, ''),
+	(219, 1, 1, '37723640', 'LUDY YANEHT ', 'LOPEZ MUÑOZ', '2022-02-01', '', '0123456789', '', 0, 1, 1, ''),
+	(220, 1, 1, '91524440', 'DIOMEDES ', 'NARANJO VEGA', '2022-02-01', '', '0123456789', '', 0, 1, 1, ''),
+	(221, 1, 1, '91040724', 'PEDRO JULIO ', 'USECHE CEPEDA', '2022-02-01', '', '0123456789', '', 0, 1, 1, ''),
+	(222, 1, 1, '5641117', 'RAMON ', 'AFANADOR', '2022-02-01', '', '0123456789', '', 0, 1, 1, ''),
+	(223, 1, 1, '1097611385', 'MERCEDES', 'MARTINEZ CELIS', '2022-02-01', '', '0123456789', '', 0, 1, 1, ''),
+	(224, 1, 1, '91429081', 'EVELIO', 'HERRERA QUIÑONES', '2022-02-01', '', '0123456789', '', 0, 1, 1, ''),
+	(225, 1, 1, '1095956643', 'FABIO ANDRES ', 'MURALLAS MANCILLA', '2022-02-01', '', '0123456789', '', 0, 1, 1, ''),
+	(226, 1, 1, '91180951', 'FABIO ', 'MURALLAS SANTOS ', '2022-02-01', '', '0123456789', '', 0, 1, 1, ''),
+	(227, 1, 1, '1098678098', 'JORGE ERNESTO', 'AGUILAR', '2022-02-01', '', '0123456789', '', 0, 1, 1, ''),
+	(228, 1, 1, '37559979', 'ELIZABETH', 'CELIS FLOREZ', '2022-02-01', '', '0123456789', '', 0, 1, 1, '');
 /*!40000 ALTER TABLE `colaboradores` ENABLE KEYS */;
 
 -- Volcando estructura para tabla opem.cuentaaccesos
