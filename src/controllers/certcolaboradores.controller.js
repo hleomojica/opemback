@@ -11,7 +11,7 @@ const Op = Sequelize.Op;
 const paging = require("./../utils/Paging.utils");
 
 exports.findAll = async (req, res, next) => {
-    var numerodocumento = req.params.id
+    //var numerodocumento = req.params.id
     const {
         page,
         size,
@@ -19,7 +19,8 @@ exports.findAll = async (req, res, next) => {
         idcol,
         idcur,
         idemp,
-        cohorte
+        cohorte,
+        numerodocumento
     } = req.query;
 
     var condition = {};
@@ -38,7 +39,7 @@ exports.findAll = async (req, res, next) => {
     }
 
     if (numerodocumento) {
-        conditioncol.numerodocumento = {
+        conditioncol.numerodocumento_col = {
             [Op.eq]: numerodocumento
         }
     }
